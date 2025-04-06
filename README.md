@@ -4,6 +4,8 @@
 
 ### Docker ビルド
 
+以下を実行します
+
 1. git clone https://github.com/torch29/matasumoto-mogikadai1.git
 2. docker-compose up -d --build
 
@@ -38,7 +40,7 @@
 
 - トップページは、'/' です
 - 画面の説明など
-  - ここに記入します
+- ここに記入します
   - 記入します
 
 ## URL

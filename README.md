@@ -6,21 +6,32 @@
 
 以下を実行します
 
-1. git clone https://github.com/torch29/matasumoto-mogikadai1.git
-2. docker-compose up -d --build
+1. `git clone https://github.com/torch29/matasumoto-mogikadai1.git`
+2. docker desktop アプリを起動する
+3. `docker-compose up -d --build`
 
 ### Laravel 環境構築
 
-1. docker-compose exec php bash
-2. composer install を実行
-3. cp .env.example .env を実行し、.env.example を .env にコピーする。
+1. `docker-compose exec php bash`
+2. `composer install` を実行
+3. `cp .env.example .env` を実行し、.env.example を .env にコピーする。
 4. .env 内ファイルを開き、
    - DB_HOST=127.0.0.1 を DB_HOST=mysql に変更する。
    - DB_DATABASE, DB_USERNAME, DB_PASSWORD を任意に変更する。
-     （例えば、DB_DATABASE=laravel_db, DB_USERNAME=laravel_user, DB_PASSWORD=laravel_pass など）
-5. php artisan key:generate
-6. php artisan migrate
-7. php artisan db:seed
+     （例えば、以下のとおり）
+     ```
+     DB_DATABASE=laravel_db
+     DB_USERNAME=laravel_user DB_PASSWORD=laravel_pass
+     ```
+5. ```
+   php artisan key:generate
+   ```
+6. ```
+   php artisan migrate
+   ```
+7. ```
+   php artisan db:seed
+   ```
 
 ## 使用技術
 

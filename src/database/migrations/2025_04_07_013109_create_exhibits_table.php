@@ -22,7 +22,7 @@ class CreateExhibitsTable extends Migration
             $table->string('explain');
             $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
             $table->string('img_path');
-            $table->foreignId('payment_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->tinyInteger('payment')->comment('1:コンビニ支払い 2:カード支払い')->nullable();
             $table->timestamps();
         });
     }

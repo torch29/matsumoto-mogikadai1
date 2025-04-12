@@ -17,7 +17,6 @@ class CreateFavoritesTable extends Migration
             $table->id();
             $table->foreignId('exhibit_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('comment');
             $table->timestamps();
         });
     }

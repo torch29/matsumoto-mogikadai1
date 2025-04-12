@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConditionsTable extends Migration
+class CreatePurchasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateConditionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('conditions', function (Blueprint $table) {
+        Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->string('content');
+            $table->foreignId('exhibit_id')->unique()->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->tinyInteger('payment')->comment('1:コンビニ払い 2:カード支払い');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateConditionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conditions');
+        Schema::dropIfExists('purchases');
     }
 }

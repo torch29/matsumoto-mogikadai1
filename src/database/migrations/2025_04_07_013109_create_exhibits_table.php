@@ -20,9 +20,8 @@ class CreateExhibitsTable extends Migration
             $table->string('brand_name')->nullable();
             $table->integer('price')->unsigned();
             $table->string('explain');
-            $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
+            $table->tinyInteger('condition')->comment('1:良好 2:目立った傷や汚れなし 3:やや傷や汚れあり 4:状態が悪い');
             $table->string('img_path');
-            $table->tinyInteger('payment')->comment('1:コンビニ支払い 2:カード支払い')->nullable();
             $table->timestamps();
         });
     }

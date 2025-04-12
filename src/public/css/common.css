@@ -1,4 +1,27 @@
 .header {
     background-color: #000;
     color: #fff;
+    height: 50px;
+}
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+}
+.header__title-img {
+    width: 200px;
+}
+
+a {
+    text-decoration: none;
+}
+a:visited {
+    color: #fff;
+}
+
+.header-nav__list {
+    display: flex;
+    justify-content: right;
+}
+.header-nav__item {
+    display: inline-block;
 }

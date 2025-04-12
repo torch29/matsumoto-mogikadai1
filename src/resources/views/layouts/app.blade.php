@@ -12,18 +12,14 @@
 
 <body>
     <header class="header">
-        <div class="header__inner">
-            <div class="header__title">
-
-            </div>
-            <nav class="header-nav">
-                <ul class="header-nav__list">
-                    <li class="header-nav__item"><a href="">ログアウト</a></li>
-                    <li class="header-nav__item">マイページ</li>
-                </ul>
-                <button class="header-nav__button">出品/button>
-            </nav>
-        </div>
+        <nav class="header-nav">
+            <img src="{{ asset('img/logo.svg') }}" class="header__title-img" alt="COACHTECHフリマ">
+            <ul class="header-nav__list">
+                <li class="header-nav__item"><a href="">ログアウト</a></li>
+                <li class="header-nav__item"><a href="">マイページ</a></li>
+                <button class="header-nav__button">出品</button>
+            </ul>
+        </nav>
     </header>
 
     <main>

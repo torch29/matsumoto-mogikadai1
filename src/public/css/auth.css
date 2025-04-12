@@ -1,0 +1,34 @@
+.register__content {
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.section__title{
+    text-align: center;
+}
+
+.register-form {
+    width: 100%;
+}
+.register-form__label {
+    display: block;
+    width: 100%;
+}
+.register-form__item-input {
+    display: block;
+    width: 100%;
+    height: 30px;
+}
+
+.register-form__button {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+.register-form__button-submit {
+    width: 100%;
+    height: 30px;
+}
+
+.guide-link {
+    text-align: center;
+}

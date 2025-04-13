@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryExhibitTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCategoryExhibitTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_exhibit', function (Blueprint $table) {
+        Schema::create('comment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('exhibit_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('comment');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateCategoryExhibitTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_exhibit');
+        Schema::dropIfExists('comment');
     }
 }

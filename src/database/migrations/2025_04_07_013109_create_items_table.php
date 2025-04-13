@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExhibitUserTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateExhibitUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('exhibit_user', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('exhibit_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('comment');
+            $table->string('name');
+            $table->string('brand_name')->nullable();
+            $table->integer('price')->unsigned();
+            $table->string('explain');
+            $table->tinyInteger('condition')->comment('1:良好 2:目立った傷や汚れなし 3:やや傷や汚れあり 4:状態が悪い');
+            $table->string('img_path');
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ class CreateExhibitUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exhibit_user');
+        Schema::dropIfExists('items');
     }
 }

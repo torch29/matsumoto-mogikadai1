@@ -9,8 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function categorizedExhibits()
+    public function categorizedItems()
     {
-        return $this->belongsToMany(Exhibit::class)->withTimestamps();
+        return $this->belongsToMany(Item::class)->withTimestamps();
     }
 }

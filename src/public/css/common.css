@@ -2,10 +2,15 @@
     background-color: #000;
     color: #fff;
     height: 50px;
+    width: 100vw;
 }
 .header-nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    padding: 0 5px;
 }
 .header__title-img {
     width: 200px;
@@ -24,4 +29,9 @@ a:visited {
 }
 .header-nav__item {
     display: inline-block;
+}
+
+.search-form__input {
+    padding-left: 15px;
+    height: 25px;
 }

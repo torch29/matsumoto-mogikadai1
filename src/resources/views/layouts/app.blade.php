@@ -14,6 +14,10 @@
     <header class="header">
         <nav class="header-nav">
             <img src="{{ asset('img/logo.svg') }}" class="header__title-img" alt="COACHTECHフリマ">
+            <form action="" class="search-form">
+                @csrf
+                <input type="text" class="search-form__input" placeholder="なにをお探しですか？">
+            </form>
             <ul class="header-nav__list">
                 <li class="header-nav__item"><a href="">ログアウト</a></li>
                 <li class="header-nav__item"><a href="">マイページ</a></li>

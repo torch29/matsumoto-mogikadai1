@@ -28,9 +28,15 @@
 .item-card__content--list {
     margin: 10px;
     background-color: #82BEB3; /*配置用の仮着色*/
-    width: 150px;
+    width: 30%;
     height: 150px;
+    min-width: 150px;
+}
+.item-card__content--list img {
+    height: auto;
+    box-sizing: border-box
 }
 .item-card__content--list p {
     margin: 0;
 }
+

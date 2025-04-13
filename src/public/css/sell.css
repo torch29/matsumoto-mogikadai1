@@ -1,0 +1,37 @@
+.sell-content {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.sell-form__item h3 {
+    color: #888;
+    border-bottom: 1px solid #000;
+}
+
+.sell-form__item-label {
+    display: block;
+    font-weight: bold;
+}
+.sell-form__item-input {
+    width: 100%;
+    height: 30px;
+}
+.sell-form__item-select {
+    width: 100%;
+    height: 30px;
+}
+.sell-form__item-textarea {
+    width: 100%;
+    height: 60px;
+}
+
+.sell-form__button-submit {
+    width: 100%;
+    height: 30px;
+    margin-top: 50px;
+    background-color: #f55;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}

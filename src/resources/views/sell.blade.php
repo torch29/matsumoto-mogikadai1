@@ -12,9 +12,12 @@
     <form action="sell" class="sell-form" method="post" enctype="multipart/form-data">
         @csrf
         <div class="sell-form__item">
-            <label for="img_path" class="sell-form__item-label">商品画像</label>
+            <label class="sell-form__item-label">商品画像</label>
             <div class="sell-form__img-area">
-                <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
+                <label for="img_path" class="sell-form__img-button--label">
+                    画像を選択する
+                    <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
+                </label>
             </div>
         </div>
         <div class="sell-form__item">

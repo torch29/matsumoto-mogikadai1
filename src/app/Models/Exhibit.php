@@ -9,11 +9,6 @@ class Exhibit extends Model
 {
     use HasFactory;
 
-    public function condition()
-    {
-        return $this->belongsTo(Condition::class);
-    }
-
     public function categories()
     {
         return $this->belongsToMany(Category::class)->withTimestamps();

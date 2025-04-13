@@ -16,16 +16,22 @@
     <div class="item-card__container">
         <ul class="item-card__content">
             <li class="item-card__content--list">
-                <img src="" alt="商品画像">
+                <div class="item-card__content--img">
+                    <img src="" alt="商品画像">
+                </div>
                 <p>商品名</p>
             </li>
             {{-- あとでforeachにする予定、以下消す --}}
             <li class="item-card__content--list">
-                <img src="" alt="商品画像">
+                <div class="item-card__content--img">
+                    <img src="" alt="商品画像">
+                </div>
                 <p>テスト用リスト</p>
             </li>
             <li class="item-card__content--list">
-                <img src="" alt="商品画像">
+                <div class="item-card__content--img">
+                    <img src="" alt="商品画像">
+                </div>
                 <p>テスト用リスト</p>
             </li>
         </ul>

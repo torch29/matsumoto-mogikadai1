@@ -16,19 +16,21 @@
     width: 55%;
     background-color: #ddd; /*配置用に着色、後で消す*/
     margin: 0 auto;
-    padding: 10px;
 }
 .item-card__content {
     display: flex;
     list-style: none;
     flex-wrap: wrap;
-    padding: 10px 20px;
-    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 /*<li>↓*/
 .item-card__content--list {
-    padding: 10px;
-    margin: 5px;
+    margin: 10px;
     background-color: #82BEB3; /*配置用の仮着色*/
-    width: 200px;
+    width: 150px;
+    height: 150px;
+}
+.item-card__content--list p {
+    margin: 0;
 }

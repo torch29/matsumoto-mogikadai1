@@ -14,14 +14,14 @@
         <div class="sell-form__item">
             <label for="img_path" class="sell-form__item-label">商品画像</label>
             <div class="sell-form__img-area">
-                <input type="file" name="img_path" id="img_path">
+                <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
             </div>
         </div>
         <div class="sell-form__item">
             <h3 class="sell-form__title">商品の詳細</h3>
             <label class="sell-form__item-label">カテゴリー</label>
             <div class="sell-form__category-area">
-                「カテゴリーの一覧を表示」
+                「カテゴリーの一覧を表示するエリア」
             </div>
         </div>
         <div class="sell-form__item">
@@ -43,7 +43,7 @@
             <textarea name="explain" id="explain" class="sell-form__item-textarea">
             </textarea>
             <label for="price" class="sell-form__item-label">販売価格</label>
-            <input type="text" name="price" id="price" class="sell-form__item-input">
+            <input type="number" name="price" id="price" class="sell-form__item-input" placeholder="￥">
         </div>
         <div class="sell-form__button">
             <button type="submit" class="sell-form__button-submit">出品する</button>

@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->string('explain');
             $table->tinyInteger('condition')->comment('1:良好 2:目立った傷や汚れなし 3:やや傷や汚れあり 4:状態が悪い');
             $table->string('img_path');
+            $table->string('status')->default('available'); // available or sold
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -22,7 +23,10 @@ Route::get('/sell', [ItemController::class, 'sell']);
 Route::get('/mypage/profile', [UserController::class, 'profile']);
 
 //プロフィール画面（マイページ）の表示
-Route::get('/mypage', [UserController::class, 'showMypage']);
+Route::get('/mypage', [UserController::class, 'mypage']);
 
 //商品詳細画面の表示
-Route::get('/item', [ItemController::class, 'showItem']);
+Route::get('/item', [ItemController::class, 'detail']);
+
+//商品購入画面の表示
+Route::get('/purchase', [PurchaseController::class, 'index']);

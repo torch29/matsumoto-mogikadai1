@@ -11,7 +11,7 @@ class UserController extends Controller
         return view('auth.profile');
     }
 
-    public function showMypage()
+    public function mypage()
     {
         return view('auth.mypage');
     }

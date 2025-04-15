@@ -23,8 +23,9 @@ class ItemController extends Controller
         Item::create($items);
     }
 
-    public function showItem()
+    public function detail()
     {
         return view('item');
     }
+
 }

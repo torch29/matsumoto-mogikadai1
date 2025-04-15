@@ -18,4 +18,15 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    protected $fillable = [
+        'id',
+        'user_id',
+        'name',
+        'brand_name',
+        'price',
+        'explain',
+        'condition',
+        'img_path'
+    ];
 }

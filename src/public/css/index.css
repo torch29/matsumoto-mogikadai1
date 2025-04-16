@@ -13,9 +13,8 @@
 }
 
 .item-card__container{
-    width: 55%;
+    width: 90%;
     background-color: #ddd; /*配置用に着色、後で消す*/
-    margin: 0 auto;
 }
 .item-card__content {
     display: flex;
@@ -26,17 +25,34 @@
 }
 /*<li>↓*/
 .item-card__content--list {
-    margin: 10px;
+    margin: 20px;
     background-color: #82BEB3; /*配置用の仮着色*/
-    width: 30%;
-    height: 150px;
+    width: 20%;
+    height: 20%;
     min-width: 150px;
+    max-width: 300px;
 }
-.item-card__content--list img {
+.item-card__content--img {
     height: auto;
-    box-sizing: border-box
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
 }
 .item-card__content--list p {
     margin: 0;
+}
+.item-card__content-inner{
+    position: relative;
+    overflow-x: hidden;
+}
+.item-sold {
+    background-color: #F55;
+    color: #fff;
+    position: absolute;
+    top: -30px;
+    left: -60px;
+    padding: 60px 40px 0 50px;
+    transform: rotate(-45deg);
+    text-align: center;
 }
 

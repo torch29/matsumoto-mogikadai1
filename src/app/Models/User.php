@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function Items()
     {
-        return $this->belongsToMany(Item::class)->withTimestamps();
+        return $this->hasMany(Item::class);
     }
 }

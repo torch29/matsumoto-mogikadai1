@@ -16,11 +16,10 @@ class Item extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 
     protected $fillable = [
-        'id',
         'user_id',
         'name',
         'brand_name',

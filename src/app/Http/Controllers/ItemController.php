@@ -9,7 +9,9 @@ class ItemController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $items = Item::with('users')->get();
+
+        return view('index', compact('items'));
     }
 
     public function sell()
@@ -25,7 +27,7 @@ class ItemController extends Controller
 
     public function detail()
     {
+
         return view('item');
     }
-
 }

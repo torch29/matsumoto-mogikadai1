@@ -15,25 +15,22 @@
 <div class="main-content">
     <div class="item-card__container">
         <ul class="item-card__content">
+            @foreach($items as $item)
+            @continue($item->user_id == Auth::id() )
             <li class="item-card__content--list">
-                <div class="item-card__content--img">
-                    <img src="" alt="商品画像">
+                <div class="item-card__content-inner">
+                    @if($item->status == 'available')
+                    <a href="">
+                        <img src="{{ $item->img_path }}" class="item-card__content--img" alt="商品画像">
+                    </a>
+                    @else
+                    <img src="{{ $item->img_path }}" class="item-card__content--img" alt="商品画像">
+                    <div class="item-sold">sold</div>
+                    @endif
                 </div>
-                <p>商品名</p>
+                <p>{{ $item->name }}</p>
             </li>
-            {{-- あとでforeachにする予定、以下消す --}}
-            <li class="item-card__content--list">
-                <div class="item-card__content--img">
-                    <img src="" alt="商品画像">
-                </div>
-                <p>テスト用リスト</p>
-            </li>
-            <li class="item-card__content--list">
-                <div class="item-card__content--img">
-                    <img src="" alt="商品画像">
-                </div>
-                <p>テスト用リスト</p>
-            </li>
+            @endforeach
         </ul>
     </div>
 </div>

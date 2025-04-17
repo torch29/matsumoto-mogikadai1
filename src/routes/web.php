@@ -17,7 +17,13 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [ItemController::class, 'index']);
-Route::get('/sell', [ItemController::class, 'sell']);
+
+Route::middleware('auth')->group(function () {
+    //商品出品画面の表示と出品
+    Route::get('/sell', [ItemController::class, 'sell']);
+    Route::post('/sell', [ItemController::class, 'store']);
+});
+
 
 //プロフィール編集画面の表示
 Route::get('/mypage/profile', [UserController::class, 'profile']);

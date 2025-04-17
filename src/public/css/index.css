@@ -45,6 +45,13 @@
     position: relative;
     overflow-x: hidden;
 }
+.item-card__content--sold-img {
+    height: auto;
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
+    filter: brightness(0.5);
+}
 .item-sold {
     background-color: #F55;
     color: #fff;

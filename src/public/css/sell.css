@@ -29,6 +29,9 @@
     border: #888 1px solid;
     border-radius: 3px;
 }
+.sell-form__item-input:hover {
+    outline: solid 1px #000;
+}
 .sell-form__item-input[type="number"]::-webkit-outer-spin-button,
 .sell-form__item-input[type="number"]::-webkit-inner-spin-button {
     appearance: none;

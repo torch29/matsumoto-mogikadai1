@@ -13,7 +13,9 @@
 <body>
     <header class="header">
         <nav class="header-nav">
-            <img src="{{ asset('img/logo.svg') }}" class="header__title-img" alt="COACHTECHフリマ">
+            <a href="/">
+                <img src="{{ asset('img/logo.svg') }}" class="header__title-img" alt="COACHTECHフリマ">
+            </a>
             @if (Auth::check())
             <form action="" class="search-form">
                 @csrf

@@ -9,11 +9,11 @@
     <div class="purchase-content">
         <div class="purchase-content__head">
             <div class="purchase-content__head--img">
-                <img src="" alt="商品画像">
+                <img src="{{ asset($item -> img_path) }}" alt="商品画像">
             </div>
             <div class="purchase-content__head--info">
-                <span>商品名</span>
-                <p>￥ 金額表示</p>
+                <span>{{ $item->name }}</span>
+                <p>￥ {{ number_format($item->price) }}</p>
             </div>
         </div>
         <div class="purchase-content__payment">
@@ -42,7 +42,7 @@
                 @csrf
                 <div class="confirm-form__row">
                     <p class="confirm-form__row-title">商品代金</p>
-                    <p class="confirm-form__row-item">￥ 47,000</p>
+                    <p class="confirm-form__row-item">￥ {{ number_format($item->price) }}</p>
                 </div>
                 <div class="confirm-form__row">
                     <p class="confirm-form__row-title">支払い方法</p>

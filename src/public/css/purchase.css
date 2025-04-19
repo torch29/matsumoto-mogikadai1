@@ -19,9 +19,14 @@
 }
 .purchase-content__head--img {
     margin-right: 20px;
+    width: 30%;
+    margin-bottom: 20px;
+}
+.purchase-content__head--img img {
+    width: 100%;
 }
 .purchase-content__head--info {
-
+    width: 70%;
 }
 .purchase-content__payment {
     border-bottom: #000 1px solid;

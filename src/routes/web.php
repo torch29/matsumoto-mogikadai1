@@ -35,4 +35,4 @@ Route::get('/mypage', [UserController::class, 'mypage']);
 Route::get('/item/{id}', [ItemController::class, 'detail']);
 
 //商品購入画面の表示
-Route::get('/purchase', [PurchaseController::class, 'index']);
+Route::get('/purchase/{id}', [PurchaseController::class, 'index']);

@@ -32,10 +32,10 @@ class ItemController extends Controller
         //画像のファイル名を、itemsのid.拡張子に変更してから更新
         $file = $request->file('img_path');
         $fileName = $item->id . '.' .  $file->getClientOriginalExtension();
-        $file->storeAs('public/img/', $fileName);
+        $file->storeAs('public/img/item', $fileName);
 
         $item->update([
-            'img_path' => 'storage/img/' . $fileName
+            'img_path' => 'storage/img/item' . $fileName
         ]);
 
         // カテゴリー登録

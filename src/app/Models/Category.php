@@ -13,4 +13,6 @@ class Category extends Model
     {
         return $this->belongsToMany(Item::class)->withTimestamps();
     }
+
+    protected $fillable = ['content'];
 }

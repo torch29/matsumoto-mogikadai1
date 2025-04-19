@@ -32,6 +32,7 @@ Route::prefix('mypage')->group(function () {
     Route::get('', [UserController::class, 'mypage']);
     //プロフィール編集画面の表示
     Route::get('/profile', [UserController::class, 'profile']);
+    Route::post('/profile', [UserController::class, 'updateProfile']);
 });
 
 

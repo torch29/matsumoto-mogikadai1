@@ -19,13 +19,18 @@
 a {
     text-decoration: none;
 }
+a,
 a:visited {
-    color: #fff;
+    color: #000;
 }
 
 .header-nav__list {
     display: flex;
     justify-content: right;
+}
+.header-nav__item a,
+.header-nav__item a:visited {
+    color: #fff;
 }
 .header-nav__item {
     display: inline-block;
@@ -34,4 +39,13 @@ a:visited {
 .search-form__input {
     padding-left: 15px;
     height: 25px;
+}
+
+.header-nav__button {
+    background-color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #000;
+    border: #000 1px solid;
+    padding: 0 5px;
 }

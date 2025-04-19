@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
     //商品出品画面の表示と出品
     Route::get('/sell', [ItemController::class, 'sell']);
     Route::post('/sell', [ItemController::class, 'store']);
+    //商品購入画面の表示
+    Route::get('/purchase/{id}', [PurchaseController::class, 'index']);
 });
 
 
@@ -33,6 +35,3 @@ Route::get('/mypage', [UserController::class, 'mypage']);
 
 //商品詳細画面の表示
 Route::get('/item/{id}', [ItemController::class, 'detail']);
-
-//商品購入画面の表示
-Route::get('/purchase/{id}', [PurchaseController::class, 'index']);

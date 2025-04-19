@@ -16,7 +16,6 @@
             <a href="/">
                 <img src="{{ asset('img/logo.svg') }}" class="header__title-img" alt="COACHTECHフリマ">
             </a>
-            @if (Auth::check())
             <form action="" class="search-form">
                 @csrf
                 <input type="text" class="search-form__input" placeholder="なにをお探しですか？">
@@ -24,12 +23,15 @@
             <ul class="header-nav__list">
                 <form action="/logout" class="header-nav__form" method="post">
                     @csrf
-                    <li class="header-nav__item"><button class="header-nav__button--logout">ログアウト</button></li>
+                    @if (Auth::check())
+                    <li class="header-nav__item"><a class="header-nav__button--logout">ログアウト</a></li>
+                    @else
+                    <li class="header-nav__item"><a class="header-nav__button--logout">ログイン</a></li>
+                    @endif
                 </form>
-                <li class="header-nav__item"><a href="">マイページ</a></li>
-                <button class="header-nav__button">出品</button>
+                <li class="header-nav__item"><a href="/mypage">マイページ</a></li>
+                <a href="/sell" class="header-nav__button">出品</a>
             </ul>
-            @endif
         </nav>
     </header>
 

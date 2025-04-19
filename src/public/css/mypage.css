@@ -1,3 +1,33 @@
+.mypage-header {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 60%;
+    justify-content: space-between;
+}
+.mypage-header__heading {
+    display: flex;
+    width: 60%;
+}
+.mypage-header__heading-name {
+    font-weight: bold;
+    margin-left: 20px;
+}
+.mypage-header__button {
+    display: flex;
+}
+.mypage-header__button-submit {
+    border: #FF3030 1px solid;
+    border-radius: 3px;
+    padding: 3px 20px;
+    font-weight: bold;
+}
+.mypage-header__button a,
+.mypage-header__button a:visited {
+    color: #ff3030;
+}
+
 .mypage-nav {
     border-bottom: solid 1px #000;
 }
@@ -10,7 +40,8 @@
     color: #999;
 }
 
-.mypage-nav__list-item a {
+.mypage-nav__list-item a,
+.mypage-nav__list-item a:visited {
     color: #FF3030;
 }
 

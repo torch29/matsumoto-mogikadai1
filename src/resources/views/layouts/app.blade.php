@@ -21,14 +21,21 @@
                 <input type="text" class="search-form__input" placeholder="なにをお探しですか？">
             </form>
             <ul class="header-nav__list">
-                <form action="/logout" class="header-nav__form" method="post">
-                    @csrf
-                    @if (Auth::check())
-                    <li class="header-nav__item"><a class="header-nav__button--logout">ログアウト</a></li>
-                    @else
-                    <li class="header-nav__item"><a class="header-nav__button--logout">ログイン</a></li>
-                    @endif
-                </form>
+                @if (Auth::check())
+                <li class="header-nav__item">
+                    <form action="/logout" class="header-nav__form" method="post">
+                        @csrf
+                        <button class="header-nav__button-submit">ログアウト</button>
+                    </form>
+                </li>
+                @else
+                <li class="header-nav__item">
+                    <form action="/login" method="get">
+                        @csrf
+                        <button class="header-nav__button-submit">ログイン</button>
+                    </form>
+                </li>
+                @endif
                 <li class="header-nav__item"><a href="/mypage">マイページ</a></li>
                 <a href="/sell" class="header-nav__button">出品</a>
             </ul>

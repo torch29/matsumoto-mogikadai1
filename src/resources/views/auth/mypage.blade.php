@@ -6,16 +6,17 @@
 
 @section('content')
 <div class="mypage-header">
-    <div class="mypage-header__icon">
-        <img src="" alt="ユーザーアイコン">
+    <div class="mypage-header__heading">
+        <div class="mypage-header__heading-icon">
+            <img src="" alt="ユーザーアイコン">
+        </div>
+        <div class="mypage-header__heading-name">
+            {{ Auth::user()->name }}
+        </div>
     </div>
-    <div class="mypage-header__name">
-        ユーザー名
+    <div class="mypage-header__button">
+        <a href="/mypage/profile" class="mypage-header__button-submit">プロフィールを編集</a>
     </div>
-    <form action="/mypage/profile" class="mypage-form" method="get">
-        @csrf
-        <button class="mypage-form__button-submit">プロフィールを編集</button>
-    </form>
 </div>
 
 <nav class="mypage-nav">

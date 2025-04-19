@@ -27,11 +27,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
-//プロフィール編集画面の表示
-Route::get('/mypage/profile', [UserController::class, 'profile']);
+Route::prefix('mypage')->group(function () {
+    //プロフィール画面（マイページ）の表示
+    Route::get('', [UserController::class, 'mypage']);
+    //プロフィール編集画面の表示
+    Route::get('/profile', [UserController::class, 'profile']);
+});
 
-//プロフィール画面（マイページ）の表示
-Route::get('/mypage', [UserController::class, 'mypage']);
 
 //商品詳細画面の表示
 Route::get('/item/{id}', [ItemController::class, 'detail']);

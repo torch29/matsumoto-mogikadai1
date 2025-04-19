@@ -32,7 +32,7 @@ Route::get('/mypage/profile', [UserController::class, 'profile']);
 Route::get('/mypage', [UserController::class, 'mypage']);
 
 //商品詳細画面の表示
-Route::get('/item', [ItemController::class, 'detail']);
+Route::get('/item/{id}', [ItemController::class, 'detail']);
 
 //商品購入画面の表示
 Route::get('/purchase', [PurchaseController::class, 'index']);

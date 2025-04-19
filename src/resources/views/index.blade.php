@@ -21,7 +21,7 @@
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
                     @if($item->status == 'available')
-                    <a href="">
+                    <a href="/item/{{ $item->id }}">
                         <img src="{{ $item->img_path }}" class="item-card__content--img" alt="商品画像">
                     </a>
                     @else

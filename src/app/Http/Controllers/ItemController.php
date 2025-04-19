@@ -17,12 +17,7 @@ class ItemController extends Controller
 
     public function sell()
     {
-        $conditions = [
-            1 => '良好',
-            2 => '目立った傷や汚れなし',
-            3 => 'やや傷や汚れあり',
-            4 => '状態が悪い'
-        ];
+        $conditions = Item::getConditionLabels();
         $categories = Category::all();
 
         return view('sell', compact('conditions', 'categories'));
@@ -61,9 +56,11 @@ class ItemController extends Controller
         return redirect('/mypage');
     }
 
-    public function detail()
+    public function detail($id)
     {
+        $item = Item::find($id);
+        $categories = Item::with('categories')->get();
 
-        return view('item');
+        return view('item', compact('item', 'categories'));
     }
 }

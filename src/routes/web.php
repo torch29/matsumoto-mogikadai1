@@ -17,6 +17,8 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [ItemController::class, 'index']);
+//商品詳細画面の表示
+Route::get('/item/{id}', [ItemController::class, 'detail']);
 
 Route::middleware('auth')->group(function () {
     //商品出品画面の表示と出品
@@ -24,17 +26,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/sell', [ItemController::class, 'store']);
     //商品購入画面の表示
     Route::get('/purchase/{id}', [PurchaseController::class, 'index']);
+
+    //マイページとプロフィールページのグループ
+    Route::prefix('mypage')->group(function () {
+        //プロフィール画面（マイページ）の表示
+        Route::get('', [UserController::class, 'mypage']);
+        //プロフィール編集画面の表示と更新
+        Route::get('/profile', [UserController::class, 'profile']);
+        Route::post('/profile', [UserController::class, 'updateProfile']);
+    });
 });
-
-
-Route::prefix('mypage')->group(function () {
-    //プロフィール画面（マイページ）の表示
-    Route::get('', [UserController::class, 'mypage']);
-    //プロフィール編集画面の表示
-    Route::get('/profile', [UserController::class, 'profile']);
-    Route::post('/profile', [UserController::class, 'updateProfile']);
-});
-
-
-//商品詳細画面の表示
-Route::get('/item/{id}', [ItemController::class, 'detail']);

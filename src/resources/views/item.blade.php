@@ -24,7 +24,7 @@
                 商品説明
             </h3>
             <div class="item__content-text">
-                {{!! nl2br($item -> explain) !!}}
+                {!! nl2br($item -> explain) !!}
             </div>
             <h3>
                 商品の情報

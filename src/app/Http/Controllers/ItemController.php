@@ -35,7 +35,7 @@ class ItemController extends Controller
         $file->storeAs('public/img/item', $fileName);
 
         $item->update([
-            'img_path' => 'storage/img/item' . $fileName
+            'img_path' => 'storage/img/item/' . $fileName
         ]);
 
         // カテゴリー登録

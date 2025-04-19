@@ -48,8 +48,7 @@
             <input type="text" name="brand_name" id="brand_name" class="sell-form__item-input" value="{{ old('brand_name') }}">
 
             <label for="explain" class="sell-form__item-label">商品の説明</label>
-            <textarea name="explain" id="explain" class="sell-form__item-textarea">
-            {{ old('explain') }}</textarea>
+            <textarea name="explain" id="explain" class="sell-form__item-textarea">{{ old('explain') }}</textarea>
             <label for="price" class="sell-form__item-label">販売価格</label>
             <input type="number" name="price" id="price" class="sell-form__item-input" placeholder="￥" value="{{ old('price') }}">
         </div>

@@ -28,24 +28,39 @@ a {
 .header-nav__item {
     display: flex;
 }
-.header-nav__button-submit {
-    background-color: #000;
+.header-nav__item a,
+.header-nav__item a:visited {
     color: #fff;
-    border: none;
-    cursor: pointer;
+    font-size: small;
+    align-items: center;
 }
-
 .search-form__input {
     padding-left: 15px;
     height: 25px;
 }
+.search-form__button--hidden {
+    display: none;
+}
 
+.header-nav__form {
+    margin: 0;
+    padding: 0;
+}
 .header-nav__button {
     background-color: #fff;
     border-radius: 3px;
     cursor: pointer;
     color: #000;
     border: #000 1px solid;
-    padding: 0 5px;
+    padding: 0 10px;
+    margin: 0 10px;
     font-size: 0.8em
+}
+.header-nav__button-submit {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    vertical-align: top;
+    padding: 0 5px;
 }

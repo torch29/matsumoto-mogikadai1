@@ -40,7 +40,7 @@
                 </div>
                 <div class="item__content-status--condition">
                     <div class="status__condition-label">商品の状態</div>
-                    <div class="status__condition-content">{{ $item -> getConditionLabel() }}</div>
+                    <div class="status__condition-content">{{ $item -> getSelectedCondition() }}</div>
                 </div>
             </div>
             <div class="item__content-comment">

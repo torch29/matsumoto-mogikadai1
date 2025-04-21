@@ -56,11 +56,11 @@ class FortifyServiceProvider extends ServiceProvider
         // これより以下、初期設定として追記したもの
 
         Fortify::registerView(function () {
-            return view('auth.register');
+            return view('user.register');
         });
 
         Fortify::loginView(function () {
-            return view('auth.login');
+            return view('user.login');
         });
 
         // ここまで

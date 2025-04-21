@@ -31,7 +31,7 @@ class Item extends Model
         return self::CONDITION_LABELS;
     }
 
-    public function getConditionLabel()
+    public function getSelectedCondition()
     {
         return self::CONDITION_LABELS[$this->condition];
     }

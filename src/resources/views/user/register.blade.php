@@ -23,6 +23,6 @@
             <button class="register-form__button-submit" type="submit">登録する</button>
         </div>
     </form>
-    <div class="guide-link">ログインはこちら</div>
+    <div class="guide-link"><a href="/login">ログインはこちら</a></div>
 </div>
 @endsection

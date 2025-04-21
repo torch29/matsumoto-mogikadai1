@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
+
+    const PAYMENTS = [
+        1 => 'コンビニ払い',
+        2 => 'カード支払い'
+    ];
+
+    public static function getPayments()
+    {
+        return self::PAYMENTS;
+    }
+
+    public function getSelectedPayment()
+    {
+        return self::PAYMENTS[$this->payment];
+    }
 }

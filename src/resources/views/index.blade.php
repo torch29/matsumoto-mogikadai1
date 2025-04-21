@@ -25,8 +25,10 @@
                         <img src="{{ $item->img_path }}" class="item-card__content--img" alt="商品画像">
                     </a>
                     @else
-                    <img src="{{ $item->img_path }}" class="item-card__content--sold-img" alt="商品画像">
-                    <div class="item-sold">sold</div>
+                    <a href="/item/{{ $item->id }}">
+                        <img src="{{ $item->img_path }}" class="item-card__content--sold-img" alt="商品画像">
+                        <div class="item-sold">sold</div>
+                    </a>
                     @endif
                 </div>
                 <p>{{ $item->name }}</p>

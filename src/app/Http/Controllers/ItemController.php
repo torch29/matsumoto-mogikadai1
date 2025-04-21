@@ -20,7 +20,7 @@ class ItemController extends Controller
         $conditions = Item::getConditionLabels();
         $categories = Category::all();
 
-        return view('sell', compact('conditions', 'categories'));
+        return view('item.sell', compact('conditions', 'categories'));
     }
 
     public function store(Request $request)
@@ -41,18 +41,6 @@ class ItemController extends Controller
         // カテゴリー登録
         $item->categories()->attach($request->input('category_ids'));
 
-
-        /*
-        if ($request->hasFile('img_path')) {
-            $file = $request->file('img_path');
-            $fileName = $item->id . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/img/', $fileName);
-
-            $item->img_path = 'storage/img/' . $fileName;
-            $item->save();
-        }
-            */
-
         return redirect('/mypage');
     }
 
@@ -61,6 +49,6 @@ class ItemController extends Controller
         $item = Item::find($id);
         $categories = Item::with('categories')->get();
 
-        return view('item', compact('item', 'categories'));
+        return view('item.detail', compact('item', 'categories'));
     }
 }

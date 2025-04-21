@@ -1,5 +1,6 @@
 .register__content,
-.login__content {
+.login__content,
+.profile__content {
     max-width: 60%;
     margin: 0 auto;
 }
@@ -9,32 +10,56 @@
 }
 
 .register-form,
-.login-form {
+.login-form,
+.profile-form {
     width: 100%;
 }
 .register-form__label,
-.login-form__label {
+.login-form__label,
+.profile-form__item-label {
     display: block;
     width: 100%;
 }
 .register-form__item-input,
-.login-form__item-input {
+.login-form__item-input,
+.profile-form__item-input {
     display: block;
     width: 100%;
     height: 30px;
+    margin-bottom: 15px;
 }
 
 .register-form__button,
-.login-form__button {
+.login-form__button,
+.profile-form__button {
     margin-top: 50px;
     margin-bottom: 20px;
 }
 .register-form__button-submit,
-.login-form__button-submit {
+.login-form__button-submit,
+.profile-form__button-submit {
     width: 100%;
     height: 30px;
+    background-color: #f55;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
 .guide-link {
     text-align: center;
+}
+.guide-link a,
+.guide-link a:visited {
+    color: #299bf3;
+    font-size: 0.9em;
+}
+
+.profile-form__img-area {
+    margin-bottom: 20px;
+    display: flex;
+}
+.profile-form__img {
+    margin-right: 20px;
 }

@@ -18,6 +18,6 @@ class Profile extends Model
         'zip_code',
         'address',
         'building',
-        'profile_image'
+        'profile_img'
     ];
 }

@@ -18,7 +18,7 @@ class UserController extends Controller
             $profile = $user->profile;
         }
 
-        return view('auth.profile', compact('profile', 'user'));
+        return view('user.profile', compact('profile', 'user'));
     }
 
     public function updateProfile(Request $request)
@@ -36,6 +36,15 @@ class UserController extends Controller
             );
         }
 
+        if ($request->hasFile('profile_img')) {
+            $file = $request->file('profile_img');
+            $fileName = $user->id . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/img/', $fileName);
+
+            $user->profile_img = 'storage/img/user/' . $fileName;
+            $user->save();
+        }
+
         return redirect('/mypage/profile');
     }
 
@@ -43,6 +52,6 @@ class UserController extends Controller
     {
         $items = Item::with('users')->get();
 
-        return view('auth.mypage', compact('items'));
+        return view('user.mypage', compact('items'));
     }
 }

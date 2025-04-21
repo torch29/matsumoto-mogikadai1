@@ -21,15 +21,18 @@
                 支払方法
             </p>
             <select name="" id="" class="purchase-content__payment-select">
-                <option value="">選択してください</option>
-                <option value=""></option>
+                <option value="" selected>選択してください</option>
+                @foreach ($payments as $key => $payment)
+                <option value="{{ $key }}">{{ $payment }}</option>
+                @endforeach
             </select>
         </div>
         <div class="purchase-content__send">
             <div class="purchase-content__address">
                 <p class="purchase-content__address-label">配送先</p>
-                <p>〒</p>
-                <p>住所表示欄</p>
+                <p>〒{{ $profile->zip_code }}</p>
+                <p>{{ $profile->address }}</p>
+                <p>{{ $profile->building }}</p>
             </div>
             <div class="purchase-content__change-address">
                 <a href="" class="purchase-content__link">変更する</a>

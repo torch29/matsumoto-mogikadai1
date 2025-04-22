@@ -20,5 +20,14 @@
         </div>
     </form>
     <div class="guide-link"><a href="/register">会員登録はこちら</a></div>
+
+    <div class="form__error">
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        <div class="error">{{ $error }}</div>
+        @endforeach
+        @endif
+    </div>
+
 </div>
 @endsection

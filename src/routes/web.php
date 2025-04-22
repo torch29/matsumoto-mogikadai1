@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     //マイページとプロフィールページのグループ
     Route::prefix('mypage')->group(function () {
         //プロフィール画面（マイページ）の表示
-        Route::get('', [UserController::class, 'mypage']);
+        Route::get('', [UserController::class, 'showSellItems']);
         //プロフィール編集画面の表示と更新
         Route::get('/profile', [UserController::class, 'profile']);
         Route::post('/profile', [UserController::class, 'updateProfile']);

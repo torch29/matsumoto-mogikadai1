@@ -23,6 +23,15 @@
             <button class="register-form__button-submit" type="submit">登録する</button>
         </div>
     </form>
+
+    <div class="form__error">
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        <div class="error">{{ $error }}</div>
+        @endforeach
+        @endif
+    </div>
+
     <div class="guide-link"><a href="/login">ログインはこちら</a></div>
 </div>
 @endsection

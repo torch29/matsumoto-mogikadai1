@@ -13,7 +13,12 @@
         @csrf
         <div class="profile-form__img-area">
             <div class="profile-form__img">
-                <img src="" alt="プロフィール画像">
+                @if ($user->profile && $user->profile->profile_img)
+                <img src="{{ asset( $user->profile->profile_img ) }}" alt="商品画像">
+                {{--<p class="profile-form__img--circle"></p>--}}
+                @else
+                プロフィール画像はまだ登録されていません
+                @endif
             </div>
             <label for="profile_img" class="profile-form__img-button--label">
                 画像を選択する
@@ -24,7 +29,6 @@
             ユーザー名
         </label>
         <input type="text" name="name" id="name" class="profile-form__item-input" value="{{ Auth::user()->name }}">
-        {{-- 登録されている名前が表示されるようにする --}}
         <label for="zip_code" class="profile-form__item-label">郵便番号</label>
         <input type="text" name="zip_code" id="zip_code" class="profile-form__item-input" value="{{ $profile->zip_code ?? '' }}">
         <label for="address" class="profile-form__item-label">住所</label>

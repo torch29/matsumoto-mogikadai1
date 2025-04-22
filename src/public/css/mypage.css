@@ -10,8 +10,29 @@
     display: flex;
     width: 60%;
 }
+.mypage-header__heading-icon{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin: auto 0;
+    overflow: hidden;
+    position: relative;
+    min-width: 50px;
+    min-height: 50px;
+}
+.mypage-header__heading-icon img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
 .mypage-header__heading-name {
     font-weight: bold;
+    margin: auto 0;
     margin-left: 20px;
 }
 .mypage-header__button {
@@ -20,8 +41,10 @@
 .mypage-header__button-submit {
     border: #FF3030 1px solid;
     border-radius: 3px;
-    padding: 3px 20px;
+    padding: 5px 20px;
     font-weight: bold;
+    align-self: flex-end;
+    margin: auto 0;
 }
 .mypage-header__button a,
 .mypage-header__button a:visited {
@@ -45,9 +68,6 @@
     color: #FF3030;
 }
 
-.mypage-content {
-
-}
 
 .item-card__container {
     width: 90%;
@@ -71,15 +91,36 @@
     /*配置用の仮着色*/
     width: 20%;
     max-width: 290px;
-    height: 150px;
+    height: 20%;
     min-width: 150px;
 }
 
-.item-card__content--list img {
-    height: auto;
-    box-sizing: border-box
+.item-card__content--img {
+    width: 100%;
 }
 
 .item-card__content--list p {
     margin: 0;
+}
+
+.item-card__content-inner {
+    position: relative;
+    overflow-x: hidden;
+}
+.item-card__content--sold-img {
+    height: auto;
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
+    filter: brightness(0.5);
+}
+.item-sold {
+    background-color: #F55;
+    color: #fff;
+    position: absolute;
+    top: -30px;
+    left: -60px;
+    padding: 60px 40px 0 50px;
+    transform: rotate(-45deg);
+    text-align: center;
 }

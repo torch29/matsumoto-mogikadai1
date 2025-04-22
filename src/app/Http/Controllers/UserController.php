@@ -16,6 +16,8 @@ class UserController extends Controller
 
         if ($user->profile) {
             $profile = $user->profile;
+        } else {
+            $profile = '';
         }
 
         return view('user.profile', compact('profile', 'user'));
@@ -39,19 +41,29 @@ class UserController extends Controller
         if ($request->hasFile('profile_img')) {
             $file = $request->file('profile_img');
             $fileName = $user->id . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/img/', $fileName);
+            $file->storeAs('public/img/user/', $fileName);
 
-            $user->profile_img = 'storage/img/user/' . $fileName;
-            $user->save();
+            $profileImgPath = 'storage/img/user/' . $fileName;
+
+            if ($profile) {
+                $profile->update([
+                    'profile_img' => $profileImgPath
+                ]);
+            } else {
+                $user->profile()->create([
+                    'profile_img' => $profileImgPath
+                ]);
+            }
         }
 
         return redirect('/mypage/profile');
     }
 
-    public function mypage()
+    public function showSellItems()
     {
-        $items = Item::with('users')->get();
+        $user = Auth::user();
+        $sellItems = $user->items;
 
-        return view('user.mypage', compact('items'));
+        return view('user.mypage', compact('user', 'sellItems'));
     }
 }

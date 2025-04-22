@@ -8,7 +8,7 @@
 <div class="mypage-header">
     <div class="mypage-header__heading">
         <div class="mypage-header__heading-icon">
-            <img src="" alt="ユーザーアイコン">
+            <img src="{{ asset( $user->profile->profile_img ) }}" alt="ユーザーアイコン">
         </div>
         <div class="mypage-header__heading-name">
             {{ Auth::user()->name }}
@@ -28,25 +28,24 @@
 <div class="mypage-content">
     <div class="item-card__container">
         <ul class="item-card__content">
+            @foreach ( $sellItems as $sellItem)
             <li class="item-card__content--list">
-                <div class="item-card__content--img">
-                    <img src="" alt="商品画像">
+                <div class="item-card__content-inner">
+                    @if($sellItem->status == 'available')
+                    <a href="/item/{{ $sellItem->id }}">
+                        <img src="{{ $sellItem->img_path }}" class="item-card__content--img" alt="商品画像">
+                        <p>{{ $sellItem->name }}</p>
+                    </a>
+                    @else
+                    <a href="/item/{{ $sellItem->id }}">
+                        <img src="{{ $sellItem->img_path }}" class="item-card__content--sold-img" alt="商品画像">
+                        <div class="item-sold">sold</div>
+                        <p>{{ $sellItem->name }}</p>
+                    </a>
+                    @endif
                 </div>
-                <p>商品名</p>
             </li>
-            {{-- あとでforeachにする予定、以下消す --}}
-            <li class="item-card__content--list">
-                <div class="item-card__content--img">
-                    <img src="" alt="商品画像">
-                </div>
-                <p>テスト用リスト</p>
-            </li>
-            <li class="item-card__content--list">
-                <div class="item-card__content--img">
-                    <img src="" alt="商品画像">
-                </div>
-                <p>テスト用リスト</p>
-            </li>
+            @endforeach
         </ul>
     </div>
 </div>

@@ -23,15 +23,16 @@
                     @if($item->status == 'available')
                     <a href="/item/{{ $item->id }}">
                         <img src="{{ $item->img_path }}" class="item-card__content--img" alt="商品画像">
+                        <p>{{ $item->name }}</p>
                     </a>
                     @else
                     <a href="/item/{{ $item->id }}">
                         <img src="{{ $item->img_path }}" class="item-card__content--sold-img" alt="商品画像">
                         <div class="item-sold">sold</div>
+                        <p>{{ $item->name }}</p>
                     </a>
                     @endif
                 </div>
-                <p>{{ $item->name }}</p>
             </li>
             @endforeach
         </ul>

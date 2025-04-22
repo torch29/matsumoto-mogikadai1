@@ -62,4 +62,15 @@
 }
 .profile-form__img {
     margin-right: 20px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: #ddd;
 }
+.profile-form__img img {
+    width: 100%;
+}
+/*
+.profile-form__img--circle {
+    background-image: url();
+}
+    */

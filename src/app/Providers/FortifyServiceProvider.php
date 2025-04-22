@@ -41,7 +41,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Fortify::createUsersUsing(\App\Actions\Fortify\CreateNewUser::class);
+        //Fortify::createUsersUsing(\App\Actions\Fortify\CreateNewUser::class);
         //Fortify::createUsersUsing(CreateNewUser::class);
         //RegisterRequestを使用するために削除
 

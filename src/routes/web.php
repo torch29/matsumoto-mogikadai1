@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +30,17 @@ Route::middleware('auth')->group(function () {
 
     //マイページとプロフィールページのグループ
     Route::prefix('mypage')->group(function () {
-        //プロフィール画面（マイページ）の表示
-        Route::get('', [UserController::class, 'showSellItems']);
         //プロフィール編集画面の表示と更新
         Route::get('/profile', [UserController::class, 'profile']);
         Route::post('/profile', [UserController::class, 'updateProfile']);
+        //プロフィール画面（マイページ）の表示
+        Route::get('', [UserController::class, 'showSellItems']);
     });
 });
+
+Route::middleware('guest')->group(
+    function () {
+        Route::get('/register', [RegisteredUserController::class, 'create']);
+        Route::post('/register', [RegisteredUserController::class, 'store']);
+    }
+);

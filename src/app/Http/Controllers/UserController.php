@@ -33,9 +33,7 @@ class UserController extends Controller
         if ($profile) {
             $profile->update($profiles);
         } else {
-            $user->profile()->create(
-                $profiles
-            );
+            $user->profile()->create($profiles);
         }
 
         if ($request->hasFile('profile_img')) {

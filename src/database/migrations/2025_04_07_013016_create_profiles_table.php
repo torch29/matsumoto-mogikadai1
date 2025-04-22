@@ -17,8 +17,8 @@ class CreateProfilesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete();
             $table->string('profile_img')->nullable();
-            $table->string('zip_code');
-            $table->string('address');
+            $table->string('zip_code')->nullable();
+            $table->string('address')->nullable();
             $table->string('building')->nullable();
             $table->timestamps();
         });

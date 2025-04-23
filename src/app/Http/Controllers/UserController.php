@@ -88,4 +88,12 @@ class UserController extends Controller
 
         return view('user.mypage', compact('user', 'sellItems'));
     }
+
+    public function showPurchasedItems()
+    {
+        $user = Auth::user();
+        $purchasedItems = $user->purchases;
+
+        return view('user.mypage?tab=buy', compact('purchasedItems'));
+    }
 }

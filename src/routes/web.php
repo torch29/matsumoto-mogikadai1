@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/sell', [ItemController::class, 'store']);
     //商品購入画面の表示
     Route::get('/purchase/{id}', [PurchaseController::class, 'index']);
+    Route::post('/purchase/{id}', [PurchaseController::class, 'decidePurchase']);
+    Route::get('/purchase/address/{id}', [PurchaseController::class, 'changeSendAddress']);
 
     //マイページとプロフィールページのグループ
     Route::prefix('mypage')->group(function () {
@@ -35,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/profile', [UserController::class, 'updateProfile']);
         //プロフィール画面（マイページ）の表示
         Route::get('', [UserController::class, 'showSellItems']);
+        Route::get('?tab=buy', [UserController::class, 'showPurchasedItems']);
     });
 });
 

@@ -43,6 +43,7 @@ class Item extends Model
         'price',
         'explain',
         'condition',
-        'img_path'
+        'img_path',
+        'status'
     ];
 }

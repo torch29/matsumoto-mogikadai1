@@ -23,4 +23,13 @@ class Purchase extends Model
     {
         return self::PAYMENTS[$this->payment];
     }
+
+    protected $fillable = [
+        'item_id',
+        'user_id',
+        'payment',
+        'zip_code',
+        'address',
+        'building'
+    ];
 }

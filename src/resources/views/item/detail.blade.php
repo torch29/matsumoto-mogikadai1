@@ -14,9 +14,15 @@
             <h2>{{ $item -> name }}</h2>
             <p class="header--brand-name">{{ $item -> brand_name }}</P>
             <p class="header--price">￥<span>{{ number_format($item->price) }}</span>（税込）</p>
+            @if( $item->status == "available" )
             <div class="item__content-button">
                 <a href="/purchase/{{ $item->id }}" class="item__content-button--submit">購入手続きへ</a>
             </div>
+            @else
+            <div class="item__content-error--sold">
+                この商品は売り切れです
+            </div>
+            @endif
         </div>
 
         <div class="item__content-explain">

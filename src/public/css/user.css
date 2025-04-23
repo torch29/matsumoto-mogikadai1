@@ -1,6 +1,8 @@
 .register__content,
 .login__content,
-.profile__content {
+.profile__content,
+.address__content {
+    width: 60%;
     max-width: 60%;
     margin: 0 auto;
 }
@@ -11,18 +13,21 @@
 
 .register-form,
 .login-form,
-.profile-form {
+.profile-form,
+.address-form {
     width: 100%;
 }
 .register-form__label,
 .login-form__label,
-.profile-form__item-label {
+.profile-form__item-label,
+.address-form__item-label {
     display: block;
     width: 100%;
 }
 .register-form__item-input,
 .login-form__item-input,
-.profile-form__item-input {
+.profile-form__item-input,
+.address-form__item-input {
     display: block;
     width: 100%;
     height: 30px;
@@ -31,13 +36,15 @@
 
 .register-form__button,
 .login-form__button,
-.profile-form__button {
+.profile-form__button,
+.address-form__button {
     margin-top: 50px;
     margin-bottom: 20px;
 }
 .register-form__button-submit,
 .login-form__button-submit,
-.profile-form__button-submit {
+.profile-form__button-submit,
+.address-form__button-submit {
     width: 100%;
     height: 30px;
     background-color: #f55;

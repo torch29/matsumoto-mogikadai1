@@ -32,6 +32,11 @@
     display: block;
     text-align: center;
 }
+.item__content-error--sold {
+    background-color: #aeaeae;
+    text-align: center;
+    padding: 3px;
+}
 
 .item__content-status--category,
 .item__content-status--condition {

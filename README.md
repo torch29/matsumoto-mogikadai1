@@ -30,10 +30,6 @@
 6. マイグレーションの実行
 
    ```
-   php artisan session:table
-   ```
-
-   ```
    php artisan migrate
    ```
 

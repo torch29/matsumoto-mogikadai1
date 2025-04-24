@@ -54,7 +54,11 @@
                     コメント
                 </h3>
                 <div class="item__content-item--comment">
-                    <p></p>
+                    @foreach ($comments as $comment)
+                    <img src="{{ asset( $comment->user->profile->profile_img) }}" alt="">
+                    <p>{{ $comment->user->name }}</p>
+                    <p>{{ $comment->comment }}</p>
+                    @endforeach
                 </div>
                 <div class="item__content-label">商品へのコメント
                 </div>

@@ -50,8 +50,9 @@ class ItemController extends Controller
     {
         $item = Item::find($id);
         $categories = Item::with('categories')->get();
+        $comments = Comment::all();
 
-        return view('item.detail', compact('item', 'categories'));
+        return view('item.detail', compact('item', 'categories', 'comments'));
     }
 
     public function postComment(Request $request)

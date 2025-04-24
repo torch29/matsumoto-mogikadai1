@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Category;
+use App\Models\Comment;
 
 class ItemController extends Controller
 {
@@ -50,5 +52,17 @@ class ItemController extends Controller
         $categories = Item::with('categories')->get();
 
         return view('item.detail', compact('item', 'categories'));
+    }
+
+    public function postComment(Request $request)
+    {
+        $comment = [
+            'item_id' => $request->input('item_id'),
+            'user_id' => Auth::id(),
+            'comment' => $request->input('comment'),
+        ];
+        Comment::create($comment);
+
+        return back();
     }
 }

@@ -21,12 +21,15 @@ Route::get('/', [ItemController::class, 'index']);
 //商品詳細画面の表示
 Route::get('/item/{id}', [ItemController::class, 'detail']);
 
+//認証を要するルート
 Route::middleware('auth')->group(function () {
+    //商品詳細画面からコメントをする
+    Route::post('comment', [ItemController::class, 'postComment']);
     //商品出品画面の表示と出品
     Route::get('/sell', [ItemController::class, 'sell']);
     Route::post('/sell', [ItemController::class, 'store']);
     //商品購入画面の表示
-    Route::get('/purchase/{id}', [PurchaseController::class, 'index']);
+    Route::get('/purchase/{id}', [PurchaseController::class, 'purchase']);
     Route::post('/purchase/{id}', [PurchaseController::class, 'decidePurchase']);
     //配送先変更画面
     Route::get('/purchase/address/{id}', [PurchaseController::class, 'changeAddress']);

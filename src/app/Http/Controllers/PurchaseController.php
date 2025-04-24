@@ -11,7 +11,7 @@ use App\Models\Purchase;
 
 class PurchaseController extends Controller
 {
-    public function index($id)
+    public function purchase($id)
     {
         $item = Item::find($id);
         $payments = Purchase::getPayments();

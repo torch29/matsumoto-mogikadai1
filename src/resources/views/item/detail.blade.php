@@ -54,17 +54,17 @@
                     コメント
                 </h3>
                 <div class="item__content-item--comment">
-                    コメントの表示スペースです<br>
-                    画像、名前、コメント内容が表示されます
+                    <p></p>
                 </div>
                 <div class="item__content-label">商品へのコメント
                 </div>
-                <form action="" class="item__comment-form" method="post">
+                <form action="/comment" class="item__comment-form" method="post">
                     @csrf
                     <div class="item__content-item">
-                        <textarea name="item__content-textarea"></textarea>
+                        <textarea name="comment" class="item__content-textarea">{{ old('comment') }}</textarea>
                     </div>
                     <div class="item__content-button">
+                        <input type="hidden" name="item_id" value="{{ $item->id }}">
                         <button class="item__content-button--submit">コメントを送信する</button>
                     </div>
                 </form>

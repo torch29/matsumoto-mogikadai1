@@ -21,17 +21,13 @@
      （例えば、以下のとおり）
      ```
      DB_DATABASE=laravel_db
-     DB_USERNAME=laravel_user DB_PASSWORD=laravel_pass
-     ```
-     - SESSION_DRIVER を以下の設定に変更してください。
-     ```
-      SESSION_DRIVER=database
+     DB_USERNAME=laravel_user
+     DB_PASSWORD=laravel_pass
      ```
 5. ```
    php artisan key:generate
    ```
-6. セッション保存用のテーブルを作成したあと、
-   マイグレーションの実行をお願いします。
+6. マイグレーションの実行
 
    ```
    php artisan session:table

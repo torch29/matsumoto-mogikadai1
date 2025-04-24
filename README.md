@@ -23,12 +23,24 @@
      DB_DATABASE=laravel_db
      DB_USERNAME=laravel_user DB_PASSWORD=laravel_pass
      ```
+     - SESSION_DRIVER を以下の設定に変更してください。
+     ```
+      SESSION_DRIVER=database
+     ```
 5. ```
    php artisan key:generate
    ```
-6. ```
+6. セッション保存用のテーブルを作成したあと、
+   マイグレーションの実行をお願いします。
+
+   ```
+   php artisan session:table
+   ```
+
+   ```
    php artisan migrate
    ```
+
 7. ```
    php artisan db:seed
    ```
@@ -49,7 +61,7 @@
 
 ## 使用方法
 
-- トップページは、'/' です
+- トップページは、'/' です。出品された商品の全一覧が表示されます。
 - 画面の説明など
 - ここに記入します
   - 記入します

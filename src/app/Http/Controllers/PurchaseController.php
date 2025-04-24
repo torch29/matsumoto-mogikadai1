@@ -43,8 +43,6 @@ class PurchaseController extends Controller
 
     public function changeSendAddress($id)
     {
-        $user = Auth::user();
-        $item_id = $id;
 
         return view('item.change_address');
     }
@@ -55,6 +53,6 @@ class PurchaseController extends Controller
         $address = $request->only(['zip_code', 'address', 'building']);
         Purchase::find($request->item_id)->create($address);
 
-        return redirect('/mypage/profile');
+        return redirect('purchase');
     }
 }

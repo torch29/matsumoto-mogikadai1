@@ -14,6 +14,12 @@
             <h2>{{ $item -> name }}</h2>
             <p class="header--brand-name">{{ $item -> brand_name }}</P>
             <p class="header--price">￥<span>{{ number_format($item->price) }}</span>（税込）</p>
+            <div class="item__content-header--icon-wrapper">
+                <img src="" alt="いいねアイコン">
+                <p class="header--count">いいね数</p>
+                <img src="" alt="コメントアイコン">
+                <p class="header--count">コメント数</p>
+            </div>
             @if( $item->status == "available" )
             <div class="item__content-button">
                 <a href="/purchase/{{ $item->id }}" class="item__content-button--submit">購入手続きへ</a>
@@ -51,7 +57,7 @@
             </div>
             <div class="item__content-comment">
                 <h3 class="item__content-label">
-                    コメント
+                    コメント ({{ count($comments) }})
                 </h3>
                 <div class="item__content-item--comment">
                     @foreach ($comments as $comment)

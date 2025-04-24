@@ -28,7 +28,9 @@ Route::middleware('auth')->group(function () {
     //商品購入画面の表示
     Route::get('/purchase/{id}', [PurchaseController::class, 'index']);
     Route::post('/purchase/{id}', [PurchaseController::class, 'decidePurchase']);
-    Route::get('/purchase/address/{id}', [PurchaseController::class, 'changeSendAddress']);
+    //配送先変更画面
+    Route::get('/purchase/address/{id}', [PurchaseController::class, 'changeAddress']);
+    Route::post('/purchase/address/{id}', [PurchaseController::class, 'saveShippingAddress']);
 
     //マイページとプロフィールページのグループ
     Route::prefix('mypage')->group(function () {

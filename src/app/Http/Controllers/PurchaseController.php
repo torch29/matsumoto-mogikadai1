@@ -18,19 +18,39 @@ class PurchaseController extends Controller
         $user = Auth::user();
         $profile = $user->profile;
 
-        return view('purchase', compact('item', 'payments', 'profile'));
+        $address = session()->get('addressData', [
+            'zip_code' => $profile->zip_code,
+            'address' => $profile->address,
+            'building' => $profile->building
+        ]);
+
+        return view('purchase', compact('item', 'payments', 'profile', 'address'));
     }
 
     public function decidePurchase(Request $request)
     {
         try {
             DB::beginTransaction();
-            $purchaseData = $request->only(['item_id', 'user_id', 'payment', 'zip_code', 'address', 'building']);
+
+            $user = Auth::user();
+            $address = $request->session()->get('addressData', [
+                'zip_code' => $user->profile->zip_code,
+                'address' => $user->profile->address,
+                'building' => $user->profile->building
+            ]);
+            $purchaseData = [
+                'item_id' => $request->item_id,
+                'user_id' => $user->id,
+                'payment' => $request->payment,
+                'zip_code' => $address['zip_code'],
+                'address' => $address['address'],
+                'building' => $address['building']
+            ];
             Purchase::create($purchaseData);
 
-            $item = Item::find($request->item_id);
-            $item->update(['status' => "sold"]);
+            Item::find($request->item_id)->update(['status' => "sold"]);
             DB::commit();
+            $request->session()->forget('addressData');
         } catch (\Exception $e) {
             DB::rollback();
             Log::error('購入処理中にエラーが発生しました： ' . $e->getMessage());
@@ -41,18 +61,17 @@ class PurchaseController extends Controller
     }
 
 
-    public function changeSendAddress($id)
+    public function changeAddress($id)
     {
-
-        return view('item.change_address');
+        $item = Item::find($id);
+        return view('change_address', compact('item'));
     }
 
-    public function saveSendAddress(Request $request)
+    public function saveShippingAddress(Request $request, $id)
     {
-        $user = Auth::user();
-        $address = $request->only(['zip_code', 'address', 'building']);
-        Purchase::find($request->item_id)->create($address);
+        $addressData = $request->only(['zip_code', 'address', 'building']);
+        $request->session()->put('addressData', $addressData);
 
-        return redirect('purchase');
+        return redirect('purchase/' . $id);
     }
 }

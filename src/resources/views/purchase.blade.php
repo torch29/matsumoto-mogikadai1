@@ -32,13 +32,12 @@
             <div class="purchase-content__send">
                 <div class="purchase-content__address">
                     <p class="purchase-content__address-label">配送先</p>
-                    <p>〒{{ $profile->zip_code }}</p>
-                    <input type="hidden" name="zip_code" value="{{ $profile->zip_code }}">
-                    <p>{{ $profile->address }}</p>
-                    <input type="hidden" name="address" value="{{ $profile->address }}">
-                    <p>{{ $profile->building }}</p>
-                    <input type="hidden" name="building" value="{{ $profile->building }}">
-                    {{-- if changedAddress  --}}
+                    <p>〒{{ $address['zip_code'] }}</p>
+                    <input type="hidden" name="zip_code" value="{{ $address['zip_code'] }}">
+                    <p>{{ $address['address'] }}</p>
+                    <input type="hidden" name="address" value="{{ $address['address'] }}">
+                    <p>{{ $address['building'] }}</p>
+                    <input type="hidden" name="building" value="{{ $address['building'] }}">
                 </div>
                 <div class="purchase-content__change-address">
                     <a href=" /purchase/address/{{ $item->id }}" class="purchase-content__link">変更する</a>

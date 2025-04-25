@@ -21,6 +21,24 @@
     font-weight: bold;
 }
 
+.heading--brand-name {
+    font-size: 0.7em;
+}
+.heading--price span {
+    font-size: 1.3em;
+}
+
+.heading__icon-wrapper{
+    display: flex;
+}
+.heading__icons {
+    width: 30px;
+    margin-left: 30px;
+}
+.heading__icons img {
+    width: 100%;
+}
+
 .item__content-button--submit {
     background-color: #f55;
     color: #fff;
@@ -41,23 +59,28 @@
 .item__content-status--category,
 .item__content-status--condition {
     display: flex;
-
+}
+.item__content-status--condition {
+    margin-top: 15px;
 }
 .status__category-label,
 .status__condition-label {
     display: flex;
     font-weight: bold;
     margin: 0 0 20px 30px;
-    width: 30%;
+    width: 25%;
     align-items: center;
 }
 .status__category-content--tag {
     display: flex;
     flex-wrap: wrap;
-    margin: 0;
+    margin: auto;
+    font-size: 0.9em;
+    width: 70%;
 }
 .status__condition-content {
     margin: 0;
+    font-size: 0.9em;
 }
 .status__category-content {
     align-items: center;
@@ -75,6 +98,37 @@
     vertical-align: middle;
 }
 
+.view__comment-inner {
+    display: flex;
+}
+.view__comment--icon {
+    width: 15%;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    overflow: hidden;
+    margin-left: 20px;
+}
+.view__comment--icon img {
+    width: 100%;
+}
+.view__comment--name {
+    font-weight: bold;
+    margin: auto;
+    margin-left: 20px;
+}
+.view__comment--text {
+    display: block;
+    width: 95%;
+    background-color: #d9d9d9;
+    border-radius: 3px;
+    margin: 0 auto 30px;
+}
+.view__comment--text p {
+    margin-top: 10px;
+    padding: 7px 0 7px 20px;
+    font-size: 0.9em;
+}
+
 .item__comment-form {
     width: 100%;
 }
@@ -83,5 +137,6 @@
 }
 .item__content textarea {
     width: 100%;
-    height: 80px;
+    line-height: 1.5;
+    height: 9em;
 }

@@ -55,9 +55,12 @@
                 <p class="confirm-form__row-item">コンビニ払い</p>
             </div>
             <div class="confirm-form__button">
+                @if( $item->user_id == Auth::id() )
+                @else
                 <input type="hidden" name="item_id" value="{{ $item->id }}">
                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 <button class="confirm-form__button-submit">購入する</button>
+                @endif
             </div>
             </form>
         </div>

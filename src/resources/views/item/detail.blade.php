@@ -10,17 +10,22 @@
         <img src=" {{ asset($item -> img_path) }}" class="item__img" alt="商品画像">
     </div>
     <div class="item__content">
-        <div class="item__content-header">
+        <div class="item__content-heading">
             <h2>{{ $item -> name }}</h2>
-            <p class="header--brand-name">{{ $item -> brand_name }}</P>
-            <p class="header--price">￥<span>{{ number_format($item->price) }}</span>（税込）</p>
-            <div class="item__content-header--icon-wrapper">
-                <img src="" alt="いいねアイコン">
-                <p class="header--count">いいね数</p>
-                <img src="" alt="コメントアイコン">
-                <p class="header--count">コメント数</p>
+            <p class="heading--brand-name">{{ $item -> brand_name }}</P>
+            <p class="heading--price">￥<span>{{ number_format($item->price) }}</span>（税込）</p>
+            <div class="heading__icon-wrapper">
+                <div class="heading__icons">
+                    <img src=" {{ asset('img/star.png') }}" alt="いいねアイコン">
+                    <p class="header--count">いいね数</p>
+                </div>
+                <div class="heading__icons">
+                    <img src="{{ asset('img/bubble.png') }}" alt="コメントアイコン">
+                    <p class="header--count">コメント数</p>
+                </div>
             </div>
-            @if( $item->status == "available" )
+            @if( $item->user_id == Auth::id() )
+            @elseif( $item->status == "available" )
             <div class="item__content-button">
                 <a href="/purchase/{{ $item->id }}" class="item__content-button--submit">購入手続きへ</a>
             </div>
@@ -59,11 +64,19 @@
                 <h3 class="item__content-label">
                     コメント ({{ count($comments) }})
                 </h3>
-                <div class="item__content-item--comment">
+                <div class="view__comment">
                     @foreach ($comments as $comment)
-                    <img src="{{ asset( $comment->user->profile->profile_img) }}" alt="">
-                    <p>{{ $comment->user->name }}</p>
-                    <p>{{ $comment->comment }}</p>
+                    <div class="view__comment-inner">
+                        <div class="view__comment--icon">
+                            <img src="{{ asset( $comment->user->profile->profile_img) }}" alt="">
+                        </div>
+                        <div class="view__comment--name">
+                            {{ $comment->user->name }}
+                        </div>
+                    </div>
+                    <div class="view__comment--text">
+                        <p>{{ $comment->comment }}</p>
+                    </div>
                     @endforeach
                 </div>
                 <div class="item__content-label">商品へのコメント

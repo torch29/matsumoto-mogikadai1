@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function favoriteItems()
+    {
+        return $this->belongsToMany(Item::class, 'favorites', 'user_id', 'item_id')->withTimestamps();
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\User;
 
 class ItemController extends Controller
 {

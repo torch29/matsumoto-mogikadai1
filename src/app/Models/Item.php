@@ -31,6 +31,11 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function isFavoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id')->withTimestamps();
+    }
+
     public static function getConditionLabels()
     {
         return self::CONDITION_LABELS;

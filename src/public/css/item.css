@@ -108,8 +108,21 @@
     overflow: hidden;
     margin-left: 20px;
 }
-.view__comment--icon img {
-    width: 100%;
+.fa-icon::before{
+    content: 'f005';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-size: 24px;
+}
+.fa-regular::before {
+    content: 'f075';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-size: 24px;
+}
+.header--count{
+    font-size: 0.8em;
+    margin: 0;
 }
 .view__comment--name {
     font-weight: bold;

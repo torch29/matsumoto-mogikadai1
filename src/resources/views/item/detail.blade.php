@@ -16,11 +16,11 @@
             <p class="heading--price">￥<span>{{ number_format($item->price) }}</span>（税込）</p>
             <div class="heading__icon-wrapper">
                 <div class="heading__icons">
-                    <img src=" {{ asset('img/star.png') }}" alt="いいねアイコン">
+                    <i class="fa-regular fa-star"></i>
                     <p class="header--count">いいね数</p>
                 </div>
                 <div class="heading__icons">
-                    <img src="{{ asset('img/bubble.png') }}" alt="コメントアイコン">
+                    <i class="fa-regular fa-comment"></i>
                     <p class="header--count">コメント数</p>
                 </div>
             </div>

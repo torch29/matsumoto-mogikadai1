@@ -6,9 +6,28 @@
 .item__img-area{
     width: 40%;
     margin: 50px 20px;
+    position: relative;
+    overflow-x: hidden;
 }
 .item__img {
     width: 70%;
+}
+.item__img--sold {
+    height: auto;
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
+    filter: brightness(0.8);
+}
+.item-sold {
+    background-color: #F55;
+    color: #fff;
+    position: absolute;
+    top: -30px;
+    left: -60px;
+    padding: 60px 40px 0 50px;
+    transform: rotate(-45deg);
+    text-align: center;
 }
 
 .item__content{
@@ -35,8 +54,45 @@
     width: 30px;
     margin-left: 30px;
 }
-.heading__icons img {
-    width: 100%;
+
+/* いいねボタンとコメントアイコンの表示欄 */
+.heading__icons {
+    text-align: center;
+}
+.item__favorite-form--button::before {
+    border: none;
+    outline: none;
+}
+.item__favorite-form--button {
+    border: none;
+    outline: none;
+    padding: 0;
+}
+/* いいねをするアイコン */
+.fa-icon::before {
+    content: 'f005';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-size: 24px;
+}
+/* いいね済みアイコン */
+.fa-solid::before {
+    content: 'f005';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 24px;
+}
+/* コメントアイコン */
+.fa-regular::before {
+    content: 'f075';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-size: 24px;
+}
+.header--count {
+    font-size: 0.8em;
+    margin: 0;
+    text-align: center;
 }
 
 .item__content-button--submit {
@@ -49,13 +105,16 @@
     cursor: pointer;
     display: block;
     text-align: center;
+    margin-top: 10px;
 }
 .item__content-error--sold {
     background-color: #aeaeae;
     text-align: center;
     padding: 3px;
+    margin-top: 10px;
 }
 
+/* カテゴリーと状態の表示欄 */
 .item__content-status--category,
 .item__content-status--condition {
     display: flex;
@@ -98,6 +157,7 @@
     vertical-align: middle;
 }
 
+/* コメント表示欄 */
 .view__comment-inner {
     display: flex;
 }
@@ -108,21 +168,8 @@
     overflow: hidden;
     margin-left: 20px;
 }
-.fa-icon::before{
-    content: 'f005';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 400;
-    font-size: 24px;
-}
-.fa-regular::before {
-    content: 'f075';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 400;
-    font-size: 24px;
-}
-.header--count{
-    font-size: 0.8em;
-    margin: 0;
+.view__comment--icon img {
+    width: 100%;
 }
 .view__comment--name {
     font-weight: bold;
@@ -138,10 +185,11 @@
 }
 .view__comment--text p {
     margin-top: 10px;
-    padding: 7px 0 7px 20px;
+    padding: 7px 10px 7px 20px;
     font-size: 0.9em;
 }
 
+/* コメント投稿欄 */
 .item__comment-form {
     width: 100%;
 }

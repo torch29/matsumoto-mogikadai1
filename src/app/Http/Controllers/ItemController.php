@@ -49,11 +49,10 @@ class ItemController extends Controller
 
     public function detail($id)
     {
-        $item = Item::find($id);
+        $item = Item::with(['comments.user.profile'])->find($id);
         $categories = Item::with('categories')->get();
-        $comments = Comment::all();
 
-        return view('item.detail', compact('item', 'categories', 'comments'));
+        return view('item.detail', compact('item', 'categories'));
     }
 
     public function postComment(Request $request)

@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::get('/item/{id}', [ItemController::class, 'detail']);
 Route::middleware('auth')->group(function () {
     //商品詳細画面からコメントをする
     Route::post('comment', [ItemController::class, 'postComment']);
+    //商品詳細画面からいいね機能の利用
+    Route::post('/favorite/{item_id}', [FavoriteCOntroller::class, 'favorite']);
+    Route::delete('/favorite/{item_id}', [FavoriteController::class, 'removeFavorite']);
     //商品出品画面の表示と出品
     Route::get('/sell', [ItemController::class, 'sell']);
     Route::post('/sell', [ItemController::class, 'store']);

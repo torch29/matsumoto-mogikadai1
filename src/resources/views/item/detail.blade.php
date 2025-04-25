@@ -7,7 +7,14 @@
 @section('content')
 <div class="item__content-wrapper">
     <div class="item__img-area">
+        @if($item->status == 'available')
         <img src=" {{ asset($item -> img_path) }}" class="item__img" alt="商品画像">
+        @else
+        <img src="{{ asset($item->img_path) }}" class="item__img--sold" alt="商品画像">
+        <div class="item-sold">sold</div>
+        <p>{{ $item->name }}</p>
+        </a>
+        @endif
     </div>
     <div class="item__content">
         <div class="item__content-heading">
@@ -16,12 +23,27 @@
             <p class="heading--price">￥<span>{{ number_format($item->price) }}</span>（税込）</p>
             <div class="heading__icon-wrapper">
                 <div class="heading__icons">
-                    <i class="fa-regular fa-star"></i>
-                    <p class="header--count">いいね数</p>
+                    @if ( Auth::check() && Auth::user()->favoriteItems->contains($item->id) )
+                    <form action="/favorite/{{ $item->id }}" class="item__favorite-form" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="item__favorite-form--button"><i class="fa-solid fa-star"></i>
+                        </button>
+                    </form>
+                    @else
+                    <form action="/favorite/{{ $item->id }}" method="post">
+                        @csrf
+                        <button type="submit" class="item__favorite-form--button"><i class="fa-regular fa-star"></i>
+                        </button>
+                    </form>
+                    @endif
+                    <p class="header--count">{{ $item->favoriteUsers()->count() }}</p>
                 </div>
                 <div class="heading__icons">
                     <i class="fa-regular fa-comment"></i>
-                    <p class="header--count">コメント数</p>
+                    <p class="header--count">
+                        {{ count($item->comments) }}
+                    </p>
                 </div>
             </div>
             @if( $item->user_id == Auth::id() )
@@ -62,10 +84,10 @@
             </div>
             <div class="item__content-comment">
                 <h3 class="item__content-label">
-                    コメント ({{ count($comments) }})
+                    コメント ( {{ count($item->comments) }} )
                 </h3>
                 <div class="view__comment">
-                    @foreach ($comments as $comment)
+                    @foreach ($item->comments as $comment)
                     <div class="view__comment-inner">
                         <div class="view__comment--icon">
                             <img src="{{ asset( $comment->user->profile->profile_img) }}" alt="">

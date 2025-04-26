@@ -40,7 +40,10 @@
                     <input type="hidden" name="building" value="{{ $address['building'] }}">
                 </div>
                 <div class="purchase-content__change-address">
+                    @if( $item->user_id == Auth::id() )
+                    @else
                     <a href=" /purchase/address/{{ $item->id }}" class="purchase-content__link">変更する</a>
+                    @endif
                 </div>
             </div>
     </div>
@@ -52,7 +55,19 @@
             </div>
             <div class=" confirm-form__row">
                 <p class="confirm-form__row-title">支払い方法</p>
-                <p class="confirm-form__row-item">コンビニ払い</p>
+                <p class="log"></p>
+                <script>
+                    const element = document.getElementsByName('payment')[0];
+
+                    element.addEventListener('change', handleChange);
+
+                    function handleChange(event) {
+                        const selectedOption = element.options[element.selectedIndex];
+                        const text = selectedOption.text;
+                        document.querySelector(
+                            '.log').innerHTML = text;
+                    }
+                </script>
             </div>
             <div class="confirm-form__button">
                 @if( $item->user_id == Auth::id() )

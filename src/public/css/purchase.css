@@ -56,11 +56,19 @@
 
 .confirm-form__row {
     display: flex;
-    justify-content: space-around;
     border: 1px solid #000;
+    padding: 0 10px;
 }
 .confirm-form__row:first-of-type {
     border-bottom: none;
+}
+.confirm-form__row-title {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.confirm-form__row-item,
+.log {
+    margin: auto;
 }
 
 .confirm-form__button-submit {

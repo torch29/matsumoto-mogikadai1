@@ -27,13 +27,13 @@
         </div>
         <label for="password" class="register-form__item-label">パスワード</label>
         <input type="password" name="password" id="password" class="register-form__item-input">
+        <label for="password_confirmation" class="register-form__item-label">確認用パスワード</label>
+        <input type="password" name="password_confirmation" id="password_confirmation" class="register-form__item-input">
         <div class="form__error">
             @error('password')
             {{ $message }}
             @enderror
         </div>
-        <label for="password_confirmation" class="register-form__item-label">確認用パスワード</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" class="register-form__item-input">
         <div class="register-form__button">
             <button class="register-form__button-submit" type="submit">登録する</button>
         </div>

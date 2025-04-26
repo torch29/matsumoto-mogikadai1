@@ -7,15 +7,14 @@
 @section('content')
 
 
-<ul class="main-tab__list">
+<div class="main-tab__list">
     <button class="main-tab__button active" data-tab="all">おすすめ</button>
     <button class="main-tab__button" data-tab="myList">マイリスト</button>
-</ul>
+</div>
 <div class="main-tab__content">
     user_id: {{ Auth::id() }}　（そのidのものは表示しない状態、id=1なら 1は表示されない） {{-- 確認用あとで消す --}}
     {{-- ここから"おすすめ"のタブ --}}
     <div class="tab-panel" id="all">
-        おすすめを表示したい
         <ul class="item-card__content">
             @foreach($items as $item)
             @continue($item->user_id == Auth::id() )
@@ -40,7 +39,6 @@
     </div>
     {{-- ここからマイリストのタブ --}}
     <div class="tab-panel" id="myList" style="display: none;">
-        マイリストを表示したい
         <ul class="item-card__content">
             @foreach($myLists as $myList)
             <li class="item-card__content--list">

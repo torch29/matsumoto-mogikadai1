@@ -32,4 +32,14 @@ class Purchase extends Model
         'address',
         'building'
     ];
+
+    public function purchasedUser()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function purchasedItem()
+    {
+        return $this->belongsTo(Item::class, 'item_id');
+    }
 }

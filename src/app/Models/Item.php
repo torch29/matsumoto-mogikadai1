@@ -31,6 +31,11 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     public function favoriteUsers()
     {
         return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id')->withTimestamps();

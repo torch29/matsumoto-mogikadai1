@@ -81,19 +81,12 @@ class UserController extends Controller
         return redirect('/mypage/profile');
     }
 
-    public function showSellItems()
+    public function showMypage()
     {
         $user = Auth::user();
         $sellItems = $user->items;
+        $purchasedItems = $user->purchases()->with('purchasedItem')->get();
 
-        return view('user.mypage', compact('user', 'sellItems'));
-    }
-
-    public function showPurchasedItems()
-    {
-        $user = Auth::user();
-        $purchasedItems = $user->purchases;
-
-        return view('user.mypage?tab=buy', compact('purchasedItems'));
+        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems'));
     }
 }

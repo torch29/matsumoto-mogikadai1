@@ -45,8 +45,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile', [UserController::class, 'profile']);
         Route::post('/profile', [UserController::class, 'updateProfile']);
         //プロフィール画面（マイページ）の表示
-        Route::get('', [UserController::class, 'showSellItems']);
-        Route::get('?tab=buy', [UserController::class, 'showPurchasedItems']);
+        Route::get('', [UserController::class, 'showMypage']);
     });
 });
 

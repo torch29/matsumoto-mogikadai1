@@ -4,12 +4,19 @@
 .main-nav__list {
     display: flex;
 }
-.main-nav__list-item {
+.main-tab__item {
     color: #999;
 }
-.main-nav__list-item a,
-.main-nav__list-item a:visited {
-    color: #FF3030;
+.main-tab__button{
+    border: none;
+    color: #5c5c5c;
+    background-color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+}
+.main-tab__button.active {
+    color: #F55;
+    font-weight: bold;
 }
 
 .item-card__container{

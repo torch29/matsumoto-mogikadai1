@@ -15,8 +15,11 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::with('users')->get();
+        $myLists = Auth::user()
+            ? Auth::user()->favoriteItems()->get()
+            : collect();
 
-        return view('index', compact('items'));
+        return view('index', compact('items', 'myLists'));
     }
 
     public function sell()

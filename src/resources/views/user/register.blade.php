@@ -13,10 +13,25 @@
         @csrf
         <label for="name" class="register-form__item-label">ユーザー名</label>
         <input type="text" name="name" id="name" class="register-form__item-input" value="{{ old('name') }}">
+        <div class="form__error">
+            @error('name')
+            {{ $message }}
+            @enderror
+        </div>
         <label for="email" class="register-form__item-label">メールアドレス</label>
         <input type="email" name="email" id="email" class="register-form__item-input" value="{{ old('email') }}">
+        <div class="form__error">
+            @error('email')
+            {{ $message }}
+            @enderror
+        </div>
         <label for="password" class="register-form__item-label">パスワード</label>
         <input type="password" name="password" id="password" class="register-form__item-input">
+        <div class="form__error">
+            @error('password')
+            {{ $message }}
+            @enderror
+        </div>
         <label for="password_confirmation" class="register-form__item-label">確認用パスワード</label>
         <input type="password" name="password_confirmation" id="password_confirmation" class="register-form__item-input">
         <div class="register-form__button">

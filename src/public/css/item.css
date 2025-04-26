@@ -201,3 +201,9 @@
     line-height: 1.5;
     height: 9em;
 }
+
+.form__error {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #D30909;
+}

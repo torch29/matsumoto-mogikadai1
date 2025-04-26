@@ -81,3 +81,9 @@
     background-image: url();
 }
     */
+
+.form__error {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #D30909;
+}

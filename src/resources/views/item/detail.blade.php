@@ -111,6 +111,9 @@
                     <div class="item__content-button">
                         <input type="hidden" name="item_id" value="{{ $item->id }}">
                         <button class="item__content-button--submit">コメントを送信する</button>
+                        @error('comment')
+                        {{ $message }}
+                        @enderror
                     </div>
                 </form>
             </div>

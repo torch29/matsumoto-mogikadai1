@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\User;
+use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
 {
@@ -55,7 +56,7 @@ class ItemController extends Controller
         return view('item.detail', compact('item', 'categories'));
     }
 
-    public function postComment(Request $request)
+    public function postComment(CommentRequest $request)
     {
         $comment = [
             'item_id' => $request->input('item_id'),

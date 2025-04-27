@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
         //プロフィール編集画面の表示と更新
         Route::get('/profile', [UserController::class, 'profile']);
         Route::post('/profile', [UserController::class, 'updateProfile']);
-        //プロフィール画面（マイページ）の表示
+        //マイページの表示
         Route::get('', [UserController::class, 'showMypage']);
     });
 });

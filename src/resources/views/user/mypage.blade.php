@@ -74,9 +74,37 @@
     </div>
 </div>
 <script>
+    // URLのパラメータを取得
+    const urlParams = new URLSearchParams(window.location.search);
+    // デフォルトはsellタブ
+    const tab = urlParams.get('tab') || 'sell';
+
+    // タブのボタンとコンテンツを取得
     const buttons = document.querySelectorAll('.mypage-tab__button');
     const contents = document.querySelectorAll('.tab-panel');
 
+    // ページが読み込まれた時に、対応するタブを表示
+    window.addEventListener('DOMContentLoaded', function() {
+        // 最初に、全てのactiveを外す＆全てのタブを非表示にする
+        buttons.forEach(btn => btn.classList.remove('active'));
+        contents.forEach(content => content.style.display = 'none');
+        // デフォルトのタブを設定
+        let defaultTab = tab === 'buy' ? 'purchasedItems' : 'sellItems';
+
+        // ボタンの「active」クラスを切り替え
+        const targetButton = document.querySelector(`.mypage-tab__button[data-tab="${defaultTab}"]`);
+        if (targetButton) {
+            targetButton.classList.add('active');
+        }
+
+        // タブ内容を表示
+        const targetContent = document.getElementById(defaultTab);
+        if (targetContent) {
+            targetContent.style.display = 'block';
+        }
+    });
+
+    // タブクリック時の動作
     buttons.forEach(button => {
         button.addEventListener('click', () => {
             const tab = button.getAttribute('data-tab');

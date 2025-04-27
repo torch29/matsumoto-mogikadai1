@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="view__comment--text">
-                        <p>{{ $comment->comment }}</p>
+                        <p>{!! nl2br($comment->comment) !!}</p>
                     </div>
                     @endforeach
                 </div>

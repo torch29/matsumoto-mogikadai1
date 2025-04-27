@@ -57,7 +57,7 @@ class ItemController extends Controller
         // カテゴリー登録
         $item->categories()->attach($request->input('category_ids'));
 
-        return redirect('/mypage');
+        return redirect('/mypage?tab=sell');
     }
 
     public function detail($id)

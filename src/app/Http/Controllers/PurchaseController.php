@@ -57,7 +57,7 @@ class PurchaseController extends Controller
             return back()->with('error', '購入処理中にエラーが発生しました。もう一度お試しください。');
         }
 
-        return redirect('/mypage');
+        return redirect('/mypage?tab=buy');
     }
 
 

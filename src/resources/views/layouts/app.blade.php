@@ -17,9 +17,9 @@
             <a href="/">
                 <img src="{{ asset('img/logo.svg') }}" class="header__title-img" alt="COACHTECHフリマ">
             </a>
-            <form action="/search" class="search-form" method="get">
+            <form action="/" class="search-form" method="get">
                 @csrf
-                <input type="text" class="search-form__input" placeholder="なにをお探しですか？">
+                <input type="text" name="search" class="search-form__input" placeholder="なにをお探しですか？" value="{{ isset($word) ? $word : '' }}">
                 <button class="search-form__button--hidden">検索</button>
             </form>
             <ul class="header-nav__list">

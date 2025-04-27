@@ -12,14 +12,23 @@ use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::with('users')->get();
+        $word = $request->search;
+
+        $items = Item::with('users')
+            ->NameSearch($word)
+            ->get();
+
         $myLists = Auth::user()
-            ? Auth::user()->favoriteItems()->get()
+            ? Auth::user()->favoriteItems()
+            ->when($word, function ($query, $word) {
+                $query->where('name', 'like', "%{$word}%");
+            })
+            ->get()
             : collect();
 
-        return view('index', compact('items', 'myLists'));
+        return view('index', compact('items', 'myLists', 'word'));
     }
 
     public function sell()

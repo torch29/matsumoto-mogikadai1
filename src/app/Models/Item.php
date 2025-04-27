@@ -51,6 +51,13 @@ class Item extends Model
         return self::CONDITION_LABELS[$this->condition];
     }
 
+    public function scopeNameSearch($query, $word)
+    {
+        if (!empty($word)) {
+            $query->where('name', 'like', '%' . $word . '%');
+        }
+    }
+
     protected $fillable = [
         'user_id',
         'name',

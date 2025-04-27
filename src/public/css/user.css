@@ -70,11 +70,22 @@
 .profile-form__img {
     margin-right: 20px;
     width: 150px;
+    height: 150px;
     border-radius: 50%;
     background-color: #ddd;
+    overflow: hidden;
+    position: relative;
+    min-width: 50px;
+    min-height: 50px;
 }
 .profile-form__img img {
     width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }
 /*
 .profile-form__img--circle {

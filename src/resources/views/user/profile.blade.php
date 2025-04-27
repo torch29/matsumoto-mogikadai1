@@ -17,7 +17,6 @@
                 <img src="{{ asset( $user->profile->profile_img ) }}" alt="商品画像">
                 {{--<p class="profile-form__img--circle"></p>--}}
                 @else
-                プロフィール画像はまだ登録されていません
                 @endif
             </div>
             <label for="profile_img" class="profile-form__img-button--label">

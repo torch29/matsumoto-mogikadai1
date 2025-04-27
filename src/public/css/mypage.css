@@ -55,19 +55,24 @@
     border-bottom: solid 1px #000;
 }
 
-.mypage-nav__list {
-    display: flex;
+.mypage-tab__list {
+    margin-top: 40px;
+    padding-left: 50px;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #000;
 }
-
-.mypage-nav__list-item {
-    color: #999;
+.mypage-tab__button {
+    border: none;
+    color: #5c5c5c;
+    background-color: #fff;
+    font-size: 1em;
+    padding-right: 20px;
+    cursor: pointer;
 }
-
-.mypage-nav__list-item a,
-.mypage-nav__list-item a:visited {
-    color: #FF3030;
+.mypage-tab__button.active {
+    color: #F55;
+    font-weight: bold;
 }
-
 
 .item-card__container {
     width: 90%;

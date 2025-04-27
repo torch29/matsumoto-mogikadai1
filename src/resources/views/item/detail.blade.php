@@ -12,8 +12,6 @@
         @else
         <img src="{{ asset($item->img_path) }}" class="item__img--sold" alt="商品画像">
         <div class="item-sold">sold</div>
-        <p>{{ $item->name }}</p>
-        </a>
         @endif
     </div>
     <div class="item__content">

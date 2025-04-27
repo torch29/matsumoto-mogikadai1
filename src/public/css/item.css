@@ -11,13 +11,12 @@
 }
 .item__img {
     width: 70%;
+    min-width: 150px;
 }
 .item__img--sold {
     height: auto;
-    width: 100%;
+    width: 70%;
     min-width: 150px;
-    max-width: 300px;
-    filter: brightness(0.8);
 }
 .item-sold {
     background-color: #F55;

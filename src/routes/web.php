@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
     //商品出品画面の表示と出品
     Route::get('/sell', [ItemController::class, 'sell']);
     Route::post('/sell', [ItemController::class, 'store']);
+    //stripe checkoutで成功・キャンセル時の表示
+    Route::get('/purchase/success', [PurchaseController::class, 'success'])->name('purchase.success'); //成功時
+    Route::get('/purchase/cancel', [PurchaseController::class, 'cancel'])->name('purchase.cancel'); //キャンセル時
     //商品購入画面の表示
     Route::get('/purchase/{id}', [PurchaseController::class, 'purchase']);
     Route::post('/purchase/{id}', [PurchaseController::class, 'decidePurchase']);
@@ -44,12 +47,6 @@ Route::middleware('auth')->group(function () {
     //    return view('payment');});
     //Route::post('payment', [StripeController::class, 'payment']);
     Route::post('/purchase/checkout/{itemId}', [PurchaseController::class, 'checkout'])->name('purchase.checkout');
-    Route::get('/purchase/success', function () {
-        return view('purchase.success'); // 成功画面を後で作る
-    })->name('purchase.success');
-    Route::get('/purchase/cancel', function () {
-        return view('purchase.cancel'); // キャンセル画面を後で作る
-    })->name('purchase.cancel');
 
     //マイページとプロフィールページのグループ
     Route::prefix('mypage')->group(function () {

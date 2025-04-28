@@ -105,4 +105,15 @@ class PurchaseController extends Controller
 
         return redirect($session->url);
     }
+
+    //stripe checkoutで決済完了後に表示
+    public function success()
+    {
+        return view('purchase.success');
+    }
+
+    public function cancel()
+    {
+        return view('purchase.cancel');
+    }
 }

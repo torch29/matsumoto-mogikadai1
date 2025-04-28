@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('payment', function () {
     //    return view('payment');});
     //Route::post('payment', [StripeController::class, 'payment']);
-    Route::post('/purchase/checkout/{itemId}', [PurchaseController::class, 'checkout'])->name('purchase.checkout');
+    Route::post('/purchase/checkout/{itemId}', [PurchaseController::class, 'decidePurchase'])->name('purchase.checkout');
 
     //マイページとプロフィールページのグループ
     Route::prefix('mypage')->group(function () {

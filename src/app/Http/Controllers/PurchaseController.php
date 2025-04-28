@@ -30,40 +30,6 @@ class PurchaseController extends Controller
         return view('purchase', compact('item', 'payments', 'profile', 'address'));
     }
 
-    public function decidePurchase(PurchaseRequest $request)
-    {
-        try {
-            DB::beginTransaction();
-
-            $user = Auth::user();
-            $address = $request->session()->get('addressData', [
-                'zip_code' => $user->profile->zip_code,
-                'address' => $user->profile->address,
-                'building' => $user->profile->building
-            ]);
-            $purchaseData = [
-                'item_id' => $request->item_id,
-                'user_id' => $user->id,
-                'payment' => $request->payment,
-                'zip_code' => $address['zip_code'],
-                'address' => $address['address'],
-                'building' => $address['building']
-            ];
-            Purchase::create($purchaseData);
-
-            Item::find($request->item_id)->update(['status' => "sold"]);
-            DB::commit();
-            $request->session()->forget('addressData');
-        } catch (\Exception $e) {
-            DB::rollback();
-            Log::error('購入処理中にエラーが発生しました： ' . $e->getMessage());
-            return back()->with('error', '購入処理中にエラーが発生しました。もう一度お試しください。');
-        }
-
-        return redirect('/mypage?tab=buy');
-    }
-
-
     public function changeAddress($id)
     {
         $item = Item::find($id);
@@ -78,14 +44,15 @@ class PurchaseController extends Controller
         return redirect('purchase/' . $id);
     }
 
-    //stripe checkoutへ遷移する
-    public function checkout(PurchaseRequest $request, $itemId)
+    //購入を決定し、stripe checkoutへ遷移する
+    public function decidePurchase(PurchaseRequest $request, $itemId)
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $item = Item::findOrFail($itemId);
         $payment = $request->input('payment');
 
+        //stripe checkoutの処理
         $session = Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [[
@@ -103,12 +70,61 @@ class PurchaseController extends Controller
             'cancel_url' => route('purchase.cancel'),
         ]);
 
+        //セッションに保存する
+        $user = Auth::user();
+        $address = $request->session()->get('addressData', [
+            'zip_code' => $user->profile->zip_code,
+            'address' => $user->profile->address,
+            'building' => $user->profile->building
+        ]);
+        session([
+            'purchased_item_id' => $itemId,
+            'purchased_payment' => $payment,
+            'purchased_address' => $address
+        ]);
+
         return redirect($session->url);
     }
 
     //stripe checkoutで決済完了後に表示
-    public function success()
+    public function success(Request $request)
     {
+        //セッションから取得する
+        $itemId = session('purchased_item_id');
+        $payment = session('purchased_payment');
+        $address = session('purchased_address');
+
+        if (!$itemId || !$payment || !$address) {
+            return redirect('/')->with('error', '購入情報が見つかりませんでした');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            Purchase::create([
+                'user_id' => Auth::id(),
+                'item_id' => $itemId,
+                'payment' => $payment,
+                'zip_code' => $address['zip_code'],
+                'address' => $address['address'],
+                'building' => $address['building']
+            ]);
+
+            Item::find($itemId)->update(['status' => "sold"]);
+
+            DB::commit();
+
+            session()->forget([
+                'purchased_item_id',
+                'purchased_payment',
+                'purchased_address'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('決済後の保存処理中にエラー：' . $e->getMessage());
+            return redirect('/')->with('error', '購入情報の保存に失敗しました');
+        }
+
         return view('purchase.success');
     }
 

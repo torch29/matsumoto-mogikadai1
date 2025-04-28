@@ -4,11 +4,13 @@
 .address__content {
     width: 60%;
     max-width: 60%;
-    margin: 0 auto;
+    margin: auto;
 }
 
 .section__title{
     text-align: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
 }
 
 .register-form,
@@ -38,7 +40,7 @@
 .login-form__button,
 .profile-form__button,
 .address-form__button {
-    margin-top: 50px;
+    margin-top: 60px;
     margin-bottom: 20px;
 }
 .register-form__button-submit,

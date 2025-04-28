@@ -6,6 +6,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,10 @@ Route::middleware('auth')->group(function () {
     //配送先変更画面
     Route::get('/purchase/address/{id}', [PurchaseController::class, 'changeAddress']);
     Route::post('/purchase/address/{id}', [PurchaseController::class, 'saveShippingAddress']);
+    Route::get('payment', function () {
+        return view('payment');
+    });
+    Route::post('payment', [StripeController::class, 'payment']);
 
     //マイページとプロフィールページのグループ
     Route::prefix('mypage')->group(function () {

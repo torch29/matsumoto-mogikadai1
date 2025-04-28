@@ -16,7 +16,8 @@
                 <p>￥ {{ number_format($item->price) }}</p>
             </div>
         </div>
-        <form action="/purchase/{{ $item->id }}" class="confirm-form" method="post">
+        {{--<form action="/purchase/{{ $item->id }}" class="confirm-form" method="post">--}}
+        <form action="{{ route('purchase.checkout', ['itemId' => $item->id]) }}" method="POST">
             @csrf
             <div class="purchase-content__payment">
                 <p class="purchase-content__label">
@@ -78,6 +79,11 @@
                 @endif
             </div>
             </form>
+            @if ($errors->any())
+            @foreach ($errors->all() as $error)
+            <div class="error">{{ $error }}</div>
+            @endforeach
+            @endif
         </div>
     </div>
 </div>

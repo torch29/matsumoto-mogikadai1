@@ -39,10 +39,17 @@ Route::middleware('auth')->group(function () {
     //配送先変更画面
     Route::get('/purchase/address/{id}', [PurchaseController::class, 'changeAddress']);
     Route::post('/purchase/address/{id}', [PurchaseController::class, 'saveShippingAddress']);
-    Route::get('payment', function () {
-        return view('payment');
-    });
-    Route::post('payment', [StripeController::class, 'payment']);
+    //stripe checkout関連
+    //Route::get('payment', function () {
+    //    return view('payment');});
+    //Route::post('payment', [StripeController::class, 'payment']);
+    Route::post('/purchase/checkout/{itemId}', [PurchaseController::class, 'checkout'])->name('purchase.checkout');
+    Route::get('/purchase/success', function () {
+        return view('purchase.success'); // 成功画面を後で作る
+    })->name('purchase.success');
+    Route::get('/purchase/cancel', function () {
+        return view('purchase.cancel'); // キャンセル画面を後で作る
+    })->name('purchase.cancel');
 
     //マイページとプロフィールページのグループ
     Route::prefix('mypage')->group(function () {

@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Http\Requests\PurchaseRequest;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class PurchaseController extends Controller
 {
@@ -27,7 +30,7 @@ class PurchaseController extends Controller
         return view('purchase', compact('item', 'payments', 'profile', 'address'));
     }
 
-    public function decidePurchase(Request $request)
+    public function decidePurchase(PurchaseRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -73,5 +76,33 @@ class PurchaseController extends Controller
         $request->session()->put('addressData', $addressData);
 
         return redirect('purchase/' . $id);
+    }
+
+    //stripe checkoutへ遷移する
+    public function checkout(PurchaseRequest $request, $itemId)
+    {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $item = Item::findOrFail($itemId);
+        $payment = $request->input('payment');
+
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $item->name,
+                    ],
+                    'unit_amount' => $item->price,
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('purchase.success'),
+            'cancel_url' => route('purchase.cancel'),
+        ]);
+
+        return redirect($session->url);
     }
 }

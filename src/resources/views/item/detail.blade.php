@@ -81,6 +81,23 @@
                 </div>
             </div>
             <div class="item__content-comment">
+                <div class="item__content-label">商品へのコメント
+                </div>
+                <form action="/comment" class="item__comment-form" method="post">
+                    @csrf
+                    <div class="item__content-item">
+                        <textarea name="comment" class="item__content-textarea">{{ old('comment') }}</textarea>
+                    </div>
+                    <div class="item__content-button">
+                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                        <button class="item__content-button--submit">コメントを送信する</button>
+                        <div class="form__error">
+                            @error('comment')
+                            {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                </form>
                 <h3 class="item__content-label">
                     コメント ( {{ count($item->comments) }} )
                 </h3>
@@ -99,23 +116,6 @@
                     </div>
                     @endforeach
                 </div>
-                <div class="item__content-label">商品へのコメント
-                </div>
-                <form action="/comment" class="item__comment-form" method="post">
-                    @csrf
-                    <div class="item__content-item">
-                        <textarea name="comment" class="item__content-textarea">{{ old('comment') }}</textarea>
-                    </div>
-                    <div class="item__content-button">
-                        <input type="hidden" name="item_id" value="{{ $item->id }}">
-                        <button class="item__content-button--submit">コメントを送信する</button>
-                        <div class="form__error">
-                            @error('comment')
-                            {{ $message }}
-                            @enderror
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

@@ -10,8 +10,8 @@ class Purchase extends Model
     use HasFactory;
 
     const PAYMENTS = [
-        1 => 'コンビニ払い',
-        2 => 'カード支払い'
+        'konbini' => 'コンビニ払い',
+        'card' => 'カード支払い'
     ];
 
     public static function getPayments()

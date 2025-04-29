@@ -62,24 +62,45 @@
     </div>
 </div>
 <script>
-    const buttons = document.querySelectorAll('.main-tab__button');
-    const contents = document.querySelectorAll('.tab-panel');
+    const isLoggedIn = @json(Auth::check());
 
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            const tab = button.getAttribute('data-tab');
+    window.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.main-tab__button');
+        const contents = document.querySelectorAll('.tab-panel');
 
-            //すべてのボタンからactiveを外す
-            buttons.forEach(btn => btn.classList.remove('active'));
-            //クリックされたボタンにactiveをつける
-            button.classList.add('active');
+        // 全部activeを外す＆非表示にする
+        buttons.forEach(btn => btn.classList.remove('active'));
+        contents.forEach(content => content.style.display = 'none');
 
-            contents.forEach(content => {
-                if (content.id === tab) {
-                    content.style.display = 'block';
-                } else {
-                    content.style.display = 'none';
-                }
+        // デフォルトのタブの表示の処理
+        let defaultTab = 'all';
+        if (isLoggedIn) {
+            defaultTab = 'myList';
+        }
+
+        const targetButton = document.querySelector(`.main-tab__button[data-tab="${defaultTab}"]`);
+        const targetContent = document.getElementById(defaultTab);
+
+        if (targetButton && targetContent) {
+            targetButton.classList.add('active');
+            targetContent.style.display = 'block';
+        }
+
+        // タブの切り替え
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tab = button.getAttribute('data-tab');
+
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                contents.forEach(content => {
+                    if (content.id === tab) {
+                        content.style.display = 'block';
+                    } else {
+                        content.style.display = 'none';
+                    }
+                });
             });
         });
     });

@@ -52,6 +52,21 @@ class PurchaseController extends Controller
         $item = Item::findOrFail($itemId);
         $payment = $request->input('payment');
 
+        //セッションに保存する
+        $user = Auth::user();
+        $address = $request->session()->get('addressData', [
+            'zip_code' => $user->profile->zip_code,
+            'address' => $user->profile->address,
+            'building' => $user->profile->building
+        ]);
+        session([
+            'purchased_item_id' => $itemId,
+            'purchased_payment' => $payment,
+            'purchased_address' => $address
+        ]);
+
+        $paymentMethods = $payment === 'card' ? ['card'] : ['konbini'];
+
         //stripe checkoutの処理
         $session = Session::create([
             'payment_method_types' => ['card'],
@@ -68,19 +83,6 @@ class PurchaseController extends Controller
             'mode' => 'payment',
             'success_url' => route('purchase.success'),
             'cancel_url' => route('purchase.cancel'),
-        ]);
-
-        //セッションに保存する
-        $user = Auth::user();
-        $address = $request->session()->get('addressData', [
-            'zip_code' => $user->profile->zip_code,
-            'address' => $user->profile->address,
-            'building' => $user->profile->building
-        ]);
-        session([
-            'purchased_item_id' => $itemId,
-            'purchased_payment' => $payment,
-            'purchased_address' => $address
         ]);
 
         return redirect($session->url);

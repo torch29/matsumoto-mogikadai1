@@ -68,3 +68,9 @@
     text-align: center;
 }
 
+.tab-panel__message {
+    text-align: center;
+    padding: 20px;
+    color: #000;
+}
+

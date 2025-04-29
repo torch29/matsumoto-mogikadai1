@@ -59,17 +59,10 @@ class PurchaseController extends Controller
             'address' => $user->profile->address,
             'building' => $user->profile->building
         ]);
-        session([
-            'purchased_item_id' => $itemId,
-            'purchased_payment' => $payment,
-            'purchased_address' => $address
-        ]);
-
-        $paymentMethods = $payment === 'card' ? ['card'] : ['konbini'];
 
         //stripe checkoutの処理
         $session = Session::create([
-            'payment_method_types' => ['card', 'konbini'],
+            'payment_method_types' => [$payment],  //'card', 'konbini'から変更
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',
@@ -85,6 +78,29 @@ class PurchaseController extends Controller
             'cancel_url' => route('purchase.cancel'),
         ]);
 
+        if ($payment === 'konbini') {
+            DB::transaction(function () use ($item, $user, $address, $payment) {
+                Purchase::create([
+                    'item_id' => $item->id,
+                    'user_id' => $user->id,
+                    'payment' => $payment,
+                    'zip_code' => $address['zip_code'],
+                    'address' => $address['address'],
+                    'building' => $address['building'],
+                ]);
+
+                $item->update(['status' => 'pending']);
+            });
+            return view('purchase.konbini', ['checkoutUrl' => $session->url]);
+        }
+
+        session([
+            'purchased_item_id' => $item->id,
+            'purchased_payment' => $payment,
+            'purchased_address' => $address
+        ]);
+
+        //カード支払いを選択した場合のリダイレクト
         return redirect($session->url);
     }
 
@@ -103,24 +119,27 @@ class PurchaseController extends Controller
         try {
             DB::beginTransaction();
 
-            Purchase::create([
-                'user_id' => Auth::id(),
-                'item_id' => $itemId,
-                'payment' => $payment,
-                'zip_code' => $address['zip_code'],
-                'address' => $address['address'],
-                'building' => $address['building']
-            ]);
+            if ($payment === 'card') {
 
-            Item::find($itemId)->update(['status' => "sold"]);
+                Purchase::create([
+                    'user_id' => Auth::id(),
+                    'item_id' => $itemId,
+                    'payment' => $payment,
+                    'zip_code' => $address['zip_code'],
+                    'address' => $address['address'],
+                    'building' => $address['building']
+                ]);
 
-            DB::commit();
+                Item::find($itemId)->update(['status' => "sold"]);
+            }
 
             session()->forget([
                 'purchased_item_id',
                 'purchased_payment',
                 'purchased_address'
             ]);
+
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('決済後の保存処理中にエラー：' . $e->getMessage());

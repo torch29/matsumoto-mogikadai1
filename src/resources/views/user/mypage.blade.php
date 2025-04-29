@@ -55,18 +55,11 @@
             @foreach ($purchasedItems as $purchasedItem)
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
-                    @if($purchasedItem->purchasedItem->status == 'available')
+                    {{--@if($purchasedItem->purchasedItem->status == 'available')--}}
                     <a href="/item/{{ $purchasedItem->id }}">
                         <img src="{{ $purchasedItem->purchasedItem->img_path }}" class="item-card__content--img" alt="商品画像">
                         <p>{{ $purchasedItem->purchasedItem->name }}</p>
                     </a>
-                    @else
-                    <a href="/item/{{ $purchasedItem->purchasedItem->id }}">
-                        <img src="{{ $purchasedItem->purchasedItem->img_path }}" class="item-card__content--sold-img" alt="商品画像">
-                        <div class="item-sold">sold</div>
-                        <p>{{ $purchasedItem->purchasedItem->name }}</p>
-                    </a>
-                    @endif
                 </div>
             </li>
             @endforeach

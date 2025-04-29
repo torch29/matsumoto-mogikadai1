@@ -69,7 +69,7 @@ class PurchaseController extends Controller
 
         //stripe checkoutの処理
         $session = Session::create([
-            'payment_method_types' => ['card'],
+            'payment_method_types' => ['card', 'konbini'],
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',

@@ -6,7 +6,6 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,19 +32,13 @@ Route::middleware('auth')->group(function () {
     //商品出品画面の表示と出品
     Route::get('/sell', [ItemController::class, 'sell']);
     Route::post('/sell', [ItemController::class, 'store']);
-    //stripe checkoutで成功・キャンセル時の表示
-    Route::get('/purchase/success', [PurchaseController::class, 'success'])->name('purchase.success'); //成功時
-    Route::get('/purchase/cancel', [PurchaseController::class, 'cancel'])->name('purchase.cancel'); //キャンセル時
     //商品購入画面の表示
     Route::get('/purchase/{id}', [PurchaseController::class, 'purchase']);
     Route::post('/purchase/{id}', [PurchaseController::class, 'decidePurchase']);
     //配送先変更画面
     Route::get('/purchase/address/{id}', [PurchaseController::class, 'changeAddress']);
     Route::post('/purchase/address/{id}', [PurchaseController::class, 'saveShippingAddress']);
-    //stripe checkout関連
-    //Route::get('payment', function () {
-    //    return view('payment');});
-    //Route::post('payment', [StripeController::class, 'payment']);
+    // stripe checkoutへ遷移して決済する
     Route::post('/purchase/checkout/{itemId}', [PurchaseController::class, 'decidePurchase'])->name('purchase.checkout');
 
     //マイページとプロフィールページのグループ

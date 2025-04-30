@@ -16,7 +16,6 @@
                 <p>￥ {{ number_format($item->price) }}</p>
             </div>
         </div>
-        {{--<form action="/purchase/{{ $item->id }}" class="confirm-form" method="post">--}}
         <form action="{{ route('purchase.checkout', ['itemId' => $item->id]) }}" method="POST">
             @csrf
             <div class="purchase-content__payment">

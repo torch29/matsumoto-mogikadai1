@@ -27,13 +27,13 @@ class PurchaseController extends Controller
             'building' => $profile->building
         ]);
 
-        return view('purchase', compact('item', 'payments', 'profile', 'address'));
+        return view('item.purchase.checkout', compact('item', 'payments', 'profile', 'address'));
     }
 
     public function changeAddress($id)
     {
         $item = Item::find($id);
-        return view('purchase.change_address', compact('item'));
+        return view('item.purchase.change_address', compact('item'));
     }
 
     public function saveShippingAddress(Request $request, $id)

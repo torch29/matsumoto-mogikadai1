@@ -55,8 +55,7 @@
             @foreach ($purchasedItems as $purchasedItem)
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
-                    {{--@if($purchasedItem->purchasedItem->status == 'available')--}}
-                    <a href="/item/{{ $purchasedItem->id }}">
+                    <a href="/item/{{ $purchasedItem->purchasedItem->id }}">
                         <img src="{{ $purchasedItem->purchasedItem->img_path }}" class="item-card__content--img" alt="商品画像">
                         <p>{{ $purchasedItem->purchasedItem->name }}</p>
                     </a>

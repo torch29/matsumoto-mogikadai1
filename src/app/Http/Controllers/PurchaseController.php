@@ -21,7 +21,7 @@ class PurchaseController extends Controller
         $user = Auth::user();
         $profile = $user->profile;
 
-        $address = session()->get('addressData', [
+        $address = session()->get("addressData_{$id}", [
             'zip_code' => $profile->zip_code,
             'address' => $profile->address,
             'building' => $profile->building
@@ -39,7 +39,7 @@ class PurchaseController extends Controller
     public function saveShippingAddress(Request $request, $id)
     {
         $addressData = $request->only(['zip_code', 'address', 'building']);
-        $request->session()->put('addressData', $addressData);
+        $request->session()->put("addressData_{$id}", $addressData);
 
         return redirect('purchase/' . $id);
     }
@@ -49,12 +49,12 @@ class PurchaseController extends Controller
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $item = Item::findOrFail($itemId);
+        $item = Item::find($itemId);
         $payment = $request->input('payment');
 
         //セッションに保存する
         $user = Auth::user();
-        $address = $request->session()->get('addressData', [
+        $address = $request->session()->get("addressData_{$itemId}", [
             'zip_code' => $user->profile->zip_code,
             'address' => $user->profile->address,
             'building' => $user->profile->building

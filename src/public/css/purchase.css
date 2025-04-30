@@ -32,8 +32,11 @@
     border-bottom: #000 1px solid;
     padding-bottom: 20px;
 }
-.purchase-content__send {
+.purchase-content__send{
     border-bottom: #000 1px solid;
+    padding-bottom: 15px;
+}
+.purchase-content__send-inner {
     display: flex;
 }
 .purchase-content__address {
@@ -80,4 +83,13 @@
     height: 30px;
     cursor: pointer;
     margin-top: 30px;
+}
+
+.form__error {
+    padding-top: 15px;
+    color: #D30909;
+}
+.form__error p {
+    padding: 0;
+    margin: 0;
 }

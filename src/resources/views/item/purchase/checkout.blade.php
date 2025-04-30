@@ -19,31 +19,50 @@
         <form action="{{ route('purchase.checkout', ['itemId' => $item->id]) }}" method="POST">
             @csrf
             <div class="purchase-content__payment">
-                <p class="purchase-content__label">
-                    支払方法
-                </p>
-                <select name="payment" class="purchase-content__payment-select">
-                    <option value="" selected>選択してください</option>
-                    @foreach ($payments as $key => $payment)
-                    <option value="{{ $key }}">{{ $payment }}</option>
-                    @endforeach
-                </select>
+                <div class="purchase-content__payment-inner">
+                    <p class="purchase-content__label">
+                        支払方法
+                    </p>
+                    <select name="payment" class="purchase-content__payment-select">
+                        <option value="" selected>選択してください</option>
+                        @foreach ($payments as $key => $payment)
+                        <option value="{{ $key }}">{{ $payment }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form__error">
+                    @error('payment')
+                    {{ $message }}
+                    @enderror
+                </div>
             </div>
             <div class="purchase-content__send">
-                <div class="purchase-content__address">
-                    <p class="purchase-content__address-label">配送先</p>
-                    <p>〒{{ $address['zip_code'] }}</p>
-                    <input type="hidden" name="zip_code" value="{{ $address['zip_code'] }}">
-                    <p>{{ $address['address'] }}</p>
-                    <input type="hidden" name="address" value="{{ $address['address'] }}">
-                    <p>{{ $address['building'] }}</p>
-                    <input type="hidden" name="building" value="{{ $address['building'] }}">
+                <div class="purchase-content__send-inner">
+                    <div class="purchase-content__address">
+                        <p class="purchase-content__address-label">配送先</p>
+                        <p>〒{{ $address['zip_code'] }}</p>
+                        <input type="hidden" name="zip_code" value="{{ $address['zip_code'] }}">
+                        <p>{{ $address['address'] }}</p>
+                        <input type="hidden" name="address" value="{{ $address['address'] }}">
+                        <p>{{ $address['building'] }}</p>
+                        <input type="hidden" name="building" value="{{ $address['building'] }}">
+                    </div>
+                    <div class="purchase-content__change-address">
+                        @if( $item->user_id == Auth::id() )
+                        @else
+                        <a href=" /purchase/address/{{ $item->id }}" class="purchase-content__link">変更する</a>
+                        @endif
+                    </div>
                 </div>
-                <div class="purchase-content__change-address">
-                    @if( $item->user_id == Auth::id() )
-                    @else
-                    <a href=" /purchase/address/{{ $item->id }}" class="purchase-content__link">変更する</a>
-                    @endif
+                <div class="form__error">
+                    <p>@error('zip_code')
+                        {{ $message }}
+                        @enderror
+                    </p>
+                    <p>@error('address')
+                        {{ $message }}
+                        @enderror
+                    </p>
                 </div>
             </div>
     </div>
@@ -80,7 +99,9 @@
             </form>
             @if ($errors->any())
             @foreach ($errors->all() as $error)
-            <div class="error">{{ $error }}</div>
+            <div class="error">
+                {{ $error }}
+            </div>
             @endforeach
             @endif
         </div>

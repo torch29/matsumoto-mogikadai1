@@ -24,7 +24,7 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'payment' => ['required', ],
+            'payment' => ['required',],
             'zip_code' => ['required'],
             'address' => ['required']
         ];
@@ -34,8 +34,8 @@ class PurchaseRequest extends FormRequest
     {
         return [
             'payment.required' => '支払い方法を選択してください',
-            'zip_code' => '郵便番号を入力してください',
-            'address' => '配送先の住所を入力してください'
+            'zip_code.required' => '郵便番号を入力してください',
+            'address.required' => '配送先の住所を入力してください'
         ];
     }
 }

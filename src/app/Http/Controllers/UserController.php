@@ -108,6 +108,8 @@ class UserController extends Controller
 
                 session()->forget(['purchased_item_id', 'purchased_payment', 'purchased_address']);
 
+                session()->forget("addressData_{$itemId}");
+
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();

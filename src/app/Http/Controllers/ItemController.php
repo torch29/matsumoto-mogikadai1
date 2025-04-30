@@ -62,7 +62,12 @@ class ItemController extends Controller
 
     public function detail($id)
     {
-        $item = Item::with(['comments.user.profile'])->find($id);
+        $item = Item::with([
+            'comments' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            },
+            'comments.user.profile'
+        ])->find($id);
         $categories = Item::with('categories')->get();
 
         return view('item.detail', compact('item', 'categories'));

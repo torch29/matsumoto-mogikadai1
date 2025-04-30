@@ -28,6 +28,11 @@ class CreateCategoryItemTable extends Migration
      */
     public function down()
     {
+        Schema::table('category_item', function (Blueprint $table) {
+            $table->dropForeign(['item_id']);
+            $table->dropForeign(['category_id']);
+        });
+
         Schema::dropIfExists('category_item');
     }
 }

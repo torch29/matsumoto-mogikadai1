@@ -41,7 +41,6 @@
     <div class="tab-panel" id="myList" style="display: none;">
         <ul class="item-card__content">
             @forelse($myLists as $myList)
-            @foreach($myLists as $myList)
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
                     @if($myList->status == 'available')
@@ -58,7 +57,6 @@
                     @endif
                 </div>
             </li>
-            @endforeach
             @empty
             <div class="tab-panel__message">
                 いいねをした商品がこちらに表示されます

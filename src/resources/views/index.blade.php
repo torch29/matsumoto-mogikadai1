@@ -68,7 +68,7 @@
     </div>
 </div>
 <script>
-    const isLoggedIn = @json(Auth::check());
+    const isLoggedIn = @js(Auth::check());
 
     window.addEventListener('DOMContentLoaded', function() {
         const buttons = document.querySelectorAll('.main-tab__button');

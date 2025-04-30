@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\Purchase;
 use App\Models\Profile;
 
 class UserController extends Controller
@@ -81,12 +84,45 @@ class UserController extends Controller
         return redirect('/mypage/profile');
     }
 
-    public function showMypage()
+    public function showMypage(Request $request)
     {
+        // もし購入処理セッションを持った状態なら、テーブルへの保存と更新の処理
+        if (session()->has('purchased_item_id')) {
+            try {
+                DB::beginTransaction();
+
+                $itemId = session('purchased_item_id');
+                $payment = session('purchased_payment');
+                $address = session('purchased_address');
+
+                Purchase::create([
+                    'user_id' => Auth::id(),
+                    'item_id' => $itemId,
+                    'payment' => $payment,
+                    'zip_code' => $address['zip_code'],
+                    'address' => $address['address'],
+                    'building' => $address['building']
+                ]);
+
+                Item::find($itemId)->update(['status' => 'sold']);
+
+                session()->forget(['purchased_item_id', 'purchased_payment', 'purchased_address']);
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('detail内の決済後処理エラー：' . $e->getMessage());
+                // dd($e->getMessage());
+            }
+        }
+
         $user = Auth::user();
         $sellItems = $user->items;
         $purchasedItems = $user->purchases()->with('purchasedItem')->get();
 
-        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems'));
+        $konbiniCheckoutUrl = session('konbini_checkout_url');
+        session()->forget('konbini_checkout_url');
+
+        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems', 'konbiniCheckoutUrl'));
     }
 }

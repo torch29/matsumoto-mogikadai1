@@ -33,7 +33,7 @@ class PurchaseController extends Controller
     public function changeAddress($id)
     {
         $item = Item::find($id);
-        return view('change_address', compact('item'));
+        return view('purchase.change_address', compact('item'));
     }
 
     public function saveShippingAddress(Request $request, $id)
@@ -62,7 +62,7 @@ class PurchaseController extends Controller
 
         //stripe checkoutの処理
         $session = Session::create([
-            'payment_method_types' => [$payment],  //'card', 'konbini'から変更
+            'payment_method_types' => [$payment],  //プルダウンで選択された 'card', 'konbini'を送信
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',
@@ -74,8 +74,8 @@ class PurchaseController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('purchase.success'),
-            'cancel_url' => route('purchase.cancel'),
+            'success_url' => url('/mypage?tab=buy'),
+            'cancel_url' => url("/item/{$item->id}"),
         ]);
 
         if ($payment === 'konbini') {
@@ -91,7 +91,12 @@ class PurchaseController extends Controller
 
                 $item->update(['status' => 'pending']);
             });
-            return view('purchase.konbini', ['checkoutUrl' => $session->url]);
+
+            session([
+                'konbini_checkout_url' => $session->url
+            ]);
+
+            return redirect('/mypage?tab=buy');
         }
 
         session([
@@ -102,51 +107,6 @@ class PurchaseController extends Controller
 
         //カード支払いを選択した場合のリダイレクト
         return redirect($session->url);
-    }
-
-    //stripe checkoutで決済完了後に表示
-    public function success(Request $request)
-    {
-        //セッションから取得する
-        $itemId = session('purchased_item_id');
-        $payment = session('purchased_payment');
-        $address = session('purchased_address');
-
-        if (!$itemId || !$payment || !$address) {
-            return redirect('/')->with('error', '購入情報が見つかりませんでした');
-        }
-
-        try {
-            DB::beginTransaction();
-
-            if ($payment === 'card') {
-
-                Purchase::create([
-                    'user_id' => Auth::id(),
-                    'item_id' => $itemId,
-                    'payment' => $payment,
-                    'zip_code' => $address['zip_code'],
-                    'address' => $address['address'],
-                    'building' => $address['building']
-                ]);
-
-                Item::find($itemId)->update(['status' => "sold"]);
-            }
-
-            session()->forget([
-                'purchased_item_id',
-                'purchased_payment',
-                'purchased_address'
-            ]);
-
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error('決済後の保存処理中にエラー：' . $e->getMessage());
-            return redirect('/')->with('error', '購入情報の保存に失敗しました');
-        }
-
-        return view('purchase.success');
     }
 
     public function cancel()

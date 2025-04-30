@@ -67,6 +67,7 @@
     </div>
 </div>
 <script>
+    window.open(@json($konbiniCheckoutUrl), '_blank');
     // URLのパラメータを取得
     const urlParams = new URLSearchParams(window.location.search);
     // デフォルトはsellタブ

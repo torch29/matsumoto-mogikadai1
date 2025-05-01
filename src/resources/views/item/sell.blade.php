@@ -25,8 +25,12 @@
             <label class="sell-form__item-label">カテゴリー</label>
             <div class="sell-form__category-area">
                 @foreach ($categories as $category)
-                <input type="checkbox" name="category_ids[]" class="sell-form__category-checkbox" value="{{ $category->id }}" id="category_{{ $category->id }}">
-                <label for="category_{{ $category->id }}">{{ $category['content'] }}</label>
+                <label for="category_{{ $category->id }}" class="sell-form__category-label">
+                    <input type="checkbox" name="category_ids[]" class="sell-form__category-checkbox" value="{{ $category->id }}" id="category_{{ $category->id }}">
+                    <span>
+                        {{ $category['content'] }}
+                    </span>
+                </label>
                 @endforeach
             </div>
         </div>

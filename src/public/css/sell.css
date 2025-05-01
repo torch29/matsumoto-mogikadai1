@@ -19,6 +19,23 @@
     border-bottom: 1px solid #888;
 }
 
+.sell-form__category-checkbox {
+    display: none;
+}
+.sell-form__category-label {
+    margin: 5px;
+}
+.sell-form__category-label span {
+    border: #888 1px solid;
+    border-radius: 20px;
+    padding: 0 10px;
+}
+.sell-form__category-checkbox:checked + span {
+    color: #fff;
+    background-color: #888;
+    border: #888 1px solid;
+}
+
 .sell-form__item-label {
     display: block;
     font-weight: bold;

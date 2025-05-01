@@ -66,7 +66,7 @@
     </div>
 </div>
 <script>
-    const konbiniCheckoutUrl = @json($konbiniCheckoutUrl);
+    const konbiniCheckoutUrl = @js($konbiniCheckoutUrl);
     if (konbiniCheckoutUrl) {
         window.open(konbiniCheckoutUrl, '_blank');
     }

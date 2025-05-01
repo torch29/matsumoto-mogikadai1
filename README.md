@@ -18,7 +18,7 @@
 4. .env 内ファイルを開き、
    - DB_HOST=127.0.0.1 を DB_HOST=mysql に変更する。
    - DB_DATABASE, DB_USERNAME, DB_PASSWORD を任意に変更する。
-     （例えば、以下のとおり）
+     （例）
      ```
      DB_DATABASE=laravel_db
      DB_USERNAME=laravel_user

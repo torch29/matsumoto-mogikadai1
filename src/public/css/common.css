@@ -11,7 +11,7 @@
     align-items: center;
     height: 50px;
     width: 100%;
-    padding: 0 5px;
+    padding: 0 10px;
 }
 .header__title-img {
     width: 200px;
@@ -37,6 +37,7 @@ a {
 .search-form__input {
     padding-left: 15px;
     height: 25px;
+    width: 250px;
 }
 .search-form__button--hidden {
     display: none;
@@ -62,5 +63,5 @@ a {
     border: none;
     cursor: pointer;
     vertical-align: top;
-    padding: 0 5px;
+    padding: 0 15px;
 }

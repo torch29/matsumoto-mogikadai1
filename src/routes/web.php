@@ -20,6 +20,12 @@ use App\Http\Controllers\FavoriteController;
 |
 */
 
+
+//あとでけす
+Route::get('verify', function () {
+    return view('user.verify');
+});
+
 // メール認証
 Route::get('/email/verify', function () {
     return view('user.verify');

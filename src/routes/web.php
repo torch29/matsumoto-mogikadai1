@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ItemController;
@@ -28,6 +29,9 @@ Route::get('verify', function () {
 
 // メール認証
 Route::get('/email/verify', function () {
+    if (Auth::check() && Auth::user()->hasVerifiedEmail()) {
+        return redirect('/');
+    }
     return view('user.verify');
 })->middleware('auth')->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {

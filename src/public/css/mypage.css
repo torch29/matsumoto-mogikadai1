@@ -112,6 +112,10 @@
     position: relative;
     overflow-x: hidden;
 }
+.item-card__content-inner a,
+.item-card__content-inner a:visited {
+    color: #000;
+}
 .item-card__content--sold-img {
     height: auto;
     width: 100%;

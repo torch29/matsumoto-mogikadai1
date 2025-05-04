@@ -3,8 +3,8 @@
 .profile__content,
 .address__content,
 .verify__content {
-    width: 60%;
-    max-width: 60%;
+    width: 50%;
+    max-width: 50%;
     margin: auto;
 }
 .verify__content {
@@ -139,4 +139,46 @@
     margin-top: 10px;
     margin-bottom: 20px;
     color: #D30909;
+}
+
+/*画像選択ボタン*/
+.profile-form__img-wrapper {
+    align-content: center;
+}
+.profile-form__img-button {
+    display: none;
+}
+.profile-form__img-button--label {
+    background-color: #fff;
+    border: #FF5655 solid 2px;
+    border-radius: 5px;
+    color: #FF5655;
+    padding: 3px 6px;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .register__content,
+    .login__content,
+    .profile__content,
+    .address__content,
+    .verify__content {
+        width: 60%;
+        max-width: 60%;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .register__content,
+    .login__content,
+    .profile__content,
+    .address__content,
+    .verify__content {
+        width: 60%;
+        max-width: 60%;
+        margin: auto;
+    }
 }

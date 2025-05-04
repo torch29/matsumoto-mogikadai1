@@ -11,7 +11,7 @@
     text-align: center;
     align-content: center;
 }
-/*画像選択ボタンあとで変更する*/
+/*画像選択ボタン*/
 .sell-form__img-button {
     display: none;
 }

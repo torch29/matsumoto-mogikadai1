@@ -14,10 +14,10 @@
         <label for="zip_code" class="address-form__item-label">郵便番号</label>
         <input type="text" name="zip_code" id="zip_code" class="address-form__item-input"
             value="{{ old('zip_code', session("addressData_{$item->id}.zip_code")) }}" required>
-        <label for="address">住所</label> class="address-form__item-label">
+        <label for="address" class="address-form__item-label">住所</label>
         <input type="text" name="address" id="address" class="address-form__item-input"
             value="{{ old('address', session("addressData_{$item->id}.address")) }}">
-        <label for="building">建物名</label> class="address-form__item-label">
+        <label for="building" class="address-form__item-label">建物名</label>
         <input type="text" name="building" id="building" class="address-form__item-input" value="{{ old('building', session("addressData_{$item->id}.building")) }}">
         <div class="address-form__button">
 

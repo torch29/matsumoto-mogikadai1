@@ -14,15 +14,17 @@
         <div class="profile-form__img-area">
             <div class="profile-form__img">
                 @if ($user->profile && $user->profile->profile_img)
-                <img src="{{ asset( $user->profile->profile_img ) }}" alt="商品画像">
+                <img src="{{ asset( $user->profile->profile_img ) }}" alt="プロフィール画像">
                 {{--<p class="profile-form__img--circle"></p>--}}
                 @else
                 @endif
             </div>
-            <label for="profile_img" class="profile-form__img-button--label">
-                画像を選択する
-                <input type="file" name="profile_img" id="profile_img" class="profile-form__img-button">
-            </label>
+            <div class="profile-form__img-wrapper">
+                <label for="profile_img" class="profile-form__img-button--label">
+                    画像を選択する
+                    <input type="file" name="profile_img" id="profile_img" class="profile-form__img-button">
+                </label>
+            </div>
         </div>
         <label for="name" class="profile-form__item-label">
             ユーザー名

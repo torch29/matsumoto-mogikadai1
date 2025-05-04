@@ -25,23 +25,27 @@
             <label class="sell-form__item-label">カテゴリー</label>
             <div class="sell-form__category-area">
                 @foreach ($categories as $category)
-                <label for="category_{{ $category->id }}" class="sell-form__category-label">
-                    <input type="checkbox" name="category_ids[]" class="sell-form__category-checkbox" value="{{ $category->id }}" id="category_{{ $category->id }}">
-                    <span>
-                        {{ $category['content'] }}
-                    </span>
-                </label>
+                <div class="sell-form__label-wrapper">
+                    <label for="category_{{ $category->id }}" class="sell-form__category-label">
+                        <input type="checkbox" name="category_ids[]" class="sell-form__category-checkbox" value="{{ $category->id }}" id="category_{{ $category->id }}">
+                        <span>
+                            {{ $category['content'] }}
+                        </span>
+                    </label>
+                </div>
                 @endforeach
             </div>
         </div>
         <div class="sell-form__item">
             <label class="sell-form__item-label">商品の状態</label>
-            <select name="condition" id="" class="sell-form__item-select">
-                <option value="" selected>選択してください</option>
-                @foreach ($conditions as $key => $condition)
-                <option value="{{ $key }}">{{ $condition }}</option>
-                @endforeach
-            </select>
+            <div class="sell-form__select-wrapper">
+                <select name="condition" id="" class="sell-form__item-select">
+                    <option value="" selected>選択してください</option>
+                    @foreach ($conditions as $key => $condition)
+                    <option value="{{ $key }}">{{ $condition }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <div class="sell-form__item">
             <h3>商品名と説明</h3>

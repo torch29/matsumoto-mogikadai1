@@ -32,7 +32,6 @@
 
 .item__content{
     width: 40%;
-    background-color: #eee; /*あとでけす*/
     margin: 50px 20px;
 }
 
@@ -67,6 +66,7 @@
     border: none;
     outline: none;
     padding: 0;
+    background-color: #fff;
 }
 /* いいねをするアイコン */
 .fa-icon::before {
@@ -210,9 +210,35 @@
 
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .item__img-area {
-        width: 70%;
+        width: 40%;
+        margin: 50px 20px;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: hidden;
         text-align: center;
     }
+    .item__img {
+        width: 100%;
+        min-width: 150px;
+    }
+    .item__img--sold {
+        height: auto;
+        width: 100%;
+        min-width: 150px;
+    }
+    .item-sold {
+        background-color: #F55;
+        color: #fff;
+        position: absolute;
+        top: -30px;
+        left: -60px;
+        padding: 60px 40px 0 50px;
+        transform: rotate(-45deg);
+        text-align: center;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
     .item__content {
         width: 80%;
     }
@@ -220,7 +246,25 @@
 
 @media screen and (max-width: 767px) {
     .item__img-area {
-        width: 80%;
+        width: 50%;
+        position: relative;
+        overflow-x: hidden;
+        text-align: center;
+    }
+    .item__img--sold {
+        height: auto;
+        width: 100%;
+        min-width: 150px;
+    }
+
+    .item-sold {
+        background-color: #F55;
+        color: #fff;
+        position: absolute;
+        top: -30px;
+        left: -60px;
+        padding: 60px 40px 0 50px;
+        transform: rotate(-45deg);
         text-align: center;
     }
     .item__content {

@@ -27,21 +27,27 @@
     flex-wrap: wrap;
     padding-left: 20px;
     padding-right: 20px;
+    object-fit: cover;
 }
 /*<li>*/
 .item-card__content--list {
     margin: 20px;
-    background-color: #82BEB3; /*配置用の仮着色*/
     width: 20%;
     height: 20%;
     min-width: 150px;
     max-width: 300px;
+    object-fit: cover;
+}
+.item-card__content-inner {
+    object-fit: cover;
+    height: 100%;
 }
 .item-card__content--img {
-    height: auto;
+    height: 100%;
     width: 100%;
     min-width: 150px;
     max-width: 300px;
+    object-fit: cover;
 }
 .item-card__content--list p {
     margin: 0;
@@ -60,6 +66,7 @@
     min-width: 150px;
     max-width: 300px;
     filter: brightness(0.5);
+    object-fit: cover;
 }
 .item-sold {
     background-color: #F55;

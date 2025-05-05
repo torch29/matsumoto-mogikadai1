@@ -82,13 +82,13 @@
     padding: 20px;
     color: #000;
 }
-
+/*タブレットサイズ*/
 @media screen and (min-width: 768px) and (max-width: 851px) {
     .item-card__content--list {
         width: 50%;
     }
 }
-
+/*タブレット以下*/
 @media screen and (max-width: 768px) {
     .item-card__content--list {
         width: 85%;

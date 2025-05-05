@@ -123,7 +123,7 @@
     border-radius: 3px;
     cursor: pointer;
 }
-
+/*タブレットサイズ*/
 @media screen and (min-width: 768px) and (max-width: 851px) {
 
     .sell-content {
@@ -132,7 +132,7 @@
         margin: auto;
     }
 }
-
+/*タブレット以下*/
 @media screen and (max-width: 768px) {
 
     .sell-content {

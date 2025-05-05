@@ -105,7 +105,11 @@
                     @foreach ($item->comments as $comment)
                     <div class="view__comment-inner">
                         <div class="view__comment--icon">
+                            @if($comment->user->profile)
                             <img src="{{ asset( $comment->user->profile->profile_img) }}" alt="">
+                            @else
+                            <img src="" alt="No profile">
+                            @endif
                         </div>
                         <div class="view__comment--name">
                             {{ $comment->user->name }}

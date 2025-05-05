@@ -29,11 +29,18 @@ Route::get('verify', function () {
 
 // メール認証
 Route::get('/email/verify', function () {
+    return view('user.verify');
+})->middleware('auth')->name('verification.notice');
+
+/* メール認証何度も促すからさあ
+Route::get('/email/verify', function () {
     if (Auth::check() && Auth::user()->hasVerifiedEmail()) {
-        return redirect('/');
+        return redirect()->intended('/');
     }
     return view('user.verify');
 })->middleware('auth')->name('verification.notice');
+*/
+
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/mypage/profile');
@@ -49,7 +56,7 @@ Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{id}', [ItemController::class, 'detail']);
 
 //認証を要するルート
-Route::middleware('verified')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     //商品詳細画面からコメントをする
     Route::post('comment', [ItemController::class, 'postComment']);
     //商品詳細画面からいいね機能の利用

@@ -18,8 +18,8 @@
     margin: auto 0;
     overflow: hidden;
     position: relative;
-    min-width: 50px;
-    min-height: 50px;
+    min-width: 70px;
+    min-height: 70px;
     object-fit: cover;
 }
 .mypage-header__heading-icon img {
@@ -133,4 +133,37 @@
     padding: 60px 40px 0 50px;
     transform: rotate(-45deg);
     text-align: center;
+}
+/*タブレットサイズ*/
+@media screen and (min-width: 768px) and (max-width: 851px) {
+    .item-card__content--list {
+        width: 50%;
+    }
+    .mypage-header {
+        display: block;
+    }
+    .mypage-header__heading {
+        width: 100%;
+    }
+    .mypage-header__button {
+        margin-top: 10px;
+        justify-content: center;
+    }
+}
+
+/*タブレット以下*/
+@media screen and (max-width: 768px) {
+    .item-card__content--list {
+        width: 85%;
+    }
+    .mypage-header {
+        display: block;
+    }
+    .mypage-header__heading {
+        width: 100%;
+    }
+    .mypage-header__button {
+        margin-top: 10px;
+        justify-content: center;
+    }
 }

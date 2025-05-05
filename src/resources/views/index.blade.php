@@ -25,6 +25,8 @@
                         <img src="{{ $item->img_path }}" class="item-card__content--img" alt="商品画像">
                         <p>{{ $item->name }}</p>
                     </a>
+                    {{--@elseif( $purchasedItems->user_id == Auth::id() )
+                    購入した商品です--}}
                     @else
                     <a href="/item/{{ $item->id }}">
                         <img src="{{ $item->img_path }}" class="item-card__content--sold-img" alt="商品画像">

@@ -159,7 +159,7 @@
     margin-left: 10px;
 }
 
-@media screen and (min-width: 768px) and (max-width: 850px) {
+@media screen and (min-width: 768px) and (max-width: 851px) {
     .register__content,
     .login__content,
     .profile__content,
@@ -171,7 +171,7 @@
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     .register__content,
     .login__content,
     .profile__content,

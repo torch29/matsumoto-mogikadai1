@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\User;
+use App\Models\Purchase;
 use App\Http\Requests\CommentRequest;
 
 class ItemController extends Controller
@@ -28,7 +29,12 @@ class ItemController extends Controller
             ->get()
             : collect();
 
-        return view('index', compact('items', 'myLists', 'word'));
+        //ここを修正する
+        $purchasedItem = Purchase::where('user_id', Auth::id())->get();
+
+        //dump($purchasedItem);
+
+        return view('index', compact('items', 'myLists', 'word', 'purchasedItem'));
     }
 
     public function sell()

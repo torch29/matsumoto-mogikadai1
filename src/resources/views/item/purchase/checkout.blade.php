@@ -23,12 +23,14 @@
                     <p class="purchase-content__label">
                         支払方法
                     </p>
-                    <select name="payment" class="purchase-content__payment-select">
-                        <option value="" selected>選択してください</option>
-                        @foreach ($payments as $key => $payment)
-                        <option value="{{ $key }}">{{ $payment }}</option>
-                        @endforeach
-                    </select>
+                    <div class="purchase__select-wrapper">
+                        <select name="payment" class="purchase-content__payment-select">
+                            <option value="" selected>選択してください</option>
+                            @foreach ($payments as $key => $payment)
+                            <option value="{{ $key }}">{{ $payment }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="form__error">
                     @error('payment')

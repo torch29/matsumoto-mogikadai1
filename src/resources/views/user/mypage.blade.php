@@ -26,7 +26,6 @@
 <div class="mypage-content">
     {{-- ここから出品した商品の一覧 --}}
     <div class="tab-panel" id="sellItems">
-        出品した商品
         <ul class="item-card__content">
             @foreach ( $sellItems as $sellItem)
             <li class="item-card__content--list">
@@ -50,7 +49,6 @@
     </div>
     {{-- ここから購入した商品の一覧 --}}
     <div class="tab-panel" id="purchasedItems" style="display: none;">
-        購入した商品
         <ul class="item-card__content">
             @foreach ($purchasedItems as $purchasedItem)
             <li class="item-card__content--list">

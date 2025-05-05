@@ -28,10 +28,38 @@
 .purchase-content__head--info {
     width: 70%;
 }
+
 .purchase-content__payment {
     border-bottom: #000 1px solid;
     padding-bottom: 20px;
 }
+.purchase-content__payment option {
+    background-color: #6b6b6b;
+    color: #fff;
+}
+.purchase__select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+.purchase__select-wrapper::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: #888 transparent transparent transparent;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+}
+.purchase__select-wrapper select {
+    appearance: none;
+    cursor: pointer;
+    padding: 5px 20px 5px 10px;
+    border-radius: 4px;
+}
+
 .purchase-content__send{
     border-bottom: #000 1px solid;
     padding-bottom: 15px;

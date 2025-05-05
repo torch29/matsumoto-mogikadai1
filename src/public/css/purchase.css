@@ -4,7 +4,7 @@
     justify-content: center;
     margin-top: 50px;
 }
-.purchase-content{
+.purchase-content {
     width: 50%;
     margin-right: 50px;
 }
@@ -60,7 +60,7 @@
     border-radius: 4px;
 }
 
-.purchase-content__send{
+.purchase-content__send {
     border-bottom: #000 1px solid;
     padding-bottom: 15px;
 }
@@ -120,4 +120,48 @@
 .form__error p {
     padding: 0;
     margin: 0;
+}
+
+/*タブレットサイズ*/
+@media screen and (min-width: 768px) and (max-width: 851px) {
+    .purchase-content__wrapper {
+        display: block;
+    }
+    .purchase-content {
+        width: 100%;
+    }
+    .purchase-content__head--img {
+        width: 30%;
+    }
+    .purchase-content__head,
+    .purchase-content__payment,
+    .purchase-content__send,
+    .purchase-content__confirm {
+        padding-left: 30%;
+    }
+    .purchase-content__confirm {
+        box-sizing: content-box;
+    }
+}
+/*タブレット以下*/
+@media screen and (max-width: 768px) {
+    .purchase-content__wrapper {
+        display: block;
+    }
+    .purchase-content {
+        width: 100%;
+    }
+    .purchase-content__head--img {
+        width: 30%;
+    }
+    .purchase-content__head,
+    .purchase-content__payment,
+    .purchase-content__send,
+    .purchase-content__confirm {
+        padding-left: 20%;
+    }
+    .purchase-content__confirm {
+        box-sizing: content-box;
+        width: 60%;
+    }
 }

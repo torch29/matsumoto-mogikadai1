@@ -19,6 +19,11 @@
     </div>
     <div class="item__content">
         <div class="item__content-heading">
+            @if(session('error'))
+            <div class="item__alert">
+                {{ session('error') }}
+            </div>
+            @endif
             <h2>{{ $item -> name }}</h2>
             <p class="heading--brand-name">{{ $item -> brand_name }}</P>
             <p class="heading--price">￥<span>{{ number_format($item->price) }}</span>（税込）</p>

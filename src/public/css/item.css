@@ -38,7 +38,9 @@
 .item__content-label {
     font-weight: bold;
 }
-
+.item__content-heading h2 {
+    margin: 0;
+}
 .heading--brand-name {
     font-size: 0.7em;
 }
@@ -207,6 +209,41 @@
     margin-bottom: 20px;
     color: #D30909;
 }
+
+.item-purchasedItem {
+    background-color: #4985DB;
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    padding: 5px 10px;
+    border-top: #4985DB 3px solid;
+    border-bottom: #4985DB 3px solid;
+    border-radius: 2px;
+}
+.item-purchasedItem span {
+
+    padding: 3px;
+    border-top: dashed 1px #fff;
+    border-bottom: dashed 1px #fff;
+}
+.item-purchasedItem span:after {
+    position: absolute;
+    content: '';
+    z-index: 1;
+    top: 1;
+    right: -15px;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 19px 15px 19px 0px;
+    border-color: #3E68A4 transparent #3E68A4 #3E68A4;
+}
+.item__alert{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #D30909;
+}
 /*タブレットサイズ*/
 @media screen and (min-width: 768px) and (max-width: 851px) {
     .item__img-area {
@@ -250,6 +287,10 @@
         position: relative;
         overflow-x: hidden;
         text-align: center;
+    }
+    .item__img {
+        width: 100%;
+        min-width: 150px;
     }
     .item__img--sold {
         height: auto;

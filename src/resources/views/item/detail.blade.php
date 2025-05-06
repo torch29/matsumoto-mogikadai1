@@ -79,7 +79,7 @@
                     <div class="status__category-label">カテゴリー</div>
                     <div class="status__category-content--tag">
                         @foreach($item->categories as $category)
-                        <p class="status__category-content">{{ $category->content }}</p>
+                        <span class="status__category-content">{{ $category->content }}</span>
                         @endforeach
                     </div>
                 </div>

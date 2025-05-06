@@ -55,6 +55,7 @@
                 <div class="item-card__content-inner">
                     <a href="/item/{{ $purchasedItem->purchasedItem->id }}">
                         <img src="{{ $purchasedItem->purchasedItem->img_path }}" class="item-card__content--img" alt="商品画像">
+                        <div class="item-purchasedItem"><span>購入しました</span></div>
                         <p>{{ $purchasedItem->purchasedItem->name }}</p>
                     </a>
                 </div>

@@ -50,10 +50,18 @@ class PurchaseController extends Controller
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $item = Item::find($itemId);
+        $user = Auth::user();
+
+        if ($item->user_id === $user->id) {
+            return redirect("/item/{$item->id}")->with('error', '自身が出品した商品です');
+        }
+        if ($item->status !== 'available') {
+            return redirect("/item/{$item->id}")->with('error', 'この商品は売り切れです');
+        }
+
         $payment = $request->input('payment');
 
         //セッションに保存する
-        $user = Auth::user();
         $address = $request->session()->get("addressData_{$itemId}", [
             'zip_code' => $user->profile->zip_code,
             'address' => $user->profile->address,

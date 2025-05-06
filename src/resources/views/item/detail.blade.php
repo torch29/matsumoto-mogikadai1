@@ -9,6 +9,9 @@
     <div class="item__img-area">
         @if($item->status == 'available')
         <img src=" {{ asset($item -> img_path) }}" class="item__img" alt="商品画像">
+        @elseif( in_array($item->id, $purchasedItemIds) )
+        <img src="{{ asset($item -> img_path) }}" class="item__img" alt="商品画像">
+        <div class="item-purchasedItem"><span>購入しました</span></div>
         @else
         <img src="{{ asset($item->img_path) }}" class="item__img--sold" alt="商品画像">
         <div class="item-sold">sold</div>

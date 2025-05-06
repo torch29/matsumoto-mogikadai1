@@ -76,6 +76,35 @@
     transform: rotate(-45deg);
     text-align: center;
 }
+.item-purchasedItem {
+    background-color: #4985DB;
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    padding: 5px 10px;
+    border-top: #4985DB 3px solid;
+    border-bottom: #4985DB 3px solid;
+    border-radius: 2px;
+}
+.item-purchasedItem span {
+
+    padding: 3px;
+    border-top: dashed 1px #fff;
+    border-bottom: dashed 1px #fff;
+}
+.item-purchasedItem span:after {
+    position: absolute;
+    content: '';
+    z-index: 1;
+    top: 1;
+    right: -15px;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 19px 15px 19px 0px;
+    border-color: #3E68A4 transparent #3E68A4 #3E68A4;
+}
 
 .tab-panel__message {
     text-align: center;

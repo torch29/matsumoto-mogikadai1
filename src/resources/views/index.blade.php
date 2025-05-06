@@ -25,8 +25,12 @@
                         <img src="{{ $item->img_path }}" class="item-card__content--img" alt="商品画像">
                         <p>{{ $item->name }}</p>
                     </a>
-                    {{--@elseif( $purchasedItems->user_id == Auth::id() )
-                    購入した商品です--}}
+                    @elseif( in_array($item->id, $purchasedItemIds) )
+                    <a href="/item/{{ $item->id }}">
+                        <img src="{{ $item->img_path }}" class="item-card__content--sold-img" alt="商品画像">
+                        <div class="item-purchasedItem"><span>購入しました</span></div>
+                        <p>{{ $item->name }}</p>
+                    </a>
                     @else
                     <a href="/item/{{ $item->id }}">
                         <img src="{{ $item->img_path }}" class="item-card__content--sold-img" alt="商品画像">
@@ -50,10 +54,10 @@
                         <img src="{{ $myList->img_path }}" class="item-card__content--img" alt="商品画像">
                         <p>{{ $myList->name }}</p>
                     </a>
-                    @else
+                    @else( in_array($myList->id, $purchasedItemIds) )
                     <a href="/item/{{ $myList->id }}">
                         <img src="{{ $myList->img_path }}" class="item-card__content--sold-img" alt="商品画像">
-                        <div class="item-sold">sold</div>
+                        <div class="item-purchasedItem"><span>購入しました</span></div>
                         <p>{{ $myList->name }}</p>
                     </a>
                     @endif

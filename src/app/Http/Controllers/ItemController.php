@@ -17,7 +17,7 @@ class ItemController extends Controller
     {
         $word = $request->search;
 
-        $items = Item::with('users')
+        $items = Item::with('users', 'purchases')
             ->NameSearch($word)
             ->get();
 
@@ -29,12 +29,11 @@ class ItemController extends Controller
             ->get()
             : collect();
 
-        //ここを修正する
-        $purchasedItem = Purchase::where('user_id', Auth::id())->get();
+        $purchasedItemIds = Purchase::where('user_id', Auth::id())->pluck('item_id')->toArray();
 
-        //dump($purchasedItem);
+        // dump($purchasedItemIds);
 
-        return view('index', compact('items', 'myLists', 'word', 'purchasedItem'));
+        return view('index', compact('items', 'myLists', 'word', 'purchasedItemIds'));
     }
 
     public function sell()
@@ -76,7 +75,9 @@ class ItemController extends Controller
         ])->find($id);
         $categories = Item::with('categories')->get();
 
-        return view('item.detail', compact('item', 'categories'));
+        $purchasedItemIds = Purchase::where('user_id', Auth::id())->pluck('item_id')->toArray();
+
+        return view('item.detail', compact('item', 'categories', 'purchasedItemIds'));
     }
 
     public function postComment(CommentRequest $request)

@@ -50,6 +50,9 @@
     background-color: #FF5655;
     border: #FF5655 1px solid;
 }
+.sell-form__category-area {
+    margin-bottom: 15px;
+}
 
 .sell-form__item-label {
     display: block;
@@ -60,6 +63,7 @@
     height: 30px;
     border: #888 1px solid;
     border-radius: 3px;
+    margin-bottom: 10px;
 }
 .sell-form__item-input:hover {
     outline: solid 1px #000;

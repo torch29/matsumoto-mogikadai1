@@ -242,9 +242,23 @@
     border-color: #3E68A4 transparent #3E68A4 #3E68A4;
 }
 .item__alert{
+    display: flex;
     margin-top: 10px;
     margin-bottom: 20px;
+    background-color: rgb(252, 139, 139);
     color: #D30909;
+    font-weight: bold;
+    padding: 10px 15px;
+    width: 60%;
+    margin: 0 auto;
+}
+.alert-close {
+    width: 15%;
+    text-align: right;
+}
+.alert-close__button {
+    color: #ddd;
+    cursor: pointer;
 }
 /*タブレットサイズ*/
 @media screen and (min-width: 768px) and (max-width: 851px) {

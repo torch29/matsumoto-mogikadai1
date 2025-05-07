@@ -19,7 +19,7 @@ class FavoriteController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->favoriteItems()->find('item_id')) {
+        if (!$user->favoriteItems()->where('item_id', $item_id)->exists()) {
             $user->favoriteItems()->attach($item_id);
         }
 

@@ -21,7 +21,12 @@
         <div class="item__content-heading">
             @if(session('error'))
             <div class="item__alert">
-                {{ session('error') }}
+                <div class="alert-message">
+                    {{ session('error') }}
+                </div>
+                <div class="alert-close">
+                    <a href="#" class="alert-close__button">&times;</a>
+                </div>
             </div>
             @endif
             <h2>{{ $item -> name }}</h2>
@@ -29,7 +34,9 @@
             <p class="heading--price">￥<span>{{ number_format($item->price) }}</span>（税込）</p>
             <div class="heading__icon-wrapper">
                 <div class="heading__icons">
-                    @if ( Auth::check() && Auth::user()->favoriteItems->contains($item->id) )
+                    @if ( Auth::check() && Auth::id() === $item->user_id )
+                    <i class="fa-regular  fa-star"></i>
+                    @elseif ( Auth::check() && Auth::user()->favoriteItems->contains($item->id) )
                     <form action="/favorite/{{ $item->id }}" class="item__favorite-form" method="post">
                         @csrf
                         @method('DELETE')

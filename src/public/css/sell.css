@@ -28,6 +28,7 @@
 .sell-form__item h3 {
     color: #888;
     border-bottom: 1px solid #888;
+    margin-top: 25px;
 }
 
 .sell-form__label-wrapper {

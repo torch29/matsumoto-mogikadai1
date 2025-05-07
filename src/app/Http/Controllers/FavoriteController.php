@@ -18,6 +18,11 @@ class FavoriteController extends Controller
     public function favorite($item_id)
     {
         $user = Auth::user();
+        $item = Item::find($item_id);
+
+        if ($item->user_id === $user->id) {
+            redirect("/item/{$item->id}");
+        }
 
         if (!$user->favoriteItems()->where('item_id', $item_id)->exists()) {
             $user->favoriteItems()->attach($item_id);

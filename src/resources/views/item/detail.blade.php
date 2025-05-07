@@ -123,7 +123,7 @@
                             @if($comment->user->profile)
                             <img src="{{ asset( $comment->user->profile->profile_img) }}" alt="">
                             @else
-                            <img src="" alt="No profile">
+                            <img src="" alt="No ICON">
                             @endif
                         </div>
                         <div class="view__comment--name">

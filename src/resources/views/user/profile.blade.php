@@ -24,6 +24,13 @@
                     画像を選択する
                     <input type="file" name="profile_img" id="profile_img" class="profile-form__img-button">
                 </label>
+                <div class="form__error">
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="error">{{ $error }}</div>
+                    @endforeach
+                    @endif
+                </div>
             </div>
         </div>
         <label for="name" class="profile-form__item-label">

@@ -13,7 +13,7 @@ class ProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'profile_img' => ['mimetypes:imaga/jpeg,image/jpg,image/png', 'mimes:jpeg,jpg,png'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'profile_img.mimetypes' => 'プロフィール画像には、jpgファイルかpngファイルの画像をアップロードしてください。',
+            'profile_img.mimes' => 'プロフィール画像には、jpgファイルかpngファイルの画像をアップロードしてください。'
         ];
     }
 }

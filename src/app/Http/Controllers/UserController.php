@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\ProfileRequest;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Purchase;
-use App\Models\Profile;
 
 class UserController extends Controller
 {
@@ -26,7 +26,7 @@ class UserController extends Controller
         return view('user.profile', compact('profile', 'user'));
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(ProfileRequest $request)
     {
         $user = User::find($request->user_id);
         $user->update($request->only('name'));

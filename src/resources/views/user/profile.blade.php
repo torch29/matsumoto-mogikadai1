@@ -24,25 +24,33 @@
                     画像を選択する
                     <input type="file" name="profile_img" id="profile_img" class="profile-form__img-button">
                 </label>
-                <div class="form__error">
-                    @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                    <div class="error">{{ $error }}</div>
-                    @endforeach
-                    @endif
-                </div>
             </div>
+        </div>
+        <div class="form__error">
+            @error('profile_img')
+            {{ $message }}
+            @enderror
         </div>
         <label for="name" class="profile-form__item-label">
             ユーザー名
         </label>
-        <input type="text" name="name" id="name" class="profile-form__item-input" value="{{ Auth::user()->name }}">
+        <input type="text" name="name" id="name" class="profile-form__item-input" value="{{ old('name', Auth::user()->name ?? '') }}">
         <label for="zip_code" class="profile-form__item-label">郵便番号</label>
-        <input type="text" name="zip_code" id="zip_code" class="profile-form__item-input" value="{{ $profile->zip_code ?? '' }}">
+        <input type="text" name="zip_code" id="zip_code" class="profile-form__item-input" value="{{ old('zip_code', $profile->zip_code ?? '') }}">
+        <div class="form__error">
+            @error('zip_code')
+            {{ $message }}
+            @enderror
+        </div>
         <label for="address" class="profile-form__item-label">住所</label>
-        <input type="text" name="address" id="address" class="profile-form__item-input" value="{{ $profile->address ?? '' }}">
+        <input type="text" name="address" id="address" class="profile-form__item-input" value="{{ old('address', $profile->address ?? '') }}">
+        <div class="form__error">
+            @error('address')
+            {{ $message }}
+            @enderror
+        </div>
         <label for="building" class="profile-form__item-label">建物名</label>
-        <input type="text" name="building" id="building" class="profile-form__item-input" value="{{ $profile->building ?? '' }}">
+        <input type="text" name="building" id="building" class="profile-form__item-input" value="{{ old('building', $profile->building ?? '') }}">
         <div class="profile-form__button">
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <button class="profile-form__button-submit" type="submit">更新する</button>

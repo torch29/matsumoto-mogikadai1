@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\User;
 use App\Models\Purchase;
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\ItemRequest;
 
 class ItemController extends Controller
 {
@@ -44,7 +45,7 @@ class ItemController extends Controller
         return view('item.sell', compact('conditions', 'categories'));
     }
 
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
         $items = $request->only(['user_id', 'name', 'brand_name', 'price', 'explain', 'condition', 'category_ids']);
         $items['img_path'] = '';

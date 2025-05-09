@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\AddressRequest;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
@@ -22,9 +23,9 @@ class PurchaseController extends Controller
         $profile = $user->profile;
 
         $address = session()->get("addressData_{$id}", [
-            'zip_code' => $profile->zip_code,
-            'address' => $profile->address,
-            'building' => $profile->building
+            'zip_code' => optional($profile)->zip_code,
+            'address' => optional($profile)->address,
+            'building' => optional($profile)->building
         ]);
 
         return view('item.purchase.checkout', compact('item', 'payments', 'profile', 'address'));
@@ -36,7 +37,7 @@ class PurchaseController extends Controller
         return view('item.purchase.change_address', compact('item'));
     }
 
-    public function saveShippingAddress(Request $request, $id)
+    public function saveShippingAddress(AddressRequest $request, $id)
     {
         $addressData = $request->only(['zip_code', 'address', 'building']);
         $request->session()->put("addressData_{$id}", $addressData);

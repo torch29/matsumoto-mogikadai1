@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/item.css') }}">
+<link rel="stylesheet" href="{{ asset('css/detail.css') }}">
 @endsection
 
 @section('content')
@@ -120,10 +120,10 @@
                     @foreach ($item->comments as $comment)
                     <div class="view__comment-inner">
                         <div class="view__comment--icon">
-                            @if($comment->user->profile)
+                            @if($comment->user->profile && $comment->user->profile->profile_img)
                             <img src="{{ asset( $comment->user->profile->profile_img) }}" alt="">
                             @else
-                            <img src="" alt="No ICON">
+                            <div class="view__comment--icon-name">{{ mb_substr(Auth::user()->name, 0, 1 ) }}</div>
                             @endif
                         </div>
                         <div class="view__comment--name">

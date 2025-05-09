@@ -154,7 +154,6 @@ a {
 @media screen and (min-width: 768px) and (max-width: 851px) {
     .header {
         height: auto;
-        border: 2px solid red;
     }
     .smp-nav__ttl {
         padding-right: 70px;

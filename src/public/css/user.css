@@ -48,7 +48,7 @@
 .profile-form__button,
 .address-form__button {
     margin-top: 60px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 .register-form__button-submit,
 .login-form__button-submit,
@@ -100,7 +100,7 @@
     text-align: center;
 }
 .verify-form__button-submit {
-    background-color: #fff; 
+    background-color: #fff;
     border: none;
     cursor: pointer;
 }

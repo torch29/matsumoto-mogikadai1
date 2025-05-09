@@ -20,6 +20,11 @@
                 </label>
             </div>
         </div>
+        <div class="form__error">
+            @error('img_path')
+            {{ $message }}
+            @enderror
+        </div>
         <div class="sell-form__item">
             <h3 class="sell-form__title">商品の詳細</h3>
             <label class="sell-form__item-label">カテゴリー</label>
@@ -27,7 +32,7 @@
                 @foreach ($categories as $category)
                 <div class="sell-form__label-wrapper">
                     <label for="category_{{ $category->id }}" class="sell-form__category-label">
-                        <input type="checkbox" name="category_ids[]" class="sell-form__category-checkbox" value="{{ $category->id }}" id="category_{{ $category->id }}">
+                        <input type="checkbox" name="category_ids[]" class="sell-form__category-checkbox" value="{{ $category->id }}" id="category_{{ $category->id }}" {{ is_array(old('category_ids')) && in_array($category->id, old('category_ids')) ? 'checked' : '' }}>
                         <span>
                             {{ $category['content'] }}
                         </span>
@@ -35,30 +40,58 @@
                 </div>
                 @endforeach
             </div>
+            <div class="form__error">
+                @error('category_ids')
+                {{ $message }}
+                @enderror
+            </div>
         </div>
         <div class="sell-form__item">
             <label class="sell-form__item-label">商品の状態</label>
             <div class="sell-form__select-wrapper">
                 <select name="condition" id="" class="sell-form__item-select">
-                    <option value="" selected>選択してください</option>
+                    <option value="" {{ old('condition')=='' ? 'selected' : '' }}>選択してください</option>
                     @foreach ($conditions as $key => $condition)
-                    <option value="{{ $key }}">{{ $condition }}</option>
+                    <option value="{{ $key }}" {{ old('condition') == $key ? 'selected' : '' }}>{{ $condition }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="form__error">
+                @error('condition')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="sell-form__item">
             <h3>商品名と説明</h3>
             <label for="name" class="sell-form__item-label">商品名</label>
             <input type="text" name="name" id="name" class="sell-form__item-input" value="{{ old('name') }}">
-
+            <div class="form__error">
+                @error('name')
+                {{ $message }}
+                @enderror
+            </div>
             <label for="brand_name" class="sell-form__item-label">ブランド名</label>
             <input type="text" name="brand_name" id="brand_name" class="sell-form__item-input" value="{{ old('brand_name') }}">
-
+            <div class="form__error">
+                @error('brand_name')
+                {{ $message }}
+                @enderror
+            </div>
             <label for="explain" class="sell-form__item-label">商品の説明</label>
             <textarea name="explain" id="explain" class="sell-form__item-textarea">{{ old('explain') }}</textarea>
+            <div class="form__error">
+                @error('explain')
+                {{ $message }}
+                @enderror
+            </div>
             <label for="price" class="sell-form__item-label">販売価格</label>
             <input type="number" name="price" id="price" class="sell-form__item-input" placeholder="￥" value="{{ old('price') }}">
+            <div class="form__error">
+                @error('price')
+                {{ $message }}
+                @enderror
+            </div>
         </div>
         <div class="sell-form__button">
             <button type="submit" class="sell-form__button-submit">出品する</button>

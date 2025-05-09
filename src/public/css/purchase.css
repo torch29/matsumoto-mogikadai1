@@ -102,6 +102,9 @@
     margin: auto;
 }
 
+.confirm-form__button {
+    margin-bottom: 50px;
+}
 .confirm-form__button-submit {
     background-color: #f55;
     color: #fff;

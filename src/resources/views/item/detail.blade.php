@@ -120,10 +120,10 @@
                     @foreach ($item->comments as $comment)
                     <div class="view__comment-inner">
                         <div class="view__comment--icon">
-                            @if($comment->user->profile && $comment->user->profile->profile_img)
+                            @if(optional($comment->user->profile)->profile_img)
                             <img src="{{ asset( $comment->user->profile->profile_img) }}" alt="">
                             @else
-                            <div class="view__comment--icon-name">{{ mb_substr(Auth::user()->name, 0, 1 ) }}</div>
+                            <div class="view__comment--icon-name">{{ mb_substr($comment->user->name, 0, 1 ) }}</div>
                             @endif
                         </div>
                         <div class="view__comment--name">

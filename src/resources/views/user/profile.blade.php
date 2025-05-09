@@ -13,10 +13,10 @@
         @csrf
         <div class="profile-form__img-area">
             <div class="profile-form__img">
-                @if ($user->profile && $user->profile->profile_img)
-                <img src="{{ asset( $user->profile->profile_img ) }}" alt="プロフィール画像">
-                {{--<p class="profile-form__img--circle"></p>--}}
+                @if (optional($user->profile)->profile_img)
+                <img src="{{ asset( $user->profile->profile_img) }}" alt="">
                 @else
+                <div class="profile__icon-name">{{ mb_substr(Auth::user()->name, 0, 1 ) }}</div>
                 @endif
             </div>
             <div class="profile-form__img-wrapper">

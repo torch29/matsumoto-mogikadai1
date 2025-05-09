@@ -8,7 +8,11 @@
 <div class="mypage-header">
     <div class="mypage-header__heading">
         <div class="mypage-header__heading-icon">
-            <img src="{{ optional($user->profile)->profile_img ? asset( $user->profile->profile_img) : '' }}">
+            @if(optional($user->profile)->profile_img)
+            <img src="{{ asset( $user->profile->profile_img) }}" alt="">
+            @else
+            <div class="mypage__icon-name">{{ mb_substr(Auth::user()->name, 0, 1 ) }}</div>
+            @endif
         </div>
         <div class="mypage-header__heading-name">
             {{ Auth::user()->name }}

@@ -12,7 +12,6 @@
     <button class="main-tab__button" data-tab="myList">マイリスト</button>
 </div>
 <div class="main-tab__content">
-    user_id: {{ Auth::id() }}　（そのidのものは表示しない状態、id=1なら 1は表示されない） {{-- 確認用あとで消す --}}
     {{-- ここから"おすすめ"のタブ --}}
     <div class="tab-panel" id="all">
         <ul class="item-card__content">

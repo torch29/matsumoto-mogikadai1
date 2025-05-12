@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Item;
 
 class UserTest extends TestCase
 {
@@ -187,5 +188,28 @@ class UserTest extends TestCase
 
         $this->post('logout');
         $this->assertGuest();
+    }
+
+    public function test_show_users_purchased_items()
+    {
+        $items = Item::factory()->count(5)->create();
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $purchasedItems = $items->take(2);
+        //ユーザーが購入
+        foreach ($purchasedItems as $item) {
+            $item->update([
+                'user_id' => $user->id,
+                'status' => 'sold'
+            ]);
+        }
+
+        $response = $this->get('/mypage');
+        $expected = ['id="purchasedItems"'];
+        foreach ($purchasedItems as $item) {
+            $expected[] = e($item->name);
+        }
+        $response->assertSeeInOrder($expected, false);
     }
 }

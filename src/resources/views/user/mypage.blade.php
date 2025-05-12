@@ -28,7 +28,7 @@
     <button class="mypage-tab__button" data-tab="purchasedItems">購入した商品</button>
 </div>
 <div class="mypage-content">
-    {{-- ここから出品した商品の一覧 --}}
+    {{コメント欄 ここから出品した商品の一覧 }}
     <div class="tab-panel" id="sellItems">
         <ul class="item-card__content">
             @foreach ( $sellItems as $sellItem)
@@ -51,7 +51,7 @@
             @endforeach
         </ul>
     </div>
-    {{-- ここから購入した商品の一覧 --}}
+    {{コメント欄 ここから購入した商品の一覧 }}
     <div class="tab-panel" id="purchasedItems" style="display: none;">
         <ul class="item-card__content">
             @foreach ($purchasedItems as $purchasedItem)

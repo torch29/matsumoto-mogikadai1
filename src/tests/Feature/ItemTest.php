@@ -40,7 +40,7 @@ class ItemTest extends TestCase
         $response->assertSeeText('sold');
     }
 
-    public function test_not_display_user_sold_item()
+    public function test_not_display_user_sell_item()
     {
         $items = Item::factory()->count(5)->create();
         $user = User::factory()->create();

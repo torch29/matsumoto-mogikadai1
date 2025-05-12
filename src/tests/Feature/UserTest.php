@@ -205,11 +205,13 @@ class UserTest extends TestCase
             ]);
         }
 
-        $response = $this->get('/mypage');
+        $response = $this->get('/mypage?tab=buy');
         $expected = ['id="purchasedItems"'];
         foreach ($purchasedItems as $item) {
             $expected[] = e($item->name);
         }
+        dd($response->getContent());
         $response->assertSeeInOrder($expected, false);
+
     }
 }

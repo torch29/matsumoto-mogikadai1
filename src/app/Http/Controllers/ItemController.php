@@ -27,6 +27,7 @@ class ItemController extends Controller
             ->when($word, function ($query, $word) {
                 $query->where('name', 'like', "%{$word}%");
             })
+            ->where('items.user_id', '!=', Auth::id())
             ->get()
             : collect();
 

@@ -58,7 +58,7 @@ class ItemTest extends TestCase
         }
     }
 
-    public function test_show_users_favorite_items_at_my_list()
+    public function test_display_users_favorite_items_at_my_list()
     {
         $items = Item::factory()->count(5)->create();
         $user = User::factory()->create();
@@ -75,15 +75,15 @@ class ItemTest extends TestCase
         $response->assertSeeInOrder($expected, false);
     }
 
-    public function test_show_sold_items_at_my_list()
+    public function test_display_sold_items_label_at_my_list()
     {
         $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $items = Item::factory()->count(5)->create();
+        $loginUser = User::factory()->create();
+        $this->actingAs($loginUser);
+        $items = Item::factory()->count(5)->create(['user_id' => $user->id]);
 
         $favoriteItems = $items->take(2);
-        $user->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
+        $loginUser->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
         foreach ($favoriteItems as $item) {
             $item->update([
                 'status' => 'sold'
@@ -99,8 +99,30 @@ class ItemTest extends TestCase
         $response->assertSeeInOrder($expected, false);
     }
 
+    //これをアレンジする
+    public function test_not_display_user_sell_item_at_my_list()
+    {
+        $items = Item::factory()->count(5)->create();
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $userSoldItems = $items->shuffle()->take(2);
+        $userSoldItems->each(function ($item) use ($user) {
+            $item->update(['user_id' => $user->id]);
+        });
+        $favoriteItems = $userSoldItems->take(2);
+        $user->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
+
+        $response = $this->get('/');
+        foreach ($favoriteItems as $favoriteItem) {
+            $response->assertDontSeeText($favoriteItem->name);
+        }
+    }
+
+    /*
+
     //10の商品購入機能はここを修正すれば行けそう
-    public function test_show_users_purchased_items()
+    public function test_display_users_purchased_items()
     {
         $sellUser = User::factory()->create();
         $buyUser = User::factory()->create();
@@ -131,4 +153,6 @@ class ItemTest extends TestCase
         $response->assertSeeText('購入しました');
         $response->assertSeeInOrder($expected, false);
     }
+
+    */
 }

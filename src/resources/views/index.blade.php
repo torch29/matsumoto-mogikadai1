@@ -46,6 +46,7 @@
     <div class="tab-panel" id="myList" style="display: none;">
         <ul class="item-card__content">
             @forelse($myLists as $myList)
+            @continue($myList->user_id == Auth::id() )
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
                     @if($myList->status == 'available')

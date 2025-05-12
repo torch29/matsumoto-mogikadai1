@@ -25,7 +25,7 @@ class FavoriteController extends Controller
         }
 
         if (!$user->favoriteItems()->where('item_id', $item_id)->exists()) {
-            $user->favoriteItems()->attach($item_id);
+            $user->favoriteItems()->syncWithoutDetaching($item_id);
         }
 
         /*

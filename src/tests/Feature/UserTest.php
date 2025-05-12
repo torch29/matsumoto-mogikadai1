@@ -183,6 +183,7 @@ class UserTest extends TestCase
         $user = User::factory()->create();
         $response = $this->actingAs($user);
         $response = $this->get('/');
+        $this->assertAuthenticated();
 
         $this->post('logout');
         $this->assertGuest();

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Purchase;
 
 class UserTest extends TestCase
 {
@@ -192,26 +193,33 @@ class UserTest extends TestCase
 
     public function test_show_users_purchased_items()
     {
+        $sellUser = User::factory()->create();
+        $buyUser = User::factory()->create();
+        $this->actingAs($buyUser);
+
         $items = Item::factory()->count(5)->create();
-        $user = User::factory()->create();
-        $this->actingAs($user);
 
         $purchasedItems = $items->take(2);
         //ユーザーが購入
         foreach ($purchasedItems as $item) {
             $item->update([
-                'user_id' => $user->id,
                 'status' => 'sold'
+            ]);
+            Purchase::create([
+                'user_id' => $buyUser->id,
+                'item_id' => $item->id,
+                'payment' => 'card',
+                'zip_code' => '0000000',
+                'address' => '北海道札幌市',
             ]);
         }
 
-        $response = $this->get('/mypage?tab=buy');
+        $response = $this->get('/mypage');
         $expected = ['id="purchasedItems"'];
         foreach ($purchasedItems as $item) {
             $expected[] = e($item->name);
         }
-        dd($response->getContent());
+        $response->assertSeeText('購入しました');
         $response->assertSeeInOrder($expected, false);
-
     }
 }

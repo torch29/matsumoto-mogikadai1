@@ -191,35 +191,4 @@ class UserTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_show_users_purchased_items()
-    {
-        $sellUser = User::factory()->create();
-        $buyUser = User::factory()->create();
-        $this->actingAs($buyUser);
-
-        $items = Item::factory()->count(5)->create();
-
-        $purchasedItems = $items->take(2);
-        //ユーザーが購入
-        foreach ($purchasedItems as $item) {
-            $item->update([
-                'status' => 'sold'
-            ]);
-            Purchase::create([
-                'user_id' => $buyUser->id,
-                'item_id' => $item->id,
-                'payment' => 'card',
-                'zip_code' => '0000000',
-                'address' => '北海道札幌市',
-            ]);
-        }
-
-        $response = $this->get('/mypage');
-        $expected = ['id="purchasedItems"'];
-        foreach ($purchasedItems as $item) {
-            $expected[] = e($item->name);
-        }
-        $response->assertSeeText('購入しました');
-        $response->assertSeeInOrder($expected, false);
-    }
 }

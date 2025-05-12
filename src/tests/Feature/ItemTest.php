@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Purchase;
 
 class ItemTest extends TestCase
 {
@@ -57,7 +58,7 @@ class ItemTest extends TestCase
         }
     }
 
-    public function test_show_users_favorite_items()
+    public function test_show_users_favorite_items_at_my_list()
     {
         $items = Item::factory()->count(5)->create();
         $user = User::factory()->create();
@@ -71,6 +72,63 @@ class ItemTest extends TestCase
         foreach ($favoriteItems as $item) {
             $expected[] = e($item->name);
         }
+        $response->assertSeeInOrder($expected, false);
+    }
+
+    public function test_show_sold_items_at_my_list()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $items = Item::factory()->count(5)->create();
+
+        $favoriteItems = $items->take(2);
+        $user->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
+        foreach ($favoriteItems as $item) {
+            $item->update([
+                'status' => 'sold'
+            ]);
+        }
+
+        $response = $this->get('/');
+        $expected = ['id="myList"'];
+        foreach ($favoriteItems as $item) {
+            $expected[] = e($item->name);
+        }
+        $response->assertSeeText('sold');
+        $response->assertSeeInOrder($expected, false);
+    }
+
+    //10の商品購入機能はここを修正すれば行けそう
+    public function test_show_users_purchased_items()
+    {
+        $sellUser = User::factory()->create();
+        $buyUser = User::factory()->create();
+        $this->actingAs($buyUser);
+
+        $items = Item::factory()->count(5)->create();
+
+        $purchasedItems = $items->take(2);
+        //ユーザーが購入
+        foreach ($purchasedItems as $item) {
+            $item->update([
+                'status' => 'sold'
+            ]);
+            Purchase::create([
+                'user_id' => $buyUser->id,
+                'item_id' => $item->id,
+                'payment' => 'card',
+                'zip_code' => '0000000',
+                'address' => '北海道札幌市',
+            ]);
+        }
+
+        $response = $this->get('/mypage');
+        $expected = ['id="purchasedItems"'];
+        foreach ($purchasedItems as $item) {
+            $expected[] = e($item->name);
+        }
+        $response->assertSeeText('購入しました');
         $response->assertSeeInOrder($expected, false);
     }
 }

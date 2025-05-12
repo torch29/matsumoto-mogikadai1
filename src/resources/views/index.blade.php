@@ -53,10 +53,16 @@
                         <img src="{{ $myList->img_path }}" class="item-card__content--img" alt="商品画像">
                         <p>{{ $myList->name }}</p>
                     </a>
-                    @else( in_array($myList->id, $purchasedItemIds) )
+                    @elseif( in_array($myList->id, $purchasedItemIds) )
                     <a href="/item/{{ $myList->id }}">
                         <img src="{{ $myList->img_path }}" class="item-card__content--sold-img" alt="商品画像">
                         <div class="item-purchasedItem"><span>購入しました</span></div>
+                        <p>{{ $myList->name }}</p>
+                    </a>
+                    @else
+                    <a href="/item/{{ $myList->id }}">
+                        <img src="{{ $myList->img_path }}" class="item-card__content--sold-img" alt="商品画像">
+                        <div class="item-sold">sold</div>
                         <p>{{ $myList->name }}</p>
                     </a>
                     @endif

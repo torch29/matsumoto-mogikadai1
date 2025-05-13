@@ -20,15 +20,14 @@ class ItemController extends Controller
 
         $items = Item::with('users', 'purchases')
             ->NameSearch($word)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $myLists = Auth::user()
             ? Auth::user()->favoriteItems()
-            ->when($word, function ($query, $word) {
-                $query->where('name', 'like', "%{$word}%");
-            })
+            ->NameSearch($word)
             ->where('items.user_id', '!=', Auth::id())
-            ->get()
+            ->orderBy('favorites.created_at', 'desc')->get()
             : collect();
 
         $purchasedItemIds = Purchase::where('user_id', Auth::id())->pluck('item_id')->toArray();

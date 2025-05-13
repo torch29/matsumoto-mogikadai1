@@ -8,6 +8,8 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class ItemTest extends TestCase
 {
@@ -72,6 +74,9 @@ class ItemTest extends TestCase
         foreach ($favoriteItems as $item) {
             $expected[] = e($item->name);
         }
+
+        $response->assertViewIs('index');
+        $response->assertViewHas('myLists');
         $response->assertSeeInOrder($expected, false);
     }
 
@@ -95,11 +100,11 @@ class ItemTest extends TestCase
         foreach ($favoriteItems as $item) {
             $expected[] = e($item->name);
         }
+        $response->assertViewHas('myLists');
         $response->assertSeeText('sold');
         $response->assertSeeInOrder($expected, false);
     }
 
-    //これをアレンジする
     public function test_not_display_user_sell_item_at_my_list()
     {
         $items = Item::factory()->count(5)->create();
@@ -118,6 +123,111 @@ class ItemTest extends TestCase
             $response->assertDontSeeText($favoriteItem->name);
         }
     }
+
+    public function test_not_display_any_item_guest_user_at_my_list()
+    {
+        $items = Item::factory()->count(5)->create();
+        $user = User::factory()->create();
+
+        $favoriteItems = $items->take(2);
+        $user->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
+
+        $response = $this->get('/');
+        $this->assertGuest();
+
+        $response->assertSee('いいねをした商品がこちらに表示されます');
+        $response->assertViewIs('index');
+        $response->assertViewHas('myLists', function ($myLists) {
+            return $myLists->isEmpty();
+        });
+    }
+
+    public function test_can_partial_match_search()
+    {
+        $user = User::factory()->create();
+        $this->assertGuest();
+
+        Item::factory()->create(['name' => '壁掛け時計']);
+        Item::factory()->create(['name' => '腕時計']);
+        Item::factory()->create(['name' => 'ショルダーバッグ']);
+
+        $response = $this->get('/?search=時計');
+        $response->assertViewIs('index');
+
+        $response->assertSee('壁掛け時計');
+        $response->assertSee('腕時計');
+        $response->assertDontSee('ショルダーバッグ');
+        $targetItems = Item::NameSearch('時計')->get();
+        $this->assertCount(2, $targetItems);
+    }
+
+    public function test_can_partial_match_search_sustained_at_my_list()
+    {
+        $user = User::factory()->create();
+        $item1 = Item::factory()->create(['name' => '壁掛け時計']);
+        $item2 = Item::factory()->create(['name' => '腕時計']);
+        $item3 = Item::factory()->create(['name' => 'ショルダーバッグ']);
+        $item4 = Item::factory()->create(['name' => 'コーヒーミル']);
+        $item5 = Item::factory()->create(['name' => 'コーヒーカップ']);
+
+        $this->actingAs($user);
+        $user->favoriteItems()->syncWithoutDetaching([
+            $item1->id, //時計を含む
+            $item4->id, //時計を含まない
+        ]);
+
+        $response = $this->get('/?search=時計');
+        $response->assertViewIs('index');
+
+        $response->assertSee('壁掛け時計');
+        $response->assertDontSee('コーヒーミル'); //時計を含まない
+        $targetItems = Item::NameSearch('時計')->get();
+
+        $response->assertSeeInOrder([
+            'id="myList"',
+            e($item1->name),
+        ], false);
+
+        $response->assertViewHas('myLists', function ($myLists) {
+            return $myLists->count() === 1 &&
+                $myLists->pluck('name')->contains('壁掛け時計') &&
+                !$myLists->pluck('name')->contains('コーヒーミル') &&
+                !$myLists->pluck('name')->contains('腕時計');
+        });
+    }
+
+    public function test_display_item_detail()
+    {
+        $user = User::factory()->create();
+        Storage::fake('public');
+        $item = Item::factory()->create([
+            'user_id' => $user->id,
+            'name' => 'コーヒーカップ',
+            'brand_name' => 'ウェッジフォレスト',
+            'price' => 2000,
+            'explain' => 'シンプルなカラー・デザインのカップ',
+            'condition' => 2,
+            'img_path' => 'images/fake.jpg',
+        ]);
+        $category1 = Category::create(['id' => 2, 'content' => '家電']);
+        $category2 = Category::create(['id' => 3, 'content' => 'インテリア']);
+        $category3 = Category::create(['id' => 10, 'content' => 'キッチン']);
+        $item->categories()->attach([$category1->id, $category2->id, $category3->id]);
+
+        $this->assertGuest();
+        $response = $this->get("/item/{$item->id}");
+        $response->assertViewIs('item.detail');
+        $response->assertSee('コーヒーカップ');
+        $response->assertSee('ウェッジフォレスト');
+        $response->assertSeeText('￥2,000（税込）');
+        $response->assertSee('シンプルなカラー・デザインのカップ');
+        $response->assertSee('目立った傷や汚れなし');
+        $response->assertSee('家電');
+        $response->assertSee('インテリア');
+        $response->assertSee('キッチン');
+        $response->assertSee('images/fake.jpg');
+    }
+
 
     /*
 

@@ -7,11 +7,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
-use App\Models\Purchase;
-use App\Models\Category;
-use Illuminate\Support\Facades\Storage;
 
-class ItemTest extends TestCase
+class ItemIndexTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -196,37 +193,6 @@ class ItemTest extends TestCase
         });
     }
 
-    public function test_display_item_detail()
-    {
-        $user = User::factory()->create();
-        Storage::fake('public');
-        $item = Item::factory()->create([
-            'user_id' => $user->id,
-            'name' => 'コーヒーカップ',
-            'brand_name' => 'ウェッジフォレスト',
-            'price' => 2000,
-            'explain' => 'シンプルなカラー・デザインのカップ',
-            'condition' => 2,
-            'img_path' => 'images/fake.jpg',
-        ]);
-        $category1 = Category::create(['id' => 2, 'content' => '家電']);
-        $category2 = Category::create(['id' => 3, 'content' => 'インテリア']);
-        $category3 = Category::create(['id' => 10, 'content' => 'キッチン']);
-        $item->categories()->attach([$category1->id, $category2->id, $category3->id]);
-
-        $this->assertGuest();
-        $response = $this->get("/item/{$item->id}");
-        $response->assertViewIs('item.detail');
-        $response->assertSee('コーヒーカップ');
-        $response->assertSee('ウェッジフォレスト');
-        $response->assertSeeText('￥2,000（税込）');
-        $response->assertSee('シンプルなカラー・デザインのカップ');
-        $response->assertSee('目立った傷や汚れなし');
-        $response->assertSee('家電');
-        $response->assertSee('インテリア');
-        $response->assertSee('キッチン');
-        $response->assertSee('images/fake.jpg');
-    }
 
 
     /*

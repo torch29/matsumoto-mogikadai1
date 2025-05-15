@@ -44,7 +44,7 @@
                         </button>
                     </form>
                     @else
-                    <form action="/favorite/{{ $item->id }}" method="post">
+                    <form action="/favorite/{{ $item->id }}" class="item__favorite-form" method="post">
                         @csrf
                         <button type="submit" class="item__favorite-form--button"><i class="fa-regular fa-star"></i>
                         </button>

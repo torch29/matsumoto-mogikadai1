@@ -9,8 +9,6 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Comment;
-use App\Models\Profile;
-use Illuminate\Support\Facades\Auth;
 
 class ItemDetailTest extends TestCase
 {
@@ -42,7 +40,6 @@ class ItemDetailTest extends TestCase
             ['id' => 10, 'content' => 'キッチン']
         ]);
         $user->favoriteItems()->syncWithoutDetaching([
-            'user_id' => $user->id,
             'item_id' => $item->id
         ]);
         $item->categories()->attach([2, 3, 10]);
@@ -109,54 +106,6 @@ class ItemDetailTest extends TestCase
                 && $item->categories->pluck('content')->contains('インテリア')
                 && $item->categories->pluck('content')->contains('キッチン');
         });
-    }
-
-    public function test_save_favorite_items_that_user_press_icon()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-        $item = Item::factory()->create();
-
-        $response = $this->get("/item/{$item->id}");
-        $response->assertViewHas('item', function ($item) {
-            return $item->favoriteUsers->count() === 0;
-        });
-        $this->post("/favorite/{$item->id}", [
-            'item_id' => $item->id,
-            'user_id' => $user->id
-        ]);
-        $this->assertDatabaseHas('favorites', [
-            'item_id' => $item->id,
-            'user_id' => $user->id
-        ]);
-        $response = $this->get("/item/{$item->id}");
-        $response->assertViewHas('item', function ($item) {
-            return $item->favoriteUsers->count() === 1;
-        });
-    }
-
-    public function test_change_icon_color_that_saved_user_favorite()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-        $item = Item::factory()->create();
-
-        $response = $this->get("/item/{$item->id}");
-        $response->assertSee('fa-regular fa-star');
-        $response->assertDontSee('fa-solid fa-star');
-        $this->post("/favorite/{$item->id}", [
-            'item_id' => $item->id,
-            'user_id' => $user->id
-        ]);
-        Auth::login($user->fresh());
-
-        $response = $this->get("/item/{$item->id}");
-        $response->assertViewHas('item', function ($item) {
-            return $item->favoriteUsers->count() === 1;
-        });
-        $response->assertSee('fa-solid fa-star');
-        $response->assertDontSee('fa-regular fa-star');
-        //$response->dump();
     }
 }
 

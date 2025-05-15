@@ -12,6 +12,8 @@ class ItemFactory extends Factory
      *
      * @return array
      */
+
+    // ItemTest用
     public function definition()
     {
         return [

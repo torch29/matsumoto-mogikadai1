@@ -19,6 +19,7 @@ class ItemDetailTest extends TestCase
      */
     use RefreshDatabase;
 
+    //商品詳細画面に、必要な情報が表示される
     public function test_display_item_detail()
     {
         $user = User::factory()->create([
@@ -75,6 +76,7 @@ class ItemDetailTest extends TestCase
         });
     }
 
+    //複数選択（登録）されているカテゴリが表示される
     public function test_display_several_categories_stored_for_item()
     {
         $user = User::factory()->create();
@@ -108,9 +110,3 @@ class ItemDetailTest extends TestCase
         });
     }
 }
-
-
-/*
-コメント投稿のテスト用
-        $response = $this->post('/comment', ['item_id' => $item->id, 'user_id' => $user->id, 'comment' => 'ソーサーはありますか']);
-        */

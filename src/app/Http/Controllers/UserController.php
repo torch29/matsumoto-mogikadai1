@@ -127,6 +127,4 @@ class UserController extends Controller
 
         return view('user.mypage', compact('user', 'sellItems', 'purchasedItems', 'konbiniCheckoutUrl'));
     }
-
-    
 }

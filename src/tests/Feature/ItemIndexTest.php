@@ -17,7 +17,8 @@ class ItemIndexTest extends TestCase
      */
     use RefreshDatabase;
 
-    public function test_get_all_item_list()
+    //商品一覧にて全商品を取得できる
+    public function test_get_all_item_list_in_index()
     {
         $items = Item::factory()->count(5)->create();
 
@@ -29,7 +30,8 @@ class ItemIndexTest extends TestCase
         });
     }
 
-    public function test_purchased_items_display_sold_label()
+    //商品一覧にて購入済み商品は「sold」と表示される
+    public function test_purchased_items_display_sold_label_in_index()
     {
         $items = Item::factory()->count(5)->create();
         $items->shuffle()->take(2)->each(function ($item) {
@@ -40,7 +42,8 @@ class ItemIndexTest extends TestCase
         $response->assertSeeText('sold');
     }
 
-    public function test_not_display_user_sell_item()
+    //商品一覧にて、自分が出品した商品は表示されない
+    public function test_not_display_user_sell_item_in_index()
     {
         $items = Item::factory()->count(5)->create();
         $user = User::factory()->create();
@@ -57,6 +60,7 @@ class ItemIndexTest extends TestCase
         }
     }
 
+    //マイリストにて、いいねした商品のみ表示
     public function test_display_users_favorite_items_at_my_list()
     {
         $items = Item::factory()->count(5)->create();
@@ -68,15 +72,17 @@ class ItemIndexTest extends TestCase
 
         $response = $this->get('/');
         $expected = ['id="myList"'];
-        foreach ($favoriteItems as $item) {
-            $expected[] = e($item->name);
+        foreach ($favoriteItems as $favoriteItem) {
+            $expected[] = e($favoriteItem->name);
         }
 
         $response->assertViewIs('index');
         $response->assertViewHas('myLists');
+        //タブ名myList→商品名の順に表示（マイリストタブ内に表示される）
         $response->assertSeeInOrder($expected, false);
     }
 
+    //マイリストにて、売り切れ商品はsoldと表示される
     public function test_display_sold_items_label_at_my_list()
     {
         $user = User::factory()->create();
@@ -86,22 +92,26 @@ class ItemIndexTest extends TestCase
 
         $favoriteItems = $items->take(2);
         $loginUser->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
-        foreach ($favoriteItems as $item) {
-            $item->update([
+        foreach ($favoriteItems as $favoriteItem) {
+            $favoriteItem->update([
                 'status' => 'sold'
             ]);
         }
 
         $response = $this->get('/');
-        $expected = ['id="myList"'];
-        foreach ($favoriteItems as $item) {
-            $expected[] = e($item->name);
-        }
         $response->assertViewHas('myLists');
-        $response->assertSeeText('sold');
-        $response->assertSeeInOrder($expected, false);
+        //マイリストタブ内でsoldラベル->商品名の順で表示されている
+        foreach ($favoriteItems as $favoriteItem) {
+            $response->assertSeeInOrder([
+                'id="myList"',
+                'item-sold',
+                e($favoriteItem->name),
+            ], false);
+        }
+        //$response->dump();
     }
 
+    //マイリストにて、自分が出品した商品は表示されない
     public function test_not_display_user_sell_item_at_my_list()
     {
         $items = Item::factory()->count(5)->create();
@@ -116,11 +126,13 @@ class ItemIndexTest extends TestCase
         $user->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
 
         $response = $this->get('/');
+        //マイリストタブ内に自分が出品した商品名がない
         foreach ($favoriteItems as $favoriteItem) {
             $response->assertDontSeeText($favoriteItem->name);
         }
     }
 
+    //マイリストには未認証ユーザーの場合何も表示されない
     public function test_not_display_any_item_guest_user_at_my_list()
     {
         $items = Item::factory()->count(5)->create();
@@ -139,6 +151,7 @@ class ItemIndexTest extends TestCase
         });
     }
 
+    //商品名で部分一致検索ができる
     public function test_can_partial_match_search()
     {
         $user = User::factory()->create();
@@ -158,6 +171,7 @@ class ItemIndexTest extends TestCase
         $this->assertCount(2, $targetItems);
     }
 
+    //検索状態がマイリストでも保持されている
     public function test_can_partial_match_search_sustained_at_my_list()
     {
         $user = User::factory()->create();

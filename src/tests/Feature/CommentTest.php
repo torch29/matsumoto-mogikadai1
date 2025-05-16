@@ -18,6 +18,7 @@ class CommentTest extends TestCase
 
     use RefreshDatabase;
 
+    //ログイン済みユーザーはコメント送信ができる。コメント数が増加表示される
     public function test_can_comment_that_login_user()
     {
         $user = User::factory()->create();
@@ -59,6 +60,7 @@ class CommentTest extends TestCase
         //$response->dump();
     }
 
+    //未ログインログインユーザーはコメントできない
     public function test_can_not_comment_guest_user()
     {
         $user = User::factory()->create();
@@ -97,6 +99,7 @@ class CommentTest extends TestCase
         ], false);
     }
 
+    //コメントが入力されていない場合、バリデーションメッセージが表示される
     public function test_show_message_when_empty_comment()
     {
         $user = User::factory()->create();
@@ -115,6 +118,7 @@ class CommentTest extends TestCase
         ]);
     }
 
+    //コメントが255文字以上の場合、バリデーションメッセージが表示される
     public function test_show_message_when_over_255_characters_comment()
     {
         $user = User::factory()->create();

@@ -22,7 +22,7 @@ class PurchaseKonbiniTest extends TestCase
 
     use RefreshDatabase;
 
-    //コンビニ決済（"konbini"）を選択し購入するボタンを押下すると購入が完了する
+    //コンビニ決済（"konbini"）を選択し、購入するボタンを押下すると購入が完了する
     public function test_can_click_button_to_purchase_item_with_konbini()
     {
         $this->withoutExceptionHandling();
@@ -52,6 +52,7 @@ class PurchaseKonbiniTest extends TestCase
         $response = $this->get('/mypage?tab=buy');
         $response->assertViewIs('user.mypage');
 
+        //データベースに購入データが保存＆カラムの更新がされているか確認
         $this->assertDatabaseHas('purchases', [
             'item_id' => $item->id,
             'user_id' => $user->id,

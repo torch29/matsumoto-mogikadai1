@@ -30,6 +30,7 @@ class PurchaseTest extends TestCase
 
         $response = $this->get("/purchase/{$item->id}");
         $response->assertViewIs('item.purchase.checkout');
+        //カード決済（'card'）を選択して購入の処理
         $response = $this->post(route('purchase.checkout', ['itemId' => $item->id]), [
             'item_id' => $item->id,
             'user_id' => $user->id,
@@ -48,9 +49,10 @@ class PurchaseTest extends TestCase
                 'building' => $user->profile->building
             ]
         ]);
-
         $response = $this->get('/mypage?tab=buy');
         $response->assertViewIs('user.mypage');
+
+        //データベースに購入データが保存＆カラムが更新されていることを確認
         $this->assertDatabaseHas('purchases', [
             'item_id' => $item->id,
             'user_id' => $user->id,
@@ -73,6 +75,7 @@ class PurchaseTest extends TestCase
         $this->actingAs($user);
         $item = Item::factory()->create();
 
+        //購入画面にアクセスし、購入の処理
         $response = $this->get("/purchase/{$item->id}");
         $response->assertViewIs('item.purchase.checkout');
         $response = $this->post(route('purchase.checkout', ['itemId' => $item->id]), [
@@ -94,6 +97,8 @@ class PurchaseTest extends TestCase
             ]
         ]);
         $response = $this->get('/mypage?tab=buy');
+
+        //トップページにアクセスし、購入した商品に「sold（購入しました）」と書かれたラベルがあることを確認
         $response = $this->get('/');
         $response->assertViewIs('index');
         $response->assertSeeInOrder([
@@ -159,5 +164,4 @@ class PurchaseTest extends TestCase
             ->select($key, 'payment');
             */
     }
-
 }

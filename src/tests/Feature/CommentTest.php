@@ -25,6 +25,7 @@ class CommentTest extends TestCase
         $this->actingAs($user);
         $item = Item::factory()->create();
 
+        //商品詳細画面にアクセスしたとき、コメントは0件であることを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertViewIs('item.detail');
         $response->assertViewHas('item', function ($item) {
@@ -36,6 +37,7 @@ class CommentTest extends TestCase
             0,
         ], false);
 
+        //コメントを投稿、commentsテーブルに保存されることを確認
         $this->post('/comment', [
             'item_id' => $item->id,
             'user_id' => $user->id,
@@ -46,6 +48,8 @@ class CommentTest extends TestCase
             'user_id' => $user->id,
             'comment' => '箱はありますか'
         ]);
+
+        //商品詳細画面にて、コメントの内容が反映されており、コメント件数が1件に増えていることを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertViewHas('item', function ($item) {
             return $item->comments->count() === 1;
@@ -66,6 +70,7 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         $item = Item::factory()->create();
 
+        //未ログインユーザーが商品詳細ページにアクセスする。コメントが0件であることを確認
         $this->assertGuest();
         $response = $this->get("/item/{$item->id}");
         $response->assertViewIs('item.detail');
@@ -77,6 +82,8 @@ class CommentTest extends TestCase
             'fa-comment',
             0,
         ], false);
+
+        //未ログインユーザーがコメントを投稿しようとする
         $this->post('/comment', [
             'item_id' => $item->id,
             'user_id' => $user->id,
@@ -88,6 +95,7 @@ class CommentTest extends TestCase
             'comment' => '箱はありますか'
         ]);
 
+        //コメントが反映されておらず、コメント件数も0件のままであることを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertViewHas('item', function ($item) {
             return $item->comments->count() === 0;

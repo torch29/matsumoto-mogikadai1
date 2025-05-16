@@ -26,6 +26,7 @@ class FavoriteTest extends TestCase
         $this->actingAs($user);
         $item = Item::factory()->create();
 
+        //商品詳細画面にアクセスし、いいねが0件であることを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertViewHas('item', function ($item) {
             return $item->favoriteUsers->count() === 0;
@@ -34,6 +35,8 @@ class FavoriteTest extends TestCase
             'class="item__favorite-form"',
             0,
         ], false);
+
+        //いいねを投稿すると、データベースに保存されることを確認
         $this->post("/favorite/{$item->id}", [
             'item_id' => $item->id,
             'user_id' => $user->id
@@ -42,6 +45,8 @@ class FavoriteTest extends TestCase
             'item_id' => $item->id,
             'user_id' => $user->id
         ]);
+
+        //商品詳細画面にて、いいねの件数が1件に増えていることを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertViewHas('item', function ($item) {
             return $item->favoriteUsers->count() === 1;
@@ -59,15 +64,19 @@ class FavoriteTest extends TestCase
         $this->actingAs($user);
         $item = Item::factory()->create();
 
+        //商品詳細画面にアクセスし、いいねする前のアイコンを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertSee('fa-regular fa-star');
         $response->assertDontSee('fa-solid fa-star');
+
+        //いいねをつける
         $this->post("/favorite/{$item->id}", [
             'item_id' => $item->id,
             'user_id' => $user->id
         ]);
         Auth::login($user->fresh());
 
+        //いいねの件数が1件に増え、アイコンの見た目が変化していることを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertViewHas('item', function ($item) {
             return $item->favoriteUsers->count() === 1;
@@ -87,6 +96,8 @@ class FavoriteTest extends TestCase
         $user->favoriteItems()->syncWithoutDetaching([
             'item_id' => $item->id
         ]);
+
+        //商品詳細画面にアクセスし、いいねされた状態のアイコンであることと、いいね件数が1件であることを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertSee('fa-solid fa-star');
         $response->assertDontSee('fa-regular fa-star');
@@ -101,12 +112,15 @@ class FavoriteTest extends TestCase
             'item_id' => $item->id,
             'user_id' => $user->id
         ]);
+
+        //再度いいねをクリック（いいねを解除する）
         $this->delete("/favorite/{$item->id}", [
             'item_id' => $item->id,
             'user_id' => $user->id
         ]);
         Auth::login($user->fresh());
 
+        //商品詳細画面にて、いいねの件数が0件に減少し、アイコンの見た目が変化している（戻っている）ことを確認
         $response = $this->get("/item/{$item->id}");
         $response->assertSee('fa-regular fa-star');
         $response->assertDontSee('fa-solid fa-star');

@@ -80,9 +80,9 @@ class PurchaseAddressChangeTest extends TestCase
             'item_id' => $item->id,
             'user_id' => $user->id,
             'payment' => 'card',
-            'zip_code' => $user->profile->zip_code,
-            'address' => $user->profile->address,
-            'building' => $user->profile->building
+            'zip_code' => '000-1234',
+            'address' => '北海道札幌市123',
+            'building' => '住所変更マンション22'
         ]);
         $this->withSession([
             'purchased_item_id' => $item->id,

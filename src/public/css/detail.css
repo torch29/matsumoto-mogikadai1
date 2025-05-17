@@ -279,7 +279,7 @@
 /*タブレットサイズ*/
 @media screen and (min-width: 768px) and (max-width: 851px) {
     .item__img-area {
-        width: 40%;
+        width: 50%;
         margin: 50px 20px;
         position: relative;
         overflow-x: hidden;

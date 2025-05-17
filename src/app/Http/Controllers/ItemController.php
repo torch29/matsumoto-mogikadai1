@@ -20,7 +20,7 @@ class ItemController extends Controller
 
         $items = Item::with('users', 'purchases')
             ->NameSearch($word)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         $myLists = Auth::user()
@@ -70,7 +70,7 @@ class ItemController extends Controller
     {
         $item = Item::with([
             'comments' => function ($query) {
-                $query->orderBy('created_at', 'desc');
+                $query->orderBy('id', 'desc');
             },
             'comments.user.profile'
         ])->find($id);

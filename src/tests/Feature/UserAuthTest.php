@@ -6,10 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Item;
-use App\Models\Purchase;
 
-class UserTest extends TestCase
+class UserAuthTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -190,5 +188,4 @@ class UserTest extends TestCase
         $this->post('logout');
         $this->assertGuest();
     }
-
 }

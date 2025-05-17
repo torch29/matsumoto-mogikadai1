@@ -56,6 +56,16 @@
                         @endif
                     </div>
                 </div>
+                <div class="form__error">
+                    <p>@error('zip_code')
+                        {{ $message }}
+                        @enderror
+                    </p>
+                    <p>@error('address')
+                        {{ $message }}
+                        @enderror
+                    </p>
+                </div>
             </div>
     </div>
     <div class="purchase-content__confirm">
@@ -80,15 +90,7 @@
                     }
                 </script>
             </div>
-            <div class="form__error">
-                @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                <div class="error">
-                    {{ $error }}
-                </div>
-                @endforeach
-                @endif
-            </div>
+
             <div class="confirm-form__button">
                 @if( $item->user_id == Auth::id() )
                 @else

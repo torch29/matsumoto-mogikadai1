@@ -51,7 +51,6 @@ class ItemSellTest extends TestCase
             'price' => 2500,
             'explain' => '白い磁器製のシンプルなカップです',
             'condition' => 2,
-            'img_path' => 'storage/img/item/1.jpg',
         ]);
     }
 }

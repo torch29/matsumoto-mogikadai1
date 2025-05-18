@@ -39,7 +39,7 @@
    php artisan db:seed
    ```
 
-8. 下記コマンドにて、シンボリックリンクの作成をお願いします。public 下に storage ディレクトリが生成され参照します。
+8. 下記コマンドにて、シンボリックリンクの生成をお願いします。public 下に storage ディレクトリが作成され参照します。
 
    ```
    php artisan storage:link

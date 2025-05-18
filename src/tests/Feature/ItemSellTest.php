@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Item;
 use App\Models\Profile;
 
 class ItemSellTest extends TestCase
@@ -18,10 +17,29 @@ class ItemSellTest extends TestCase
      */
     use RefreshDatabase;
 
-    public function test_example()
+    public function test_can_save_user_sold_items_data()
     {
-        $response = $this->get('/');
+        $user = User::factory()
+            ->has(Profile::factory())
+            ->create();
+        $this->actingAs($user);
 
-        $response->assertStatus(200);
+        $response = $this->get('/sell');
+        $this->post("/sell?user_id={$user->id}", [
+            'name' => 'コーヒーカップ',
+            'brand' => 'Coffee',
+            'price' => 2500,
+            'explain' => '白い磁器製のシンプルなカップです',
+            'condition' => 2,
+            'img_path' => '',
+        ]);
+        $this->assertDatabaseHas('items', [
+            'user_id' => $user->id,
+            'name' => 'コーヒーカップ',
+            'brand' => 'Coffee',
+            'price' => 2500,
+            'explain' => '白い磁器製のシンプルなカップです',
+            'condition' => 2,
+        ]);
     }
 }

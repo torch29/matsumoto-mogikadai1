@@ -102,6 +102,7 @@ class UserMypageTest extends TestCase
         $response = $this->get('/mypage/profile');
         $response->assertViewIs('user.profile');
         $response->assertSeeInOrder([
+            'images/user/icon.png',
             'テスト　ユーザー',
             '000-1234',
             '北海道札幌市123',

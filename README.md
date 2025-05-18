@@ -69,5 +69,5 @@ ER図は以下をご参照ください。
 
 ## URL
 
-- 開発環境：http://localhost/
+- フリマアプリのトップページ：http://localhost/
 - phpMyAdmin：http://localhost:8080/

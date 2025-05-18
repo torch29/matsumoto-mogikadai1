@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Comment;
-use App\Models\User;
 use App\Models\Purchase;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ItemRequest;

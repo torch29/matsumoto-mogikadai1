@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CategoryItemSeeder::class,
             ProfileSeeder::class,
             CommentSeeder::class,
+            PurchaseSeeder::class,
         ]);
     }
 }

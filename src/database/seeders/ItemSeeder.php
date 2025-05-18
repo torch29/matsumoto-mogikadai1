@@ -121,7 +121,7 @@ class ItemSeeder extends Seeder
                 写真をよくご確認の上ご購入をお願いします。",
                 'condition' => 1,
                 'img_path' => 'img/dummy/Waitress+with+Coffee+Grinder.jpg',
-                'status' => 'sold',
+                'status' => 'pending',
             ],
             [
                 'user_id' => 4,

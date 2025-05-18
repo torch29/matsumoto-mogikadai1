@@ -33,30 +33,30 @@
    - `DB_HOST=127.0.0.1` を `DB_HOST=mysql` に変更する。
    - DB_DATABASE, DB_USERNAME, DB_PASSWORD を任意に変更する。
      （例）
-     ```
+     ```.env
      DB_DATABASE=laravel_db
      DB_USERNAME=laravel_user
      DB_PASSWORD=laravel_pass
      ```
-5. ```
+5. ```PHPコンテナ上
    php artisan key:generate
    ```
 6. マイグレーションの実行
 
-   ```
+   ```PHPコンテナ上
    php artisan migrate
    ```
 
 7. シーディングの実行でダミーデータが作られます
 
-   ```
+   ```PHPコンテナ上
    php artisan db:seed
    ```
 
 8. 下記コマンドにて、シンボリックリンクの生成をお願いします。
    public 下に storage ディレクトリが作成され参照します。
 
-   ```
+   ```PHPコンテナ上
    php artisan storage:link
    ```
 
@@ -77,7 +77,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 5. 開いたページに、公開可能キーとシークレットキーが表示されています。
 
 6. `.env` ファイルを開き、確認した公開キーとシークレットキーを以下の欄に設定します。
-   ```
+   ```.env
    STRIPE_KEY=公開可能キー（pk_test_...）
    STRIPE_SECRET=シークレットキー（sk_test_...）
    ```
@@ -89,7 +89,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 
 1. `docker-compose.yml`に、下記が設定されていることを確認します。（Docker ビルドの 2 で設定済みの場合スキップ）
 
-   ```
+   ```docker-compose.yml
      mailhog:
       image: mailhog/mailhog
       ports:
@@ -106,7 +106,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
    ```
 
 3. `.env` ファイルを開き以下の項目を設定します。MAIL_FROM_ADDRESS 欄は、適当なもので OK です。
-   ```
+   ```.env
    MAIL_DRIVER=smtp
    MAIL_HOST=mailhog
    MAIL_PORT=1025
@@ -118,6 +118,95 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
    ```
 4. http://localhost:8025 にアクセスして、送信されたメールを確認できます。
    アプリ内では、会員登録後の「メール認証誘導画面」にあるボタンをクリックでも遷移できます。
+
+### テストの準備と実行
+
+PHPUnit によるテストを実行するための設定をします
+
+1. MySQL コンテナから、テスト用のデータベースを作成します。
+
+   MySQL コンテナに入り、root ユーザでログイン
+
+   ```MySQLコンテナ上
+   $ mysql -u root -p
+   ```
+
+   ログインできたら、test データベースを作成します。
+
+   ```MySQLログイン後
+   > CREATE DATABASE demo_test;
+   > SHOW DATABASES;
+
+   ```
+
+2. config/database.php を開き、`mysql` の配列部分をコピー＆ペーストして、新たに `mysql_test` 配列を作成します。
+
+   配列の`database`, `username`, `password`を下記のように変更します。
+
+   ```database.php
+   'database' => 'demo_test',
+   'username' => 'root',
+   'password' => 'root',
+   ```
+
+3. テスト用に.env ファイルを作成します
+
+   PHP コンテナにログインし、下記を実行して、.env をコピーした .env.testing を作成
+
+   ```PHPコンテナ上
+   $ cp .env .env.testing
+   ```
+
+   .env.testing を開き、文頭の APP_ENV と APP_KEY を編集します。
+
+   ```.env.testing
+   APP_NAME=Laravel
+   - APP_ENV=local
+   - APP_KEY=base64:vPtYQu63T1fmcyeBgEPd0fJ+jvmnzjYMaUf7d5iuB+c=
+   + APP_ENV=test
+   + APP_KEY=
+   ```
+
+   さらに、.env.testing にデータベースの接続情報を修正/記述します。
+
+   ```.env.testing
+   DB_DATABASE=demo_test
+   DB_USERNAME=root
+   DB_PASSWORD=root
+   ```
+
+4. アプリケーションキーの作成とマイグレーションを実行します
+
+   ```PHPコンテナ上
+   $ php artisan key:generate --env=testing
+   ```
+
+   ```PHPコンテナ上
+   $ php artisan config:clear
+   ```
+
+   ```PHPコンテナ上
+   $ php artisan migrate --env=testing
+   ```
+
+5. プロジェクト直下の phpunit.xml を編集
+
+   DB_CONNECTION と DB_DATABASE のコメントアウトを下記のように解除し、value=""内を変更します
+
+   ```phpunit.xml
+   -     <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
+   -     <!-- <server name="DB_DATABASE" value=":memory:"/> -->
+   +     <server name="DB_CONNECTION" value="mysql_test"/>
+   +     <server name="DB_DATABASE" value="test"/>
+   ```
+
+6. テストの実行
+
+   下記コマンドにて、登録されているテストが一括で実行されます
+
+   ```PHPコンテナ上
+   $ php artisan make:test HelloTest
+   ```
 
 ## 使用技術
 
@@ -131,7 +220,9 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 ## ER 図
 
 ```
-ER図は以下をご参照ください。
+
+ER 図は以下をご参照ください。
+
 ```
 
 ![ER図](ER.drawio.png)
@@ -151,10 +242,13 @@ ER図は以下をご参照ください。
   - カード決済での購入テストの際は「4242 4242 4242 4242」という番号でテストできます。参照：
     https://docs.stripe.com/testing?locale=ja-JP
   - テスト　ユーザーのログイン情報は以下の通りです。
-  ```
-  メールアドレス： test@example.com
-  パスワード： 12345678
-  ```
+
+```
+
+メールアドレス： test@example.com
+パスワード： 12345678
+
+```
 
 ## URL
 
@@ -162,3 +256,7 @@ ER図は以下をご参照ください。
 - phpMyAdmin：http://localhost:8080/
 - MailHog：http://localhost:8025
   （会員登録後のボタンクリックからも遷移できます）
+
+```
+
+```

@@ -28,7 +28,7 @@ class ItemSellTest extends TestCase
             ->create();
         $this->actingAs($user);
         Storage::fake('public');
-        $imgFile = UploadedFile::fake()->image('fake_cup.jpg');
+        $imgFile = UploadedFile::fake()->create('fake_cup.jpg', 100, 'image/jpeg');
 
         $response = $this->get('/sell');
         Category::insert([
@@ -51,7 +51,7 @@ class ItemSellTest extends TestCase
             'price' => 2500,
             'explain' => '白い磁器製のシンプルなカップです',
             'condition' => 2,
-            'img_path' => 'images/item/fake_cup.jpg'
+            'img_path' => 'storage/img/item/1.jpg',
         ]);
     }
 }

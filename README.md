@@ -9,17 +9,17 @@
 1. `git clone https://github.com/torch29/matasumoto-mogikadai1.git`
 2. `docker-compose.yml`に、下記を追記/確認します。
 
-MailHog（後述）を使用するための設定です。
+   MailHog（後述）を使用するための設定です。
 
-```
-  mailhog:
-   image: mailhog/mailhog
-   ports:
-      - "8025:8025"
-      - "1025:1025"
-   environment:
-         MH_STORAGE: memory
-```
+   ```
+   mailhog:
+      image: mailhog/mailhog
+      ports:
+         - "8025:8025"
+         - "1025:1025"
+      environment:
+            MH_STORAGE: memory
+   ```
 
 3. docker desktop アプリを起動する
 4. `docker-compose up -d --build`

@@ -9,10 +9,17 @@ use App\Models\Purchase;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
 use Stripe\Stripe;
-use Stripe\Checkout\Session;
+use App\Services\StripeService;
 
 class PurchaseController extends Controller
 {
+    protected $stripeService;
+
+    public function __construct(StripeService $stripeService)
+    {
+        $this->stripeService = $stripeService;
+    }
+
     public function purchase($id)
     {
         $item = Item::find($id);
@@ -68,7 +75,7 @@ class PurchaseController extends Controller
         ]);
 
         //stripe checkoutの処理
-        $session = Session::create([
+        $session = $this->stripeService->createCheckoutSession([
             'payment_method_types' => [$payment],  //プルダウンで選択された 'card', 'konbini'を送信
             'line_items' => [[
                 'price_data' => [

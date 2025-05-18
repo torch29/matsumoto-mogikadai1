@@ -119,8 +119,8 @@ class UserController extends Controller
         }
 
         $user = Auth::user();
-        $sellItems = $user->items;
-        $purchasedItems = $user->purchases()->with('purchasedItem')->get();
+        $sellItems = $user->items()->orderBy('id', 'desc')->get();
+        $purchasedItems = $user->purchases()->with('purchasedItem')->orderBy('id', 'desc')->get();
 
         $konbiniCheckoutUrl = session('konbini_checkout_url');
         session()->forget('konbini_checkout_url');

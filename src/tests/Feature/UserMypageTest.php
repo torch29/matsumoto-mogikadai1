@@ -72,13 +72,13 @@ class UserMypageTest extends TestCase
         $response->assertSee('テスト　ユーザー');
         $response->assertSeeInOrder([
             'id="sellItems"',
+            'テスト出品商品２',
             'テストさんが出品した商品',
-            'テスト出品商品２'
         ], false);
         $response->assertSeeInOrder([
             'id="purchasedItems"',
+            'テスト購入商品２',
             'テストさんが購入した商品',
-            'テスト購入商品２'
         ], false);
         //$response->dump();
     }

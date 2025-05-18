@@ -26,9 +26,10 @@ class PurchaseKonbiniTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $mock = Mockery::mock('overload:' . StripeSession::class);
-        $mock->shouldReceive('create')->once()->andReturn((object)[
-            'url' => 'https://fake-stripe-checkout-url.com'
+        $mock = Mockery::mock(\App\Services\StripeService::class);
+        $this->app->instance(\App\Services\StripeService::class, $mock);
+        $mock->shouldReceive('createCheckoutSession')->once()->andReturn((object)[
+            'url' => 'https://fake-stripe-checkout-url.com',
         ]);
 
         $user = User::factory()

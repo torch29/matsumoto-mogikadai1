@@ -63,11 +63,47 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 
 5. 開いたページに、公開可能キーとシークレットキーが表示されています。
 
-6. .env ファイルを開き、確認した公開キーとシークレットキーを設定します。
+6. `.env` ファイルを開き、確認した公開キーとシークレットキーを以下の欄に設定します。
    ```
    STRIPE_KEY=公開可能キー（pk_test_...）
    STRIPE_SECRET=シークレットキー（sk_test_...）
    ```
+
+### MailHog の設定
+
+フリマアプリに会員登録する際にメールアドレス認証が必要となります。認証用のメールを確認するメールサーバーとして実装しています。
+
+1. `docker-compose.yml`に、下記を追記します。
+
+   ```
+     mailhog:
+      image: mailhog/mailhog
+      ports:
+         - "8025:8025"
+         - "1025:1025"
+      environment:
+            MH_STORAGE: memory
+   ```
+
+2. Docker の再ビルドをお願いします。
+   MailHog のイメージをビルドします。
+
+   ```
+   docker-compose up -d --build
+   ```
+
+3. `.env` ファイルを開き以下の項目を設定します。MAIL_FROM_ADDRESS 欄は、適当なもので OK です。
+   ```
+   MAIL_DRIVER=smtp
+   MAIL_HOST=mailhog
+   MAIL_PORT=1025
+   MAIL_USERNAME=
+   MAIL_PASSWORD=
+   MAIL_ENCRYPTION=
+   MAIL_FROM_ADDRESS=mailhog@mailhog.com
+   MAIL_FROM_NAME="${APP_NAME}"
+   ```
+4. http://localhost:8025 にアクセスして、送信されたメールを確認できます。アプリ内では、会員登録後の「メール認証誘導画面」にあるボタンをクリックでも遷移できます。
 
 ## 使用技術
 
@@ -108,3 +144,4 @@ ER図は以下をご参照ください。
 
 - フリマアプリのトップページ：http://localhost/
 - phpMyAdmin：http://localhost:8080/
+- MailHog：http://localhost:8025（会員登録後のボタンクリックからも遷移できます）

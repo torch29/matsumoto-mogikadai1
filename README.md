@@ -34,8 +34,15 @@
    ```
 
 7. シーディングの実行でダミーデータが作られます
+
    ```
    php artisan db:seed
+   ```
+
+8. 下記コマンドにて、シンボリックリンクの作成をお願いします。public 下に storage ディレクトリが生成され参照します。
+
+   ```
+   php artisan storage:link
    ```
 
 ## 使用技術
@@ -44,6 +51,7 @@
 - Laravel 8.83.8
 - MySQL 8.0.26
 - MailHog （会員登録時のメール認証のメール確認用に使用）
+- Stripe（商品購入の決済に使用）
 - PHPUnit
 
 ## ER 図

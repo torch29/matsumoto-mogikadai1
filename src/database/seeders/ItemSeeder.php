@@ -16,7 +16,7 @@ class ItemSeeder extends Seeder
     {
         $items = [
             [
-                'user_id' => 3,
+                'user_id' => 1,
                 'name' => '腕時計',
                 'brand_name' => 'Almani',
                 'price' => 15000,
@@ -27,7 +27,7 @@ class ItemSeeder extends Seeder
                 'status' => 'available',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 3,
                 'name' => 'HDD',
                 'brand_name' => '',
                 'price' => 5000,
@@ -74,7 +74,7 @@ class ItemSeeder extends Seeder
                 'status' => 'sold',
             ],
             [
-                'user_id' => 3,
+                'user_id' => 2,
                 'name' => 'マイク',
                 'brand_name' => 'Zennheuser ',
                 'price' => 8000,
@@ -98,7 +98,7 @@ class ItemSeeder extends Seeder
                 'status' => 'available',
             ],
             [
-                'user_id' => 3,
+                'user_id' => 1,
                 'name' => 'タンブラー',
                 'brand_name' => 'サムス',
                 'price' => 500,

@@ -7,6 +7,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Category;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ItemSellTest extends TestCase
 {
@@ -17,29 +20,38 @@ class ItemSellTest extends TestCase
      */
     use RefreshDatabase;
 
+    //商品を出品すると、商品の各項目が保存されている
     public function test_can_save_user_sold_items_data()
     {
         $user = User::factory()
             ->has(Profile::factory())
             ->create();
         $this->actingAs($user);
+        Storage::fake('public');
+        $imgFile = UploadedFile::fake()->image('fake_cup.jpg');
 
         $response = $this->get('/sell');
+        Category::insert([
+            ['id' => 3, 'content' => 'インテリア'],
+            ['id' => 10, 'content' => 'キッチン']
+        ]);
         $this->post("/sell?user_id={$user->id}", [
             'name' => 'コーヒーカップ',
-            'brand' => 'Coffee',
+            'brand_name' => 'Coffee',
             'price' => 2500,
             'explain' => '白い磁器製のシンプルなカップです',
             'condition' => 2,
-            'img_path' => '',
+            'category_ids' => [3, 10],
+            'img_path' => $imgFile,
         ]);
         $this->assertDatabaseHas('items', [
             'user_id' => $user->id,
             'name' => 'コーヒーカップ',
-            'brand' => 'Coffee',
+            'brand_name' => 'Coffee',
             'price' => 2500,
             'explain' => '白い磁器製のシンプルなカップです',
             'condition' => 2,
+            'img_path' => 'images/item/fake_cup.jpg'
         ]);
     }
 }

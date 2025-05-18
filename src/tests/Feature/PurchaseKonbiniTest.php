@@ -11,7 +11,6 @@ use App\Models\Profile;
 use Stripe\Checkout\Session as StripeSession;
 use Mockery;
 
-
 class PurchaseKonbiniTest extends TestCase
 {
     /**

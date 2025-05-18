@@ -41,10 +41,10 @@ class ItemIndexTest extends TestCase
             'テスト鞄',
             'テスト教科書'
         ]);
-        $response->assertViewHas('items', function ($viewItems) use ($item1, $item2, $item3) {
+        $response->assertViewHas('items', function ($showItems) use ($item1, $item2, $item3) {
             $expectedIds = collect([$item1->id, $item2->id, $item3->id])->sort()->values()->all();
-            $actualIds = $viewItems->pluck('id')->sort()->values()->all();
-            return $viewItems->count() === 3 && $actualIds === $expectedIds;
+            $viewIds = $showItems->pluck('id')->sort()->values()->all();
+            return $showItems->count() === 3 && $viewIds === $expectedIds;
         });
         //$response->dump();
     }

@@ -23,9 +23,10 @@ class CommentSeeder extends Seeder
         Comment::create([
             'item_id' => 1,
             'user_id' => 1,
-            'comment' => 'はい、お付けできます。\nご検討よろしくお願いします。'
+            'comment' => 'はい、お付けできます。
+            ご検討よろしくお願いします。'
         ]);
 
-        Comment::factory()->count(5)->create();
+        Comment::factory()->count(8)->create();
     }
 }

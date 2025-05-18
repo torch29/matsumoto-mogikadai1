@@ -14,7 +14,7 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            'zip_code' => $this->faker->postcode(),
+            'zip_code' => $this->faker->numerify('###-####'),
             'address' => implode('', [
                 $this->faker->prefecture(),
                 $this->faker->city(),

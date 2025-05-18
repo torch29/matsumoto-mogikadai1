@@ -155,4 +155,5 @@ ER図は以下をご参照ください。
 
 - フリマアプリのトップページ：http://localhost/
 - phpMyAdmin：http://localhost:8080/
-- MailHog：http://localhost:8025（会員登録後のボタンクリックからも遷移できます）
+- MailHog：http://localhost:8025
+  （会員登録後のボタンクリックからも遷移できます）

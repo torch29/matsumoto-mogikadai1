@@ -7,8 +7,19 @@
 以下を実行します
 
 1. `git clone https://github.com/torch29/matasumoto-mogikadai1.git`
-2. docker desktop アプリを起動する
-3. `docker-compose up -d --build`
+2. `docker-compose.yml`に、下記を追記/確認します。
+   MailHog（後述）を使用するための設定です。
+   ```
+     mailhog:
+      image: mailhog/mailhog
+      ports:
+         - "8025:8025"
+         - "1025:1025"
+      environment:
+            MH_STORAGE: memory
+   ```
+3. docker desktop アプリを起動する
+4. `docker-compose up -d --build`
 
 ### Laravel 環境構築
 
@@ -16,7 +27,7 @@
 2. `composer install` を実行
 3. `cp .env.example .env` を実行し、.env.example を .env にコピーする。
 4. .env ファイルを開き、
-   - DB_HOST=127.0.0.1 を DB_HOST=mysql に変更する。
+   - `DB_HOST=127.0.0.1` を `DB_HOST=mysql` に変更する。
    - DB_DATABASE, DB_USERNAME, DB_PASSWORD を任意に変更する。
      （例）
      ```
@@ -73,7 +84,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 
 フリマアプリに会員登録する際にメールアドレス認証が必要となります。認証用のメールを確認するメールサーバーとして実装しています。
 
-1. `docker-compose.yml`に、下記を追記します。
+1. `docker-compose.yml`に、下記が設定されていることを確認します。（Docker ビルドの 2 で設定済みの場合スキップ）
 
    ```
      mailhog:
@@ -85,8 +96,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
             MH_STORAGE: memory
    ```
 
-2. Docker の再ビルドをお願いします。
-   MailHog のイメージをビルドします。
+2. もしも 1. の内容を修正した場合は Docker を再ビルドします。（MailHog のイメージをビルド）
 
    ```
    docker-compose up -d --build
@@ -111,7 +121,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 - Laravel 8.83.8
 - MySQL 8.0.26
 - MailHog （会員登録時のメール認証のメール確認用に使用）
-- Stripe（商品購入の決済に使用）
+- Stripe（商品購入の決済テストに使用）
 - PHPUnit
 
 ## ER 図
@@ -134,6 +144,7 @@ ER図は以下をご参照ください。
 - シーディングにてダミーデータを作成すると、「テスト　ユーザー」という名前でログインすることも可能です。
   - テスト　ユーザーでログインすると、マイページから自身が出品した商品/購入した商品が確認できます。
   - 出品した商品「腕時計」には、自然な内容のコメントのやり取りのダミーデータを入れています。それ以外のコメントはランダムです。
+  - カード決済での購入テストの際は「4242 4242 4242 4242」という番号でテストできます。（https://docs.stripe.com/testing?locale=ja-JP）
   - テスト　ユーザーのログイン情報は以下の通りです。
   ```
   メールアドレス： test@example.com

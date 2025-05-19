@@ -53,7 +53,7 @@
    php artisan db:seed
    ```
 
-8. 下記コマンドにて、シンボリックリンクの生成をお願いします。
+8. 下記コマンドにて、シンボリックリンクの生成をお願いします。  
    public 下に storage ディレクトリが作成され参照します。
 
    ```PHPコンテナ上
@@ -84,7 +84,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 
 ### MailHog の設定
 
-フリマアプリに会員登録する際にメールアドレス認証が必要となります。
+フリマアプリに会員登録する際にメールアドレス認証が必要となります。  
 認証用のメールを確認するメールサーバーとして実装しています。
 
 1. `docker-compose.yml`に、下記が設定されていることを確認します。（Docker ビルドの 2 で設定済みの場合スキップ）
@@ -105,7 +105,8 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
    docker-compose up -d --build
    ```
 
-3. `.env` ファイルを開き以下の項目を設定します。MAIL_FROM_ADDRESS 欄は、適当なもので OK です。
+3. `.env` ファイルを開き以下の項目を設定します。  
+   MAIL_FROM_ADDRESS 欄は、適当なもので OK です。
    ```.env
    MAIL_DRIVER=smtp
    MAIL_HOST=mailhog
@@ -116,7 +117,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
    MAIL_FROM_ADDRESS=mailhog@mailhog.com
    MAIL_FROM_NAME="${APP_NAME}"
    ```
-4. http://localhost:8025 にアクセスして、送信されたメールを確認できます。
+4. http://localhost:8025 にアクセスして、送信されたメールを確認できます。  
    アプリ内では、会員登録後の「メール認証誘導画面」にあるボタンをクリックでも遷移できます。
 
 ### テストの準備と実行
@@ -205,7 +206,7 @@ PHPUnit によるテストを実行するための設定をします
    下記コマンドにて、登録されているテストが一括で実行されます
 
    ```PHPコンテナ上
-   $ php artisan make:test HelloTest
+   $ php artisan test
    ```
 
 ## 使用技術
@@ -240,7 +241,7 @@ ER 図は以下をご参照ください。
   - テスト　ユーザーでログインすると、マイページから自身が出品した商品/購入した商品が確認できます。
   - 出品した商品「腕時計」には、自然な内容のコメントのやり取りのダミーデータを入れています。それ以外のコメントはランダムです。
   - カード決済での購入テストの際は「4242 4242 4242 4242」という番号でテストできます。参照：
-    https://docs.stripe.com/testing?locale=ja-JP
+    [Stripe - Test Card Numbers](https://docs.stripe.com/testing?locale=ja-JP)
   - テスト　ユーザーのログイン情報は以下の通りです。
 
 ```
@@ -252,9 +253,9 @@ ER 図は以下をご参照ください。
 
 ## URL
 
-- フリマアプリのトップページ：http://localhost/
-- phpMyAdmin：http://localhost:8080/
-- MailHog：http://localhost:8025
+- フリマアプリのトップページ：(http://localhost/)
+- phpMyAdmin：(http://localhost:8080/)
+- MailHog：(http://localhost:8025)
   （会員登録後のボタンクリックからも遷移できます）
 
 ```

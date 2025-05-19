@@ -20,17 +20,10 @@ use App\Http\Controllers\FavoriteController;
 |
 */
 
-
-//あとでけす
-Route::get('verify', function () {
-    return view('user.verify');
-});
-
 // メール認証
 Route::get('/email/verify', function () {
     return view('user.verify');
 })->middleware('auth')->name('verification.notice');
-
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/mypage/profile');
@@ -41,6 +34,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', '認証メールを再送信しました。');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+//トップページ
 Route::get('/', [ItemController::class, 'index']);
 //商品詳細画面の表示
 Route::get('/item/{id}', [ItemController::class, 'detail']);
@@ -57,7 +51,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sell', [ItemController::class, 'store']);
     //商品購入画面の表示
     Route::get('/purchase/{id}', [PurchaseController::class, 'purchase']);
-    Route::post('/purchase/{id}', [PurchaseController::class, 'decidePurchase']);
     //配送先変更画面
     Route::get('/purchase/address/{id}', [PurchaseController::class, 'changeAddress']);
     Route::post('/purchase/address/{id}', [PurchaseController::class, 'saveShippingAddress']);

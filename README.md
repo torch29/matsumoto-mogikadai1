@@ -223,6 +223,8 @@ PHPUnit によるテストを実行するための設定をします。
 - Stripe（商品購入の決済テストに使用）
 - PHPUnit
 - JavaScript
+- mysql:8.0.26
+- nginx:1.21.1
 
 ## ER 図
 

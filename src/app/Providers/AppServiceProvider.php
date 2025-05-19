@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Sanctum::ignoreMigrations();
-        // 追記 personal_access_tokensのマイグレーションを防ぐ
+        // personal_access_tokensのマイグレーションを防ぐ
     }
 
     /**
@@ -26,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Cashier::ignoreMigrations(); // Cashierの自動マイグレーションを無効にする
+        Cashier::ignoreMigrations(); // Cashierの自動マイグレーションを防ぐ
     }
 }

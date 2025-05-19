@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
@@ -149,20 +148,4 @@ class PurchaseTest extends TestCase
         //$response->dump();
     }
 
-    // 購入画面での支払い方法選択で、変更が即時反映される
-    public function test_reflect_immediately_change_to_select_payment()
-    {
-        $user = User::factory()
-            ->has(Profile::factory())
-            ->create();
-        $this->actingAs($user);
-        $item = Item::factory()->create();
-
-        $response = $this->get("/purchase/{$item->id}");
-        /*
-        書きかけ
-        $this->visit("purchase/{item->id}")
-            ->select($key, 'payment');
-            */
-    }
 }

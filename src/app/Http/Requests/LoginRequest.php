@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
-use Illuminate\Support\Facades\Auth;
 
 class LoginRequest extends FortifyLoginRequest
 {

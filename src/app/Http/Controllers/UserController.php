@@ -48,38 +48,6 @@ class UserController extends Controller
             $profileImgPath = 'storage/img/user/' . $fileName;
             $profile->update(['profile_img' => $profileImgPath]);
         }
-        /*
-        //↓の１行目を$user = Auth::user();にしたいけどそうすると一部赤く表示されちゃう。動きには問題なさそうだけど
-
-        $user = User::find($request->user_id);
-        $user->update($request->only('name'));
-
-        $profile = $user->profile;
-        $profiles = $request->only(['zip_code', 'address', 'building']);
-        if ($profile) {
-            $profile->update($profiles);
-        } else {
-            $profile->create($profiles);
-        }
-
-        if ($request->hasFile('profile_img')) {
-            $file = $request->file('profile_img');
-            $fileName = $user->id . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/img/user/', $fileName);
-
-            $profileImgPath = 'storage/img/user/' . $fileName;
-
-            if ($profile) {
-                $profile->update([
-                    'profile_img' => $profileImgPath
-                ]);
-            } else {
-                $user->profile()->create([
-                    'profile_img' => $profileImgPath
-                ]);
-            }
-        }
-            */
 
         return redirect('/mypage/profile');
     }

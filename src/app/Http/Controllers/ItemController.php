@@ -31,8 +31,6 @@ class ItemController extends Controller
 
         $purchasedItemIds = Purchase::where('user_id', Auth::id())->pluck('item_id')->toArray();
 
-        // dump($purchasedItemIds);
-
         return view('index', compact('items', 'myLists', 'word', 'purchasedItemIds'));
     }
 

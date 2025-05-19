@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Item;
 
 class FavoriteController extends Controller
@@ -25,17 +23,8 @@ class FavoriteController extends Controller
         }
 
         if (!$user->favoriteItems()->where('item_id', $item_id)->exists()) {
-            $user->favoriteItems()->syncWithoutDetaching($item_id); //修正
+            $user->favoriteItems()->syncWithoutDetaching($item_id);
         }
-
-        /*
-        $item = Item::with('users')->find($item_id);
-
-        if (!($item->user_id == Auth::id()) || !$user->favoriteItems()->where('item_id', $item_id)->exists()) {
-            $user->favoriteItems()->attach($item_id);
-        }
-
-        */
 
         return back();
     }

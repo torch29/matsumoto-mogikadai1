@@ -19,10 +19,10 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->string('brand_name')->nullable();
             $table->integer('price')->unsigned();
-            $table->string('explain');
+            $table->string('explain', 255);
             $table->tinyInteger('condition')->comment('1:良好 2:目立った傷や汚れなし 3:やや傷や汚れあり 4:状態が悪い');
             $table->string('img_path');
-            $table->string('status')->default('available'); // available or sold
+            $table->string('status')->default('available'); // available or sold or pending
             $table->timestamps();
         });
     }

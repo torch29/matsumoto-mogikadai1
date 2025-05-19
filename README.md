@@ -68,7 +68,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 
 2. Stripe にアクセスし、[今すぐ始める]ボタンから、無料のアカウント登録/サインインをお願いします。（要メールアドレス。）
 
-   https://stripe.com/jp
+   [Stripe](https://stripe.com/jp)
 
 3. メールアドレス、氏名、国などの必要項目を入力し、アカウントを作成のうえサインインしてください。
 
@@ -144,7 +144,7 @@ PHPUnit によるテストを実行するための設定をします
 
    配列の`database`, `username`, `password`を下記のように変更します。
 
-   ```
+   ```.php
    'database' => 'demo_test',
    'username' => 'root',
    'password' => 'root',
@@ -160,7 +160,7 @@ PHPUnit によるテストを実行するための設定をします
 
    .env.testing を開き、文頭の APP_ENV と APP_KEY を編集します。
 
-   ```
+   ```.env
    APP_NAME=Laravel
    - APP_ENV=local
    - APP_KEY=base64:vPtYQu63T1fmcyeBgEPd0fJ+jvmnzjYMaUf7d5iuB+c=
@@ -170,7 +170,7 @@ PHPUnit によるテストを実行するための設定をします
 
    さらに、.env.testing にデータベースの接続情報を修正/記述します。
 
-   ```
+   ```.env
    DB_DATABASE=demo_test
    DB_USERNAME=root
    DB_PASSWORD=root
@@ -194,7 +194,7 @@ PHPUnit によるテストを実行するための設定をします
 
    DB_CONNECTION と DB_DATABASE のコメントアウトを下記のように解除し、value=""内を変更します
 
-   ```
+   ```.xml
    -     <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
    -     <!-- <server name="DB_DATABASE" value=":memory:"/> -->
    +     <server name="DB_CONNECTION" value="mysql_test"/>

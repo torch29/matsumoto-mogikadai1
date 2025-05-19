@@ -157,8 +157,9 @@ PHPUnit によるテストを実行するための設定をします。
    'password' => 'root',
    ```
 
-3. テスト用に.env ファイルを作成します。  
-   PHP コンテナにログインし、下記を実行して、.env をコピーした .env.testing を作成
+3. テスト用に.env ファイルを作成します。
+
+   PHP コンテナにログインし、下記を実行して .env をコピーした .env.testing を作成
 
    ```
    $ cp .env .env.testing

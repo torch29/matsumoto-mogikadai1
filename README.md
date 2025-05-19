@@ -77,7 +77,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 
 2. [Stripe](https://stripe.com/jp) にアクセスし、[今すぐ始める]ボタンから、無料のアカウント登録/サインインをお願いします。（要メールアドレス。）
 
-3. メールアドレス、氏名、国などの必要項目を入力し、アカウントを作成のうえサインインしてください。
+3. メールアドレス等の必要項目を入力し、アカウントを作成のうえサインインしてください。
 
 4. ページ下部にある「開発者」をクリックし、開いたメニューの中からさらに「API キー」をクリックします。
 
@@ -133,7 +133,11 @@ PHPUnit によるテストを実行するための設定をします。
 
 1. MySQL コンテナから、テスト用のデータベースを作成します。
 
-   MySQL コンテナに入ってから root ユーザでログイン
+   MySQL コンテナに入ってから root ユーザでログイン（要パスワード入力）
+
+   ```
+   docker-compose exec mysql bash
+   ```
 
    ```
    $ mysql -u root -p
@@ -149,7 +153,7 @@ PHPUnit によるテストを実行するための設定をします。
 
 2. config/database.php を開き、`mysql の配列`部分をコピー＆ペーストして、新たに `mysql_test` 配列を作成します。
 
-   配列の`database`, `username`, `password`を下記のように変更します。
+   `mysql_test` 配列の`database`, `username`, `password`を下記のように変更します。
 
    ```.php
    'database' => 'test',
@@ -159,7 +163,7 @@ PHPUnit によるテストを実行するための設定をします。
 
 3. テスト用に.env ファイルを作成します。
 
-   PHP コンテナにログインし、下記を実行して .env をコピーした .env.testing を作成
+   PHP コンテナに入り、下記を実行して .env をコピーした .env.testing を作成
 
    ```
    $ cp .env .env.testing
@@ -223,15 +227,13 @@ PHPUnit によるテストを実行するための設定をします。
 - Stripe（商品購入の決済テストに使用）
 - PHPUnit
 - JavaScript
-- mysql:8.0.26
-- nginx:1.21.1
+- mysql 8.0.26
+- nginx 1.21.1
 
 ## ER 図
 
 ```
-
 ER 図は以下をご参照ください。
-
 ```
 
 ![ER図](ER.drawio.png)
@@ -265,7 +267,3 @@ ER 図は以下をご参照ください。
 - phpMyAdmin：http://localhost:8080/
 - MailHog：http://localhost:8025  
   （会員登録後のボタンクリックからも遷移できます）
-
-```
-
-```

@@ -11,14 +11,14 @@
 
    MailHog（後述）を使用するための設定です。
 
-   ```
+   ```yml
    mailhog:
-      image: mailhog/mailhog
-      ports:
-         - "8025:8025"
-         - "1025:1025"
-      environment:
-            MH_STORAGE: memory
+     image: mailhog/mailhog
+     ports:
+       - "8025:8025"
+       - "1025:1025"
+     environment:
+       MH_STORAGE: memory
    ```
 
 3. docker desktop アプリを起動する
@@ -38,25 +38,25 @@
      DB_USERNAME=laravel_user
      DB_PASSWORD=laravel_pass
      ```
-5. ```PHPコンテナ上
+5. ```
    php artisan key:generate
    ```
 6. マイグレーションの実行
 
-   ```PHPコンテナ上
+   ```
    php artisan migrate
    ```
 
 7. シーディングの実行でダミーデータが作られます
 
-   ```PHPコンテナ上
+   ```
    php artisan db:seed
    ```
 
 8. 下記コマンドにて、シンボリックリンクの生成をお願いします。  
    public 下に storage ディレクトリが作成され参照します。
 
-   ```PHPコンテナ上
+   ```
    php artisan storage:link
    ```
 
@@ -89,14 +89,14 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 
 1. `docker-compose.yml`に、下記が設定されていることを確認します。（Docker ビルドの 2 で設定済みの場合スキップ）
 
-   ```docker-compose.yml
-     mailhog:
-      image: mailhog/mailhog
-      ports:
-         - "8025:8025"
-         - "1025:1025"
-      environment:
-            MH_STORAGE: memory
+   ```yml
+   mailhog:
+     image: mailhog/mailhog
+     ports:
+       - "8025:8025"
+       - "1025:1025"
+     environment:
+       MH_STORAGE: memory
    ```
 
 2. もしも 1. の内容を修正した場合は Docker を再ビルドします。（MailHog のイメージをビルド）
@@ -128,13 +128,13 @@ PHPUnit によるテストを実行するための設定をします
 
    MySQL コンテナに入り、root ユーザでログイン
 
-   ```MySQLコンテナ上
+   ```
    $ mysql -u root -p
    ```
 
    ログインできたら、test データベースを作成します。
 
-   ```MySQLログイン後
+   ```.mysql
    > CREATE DATABASE demo_test;
    > SHOW DATABASES;
 
@@ -144,7 +144,7 @@ PHPUnit によるテストを実行するための設定をします
 
    配列の`database`, `username`, `password`を下記のように変更します。
 
-   ```database.php
+   ```
    'database' => 'demo_test',
    'username' => 'root',
    'password' => 'root',
@@ -154,13 +154,13 @@ PHPUnit によるテストを実行するための設定をします
 
    PHP コンテナにログインし、下記を実行して、.env をコピーした .env.testing を作成
 
-   ```PHPコンテナ上
+   ```
    $ cp .env .env.testing
    ```
 
    .env.testing を開き、文頭の APP_ENV と APP_KEY を編集します。
 
-   ```.env.testing
+   ```
    APP_NAME=Laravel
    - APP_ENV=local
    - APP_KEY=base64:vPtYQu63T1fmcyeBgEPd0fJ+jvmnzjYMaUf7d5iuB+c=
@@ -170,7 +170,7 @@ PHPUnit によるテストを実行するための設定をします
 
    さらに、.env.testing にデータベースの接続情報を修正/記述します。
 
-   ```.env.testing
+   ```
    DB_DATABASE=demo_test
    DB_USERNAME=root
    DB_PASSWORD=root
@@ -178,23 +178,23 @@ PHPUnit によるテストを実行するための設定をします
 
 4. アプリケーションキーの作成とマイグレーションを実行します
 
-   ```PHPコンテナ上
+   ```
    $ php artisan key:generate --env=testing
    ```
 
-   ```PHPコンテナ上
+   ```
    $ php artisan config:clear
    ```
 
-   ```PHPコンテナ上
+   ```
    $ php artisan migrate --env=testing
    ```
 
-5. プロジェクト直下の phpunit.xml を編集
+5. プロジェクト直下の `phpunit.xml` を編集
 
    DB_CONNECTION と DB_DATABASE のコメントアウトを下記のように解除し、value=""内を変更します
 
-   ```phpunit.xml
+   ```
    -     <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
    -     <!-- <server name="DB_DATABASE" value=":memory:"/> -->
    +     <server name="DB_CONNECTION" value="mysql_test"/>
@@ -205,7 +205,7 @@ PHPUnit によるテストを実行するための設定をします
 
    下記コマンドにて、登録されているテストが一括で実行されます
 
-   ```PHPコンテナ上
+   ```
    $ php artisan test
    ```
 

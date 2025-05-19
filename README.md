@@ -6,9 +6,8 @@
 
 以下を実行します
 
-1. `git clone https://github.com/torch29/matasumoto-mogikadai1.git`
-2. `docker-compose.yml`に、下記を追記/確認します。
-
+1. `git clone git@github.com:torch29/matsumoto-mogikadai1.git`
+2. `docker-compose.yml`に、下記を追記/確認します。  
    MailHog（後述）を使用するための設定です。
 
    ```yml
@@ -31,7 +30,7 @@
 3. `cp .env.example .env` を実行し、.env.example を .env にコピーする。
 4. .env ファイルを開き、
    - `DB_HOST=127.0.0.1` を `DB_HOST=mysql` に変更する。
-   - DB_DATABASE, DB_USERNAME, DB_PASSWORD を任意に変更する。
+   - DB_DATABASE, DB_USERNAME, DB_PASSWORD を任意に変更する。  
      （例）
      ```.env
      DB_DATABASE=laravel_db
@@ -66,8 +65,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 
 1. 環境構築の際の`composer install`にて、Laravel Cashier がインストールされます。
 
-2. Stripe にアクセスし、[今すぐ始める]ボタンから、無料のアカウント登録/サインインをお願いします。（要メールアドレス。）
-
+2. Stripe にアクセスし、[今すぐ始める]ボタンから、無料のアカウント登録/サインインをお願いします。（要メールアドレス。）  
    [Stripe](https://stripe.com/jp)
 
 3. メールアドレス、氏名、国などの必要項目を入力し、アカウントを作成のうえサインインしてください。
@@ -117,12 +115,12 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
    MAIL_FROM_ADDRESS=mailhog@mailhog.com
    MAIL_FROM_NAME="${APP_NAME}"
    ```
-4. http://localhost:8025 にアクセスして、送信されたメールを確認できます。  
+4. (http://localhost:8025) にアクセスして、送信されたメールを確認できます。  
    アプリ内では、会員登録後の「メール認証誘導画面」にあるボタンをクリックでも遷移できます。
 
 ### テストの準備と実行
 
-PHPUnit によるテストを実行するための設定をします
+PHPUnit によるテストを実行するための設定をします。
 
 1. MySQL コンテナから、テスト用のデータベースを作成します。
 
@@ -132,46 +130,43 @@ PHPUnit によるテストを実行するための設定をします
    $ mysql -u root -p
    ```
 
-   ログインできたら、test データベースを作成します。
+   ログインできたら、test データベースを作成します。（データベース名は任意です。）
 
    ```.mysql
-   > CREATE DATABASE demo_test;
+   > CREATE DATABASE test;
    > SHOW DATABASES;
 
    ```
 
-2. config/database.php を開き、`mysql` の配列部分をコピー＆ペーストして、新たに `mysql_test` 配列を作成します。
+2. config/database.php を開き、`mysql の配列`部分をコピー＆ペーストして、新たに `mysql_test` 配列を作成します。
 
    配列の`database`, `username`, `password`を下記のように変更します。
 
    ```.php
-   'database' => 'demo_test',
+   'database' => 'test',
    'username' => 'root',
    'password' => 'root',
    ```
 
-3. テスト用に.env ファイルを作成します
-
+3. テスト用に.env ファイルを作成します。
    PHP コンテナにログインし、下記を実行して、.env をコピーした .env.testing を作成
 
    ```
    $ cp .env .env.testing
    ```
 
-   .env.testing を開き、文頭の APP_ENV と APP_KEY を編集します。
+   `.env.testing` を開き、文頭の `APP_ENV` と `APP_KEY` を編集します。
 
    ```.env
    APP_NAME=Laravel
-   - APP_ENV=local
-   - APP_KEY=base64:vPtYQu63T1fmcyeBgEPd0fJ+jvmnzjYMaUf7d5iuB+c=
-   + APP_ENV=test
-   + APP_KEY=
+   APP_ENV=test
+   APP_KEY=
    ```
 
    さらに、.env.testing にデータベースの接続情報を修正/記述します。
 
    ```.env
-   DB_DATABASE=demo_test
+   DB_DATABASE=test
    DB_USERNAME=root
    DB_PASSWORD=root
    ```
@@ -217,6 +212,7 @@ PHPUnit によるテストを実行するための設定をします
 - MailHog （会員登録時のメール確認用に使用）
 - Stripe（商品購入の決済テストに使用）
 - PHPUnit
+- JavaScript
 
 ## ER 図
 
@@ -245,17 +241,16 @@ ER 図は以下をご参照ください。
     [Stripe - Test Card Numbers](https://docs.stripe.com/testing?locale=ja-JP)
   - テスト　ユーザーのログイン情報は以下の通りです。
 
-  ```
-  メールアドレス： test@example.com
-  パスワード： 12345678
-  ```
+    ```
+     メールアドレス： test@example.com
+     パスワード： 12345678
+    ```
 
 ## URL
 
 - フリマアプリのトップページ：(http://localhost/)
 - phpMyAdmin：(http://localhost:8080/)
-- MailHog：(http://localhost:8025)
-  （会員登録後のボタンクリックからも遷移できます）
+- MailHog：(http://localhost:8025)（会員登録後のボタンクリックからも遷移できます）
 
 ```
 

@@ -26,7 +26,7 @@ class ProfileRequest extends FormRequest
         return [
             'name' => ['required'],
             'zip_code' => ['nullable', 'regex:/^[0-9]{3}-[0-9]{4}$/', 'max:8'],
-            'profile_img' => ['mimetypes:imaga/jpeg,image/jpg,image/png', 'mimes:jpeg,jpg,png'],
+            'profile_img' => ['mimetypes:image/jpeg,image/jpg,image/png', 'mimes:jpeg,jpg,png'],
         ];
     }
 

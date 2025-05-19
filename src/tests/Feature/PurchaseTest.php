@@ -138,6 +138,8 @@ class PurchaseTest extends TestCase
                 'building' => $user->profile->building
             ]
         ]);
+
+        //マイページの購入した商品一覧タブ内に商品名があることを確認
         $response = $this->get('/mypage?tab=buy');
         $response->assertViewIs('user.mypage');
         $response->assertSeeInOrder([

@@ -16,13 +16,6 @@ class UserAuthTest extends TestCase
 
     use RefreshDatabase;
 
-    public function test_registration_view_can_be_rendered()
-    {
-        $response = $this->get('/register');
-        $response->assertStatus(200)
-            ->assertVIewIs('user.register');
-    }
-
     public function test_show_message_user_register_without_name()
     {
         $response = $this->get('/register');

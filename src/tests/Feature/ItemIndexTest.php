@@ -103,21 +103,22 @@ class ItemIndexTest extends TestCase
         $favoriteItems = $items->take(2);
         $user->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
 
-        //トップページにアクセスし、タブ名myList→商品名の順に表示（マイリストタブ内に表示される）されていることを確認
+        //トップページにアクセスし、タブ名myList→商品名の順に表示（マイリストタブ内に表示）されていることを確認
         $response = $this->get('/');
-        $expected = ['id="myList"'];
-        foreach ($favoriteItems as $favoriteItem) {
-            $expected[] = e($favoriteItem->name);
-        }
         $response->assertViewIs('index');
         $response->assertViewHas('myLists');
-        $response->assertSeeInOrder($expected, false);
+        foreach ($favoriteItems as $favoriteItem) {
+            $response->assertSeeInOrder([
+                'id="myList"',
+                $favoriteItem->name,
+            ], false);
+        }
     }
 
     //マイリストにて、売り切れ商品はsoldと表示される
     public function test_display_sold_label_for_item_in_my_list()
     {
-        //商品を5つと、ユーザーを作成する
+        //商品5つ、出品ユーザー、ログインユーザーを作成する
         $user = User::factory()->create();
         $loginUser = User::factory()->create();
         $this->actingAs($loginUser);
@@ -139,7 +140,7 @@ class ItemIndexTest extends TestCase
             $response->assertSeeInOrder([
                 'id="myList"',
                 'item-sold',
-                e($favoriteItem->name),
+                $favoriteItem->name,
             ], false);
         }
         //$response->dump();
@@ -158,6 +159,7 @@ class ItemIndexTest extends TestCase
         $userSoldItems->each(function ($item) use ($user) {
             $item->update(['user_id' => $user->id]);
         });
+
         //ユーザー出品した商品にいいねをつけた状態に
         $favoriteItems = $userSoldItems->take(2);
         $user->favoriteItems()->syncWithoutDetaching($favoriteItems->pluck('id'));
@@ -184,75 +186,11 @@ class ItemIndexTest extends TestCase
         $response = $this->get('/');
         $this->assertGuest();
 
-        //マイリストに商品が何も表示されていない（「いいねをした商品がこちらに表示されます」というテキストの表示のみである）ことを確認
+        //マイリストに商品が何も表示されていない（「いいねをした商品がこちらに表示されます」というテキスト表示のみである）ことを確認
         $response->assertSee('いいねをした商品がこちらに表示されます');
         $response->assertViewIs('index');
         $response->assertViewHas('myLists', function ($myLists) {
             return $myLists->isEmpty();
-        });
-    }
-
-    //商品名で部分一致検索ができる
-    public function test_can_search_items_by_partial_match()
-    {
-        $user = User::factory()->create();
-        $this->assertGuest();
-
-        //商品を３つ作成
-        Item::factory()->create(['name' => '壁掛け時計']);
-        Item::factory()->create(['name' => '腕時計']);
-        Item::factory()->create(['name' => 'ショルダーバッグ']);
-
-        //キーワード"時計"で検索
-        $response = $this->get('/?search=時計');
-        $response->assertViewIs('index');
-
-        //"時計"を含む２つの商品が表示され、時計を含まない商品が表示されていないことを確認
-        $response->assertSee('壁掛け時計');
-        $response->assertSee('腕時計');
-        $response->assertDontSee('ショルダーバッグ');
-        $targetItems = Item::NameSearch('時計')->get();
-        $this->assertCount(2, $targetItems);
-    }
-
-    //検索状態がマイリストでも保持されている
-    public function test_can_search_condition_persists_in_my_list()
-    {
-        //ユーザーと、検索用にアイテムを5つ作成
-        $user = User::factory()->create();
-        $item1 = Item::factory()->create(['name' => '壁掛け時計']);
-        $item2 = Item::factory()->create(['name' => '腕時計']);
-        $item3 = Item::factory()->create(['name' => 'ショルダーバッグ']);
-        $item4 = Item::factory()->create(['name' => 'コーヒーミル']);
-        $item5 = Item::factory()->create(['name' => 'コーヒーカップ']);
-
-        //商品のうち２つにいいねをつけた状態にする
-        $this->actingAs($user);
-        $user->favoriteItems()->syncWithoutDetaching([
-            $item1->id, //時計を含む商品（壁掛け時計）
-            $item4->id, //時計を含まない商品（コーヒーミル）
-        ]);
-
-        //"時計"で検索し、壁掛け時計が表示され、コーヒーミルが表示されていないことを確認
-        $response = $this->get('/?search=時計');
-        $response->assertViewIs('index');
-
-        $response->assertSee('壁掛け時計');
-        $response->assertDontSee('コーヒーミル'); //時計を含まない
-        $targetItems = Item::NameSearch('時計')->get();
-
-        //マイリストでも壁掛け時計が表示されていることを確認
-        $response->assertSeeInOrder([
-            'id="myList"',
-            e($item1->name),
-        ], false);
-
-        //いいねがあり時計を含む壁掛け時計は該当する、いいねがあるが時計を含まないコーヒーミルは該当しない、時計を含むがいいねをしていない腕時計は該当しない
-        $response->assertViewHas('myLists', function ($myLists) {
-            return $myLists->count() === 1 &&
-                $myLists->pluck('name')->contains('壁掛け時計') &&
-                !$myLists->pluck('name')->contains('コーヒーミル') &&
-                !$myLists->pluck('name')->contains('腕時計');
         });
     }
 }

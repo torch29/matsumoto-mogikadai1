@@ -36,6 +36,7 @@ class PurchaseKonbiniTest extends TestCase
         $item = Item::factory()->create();
         $this->actingAs($user);
 
+        //購入画面にアクセスし、コンビニ決済を選んで購入
         $response = $this->get("/purchase/{$item->id}");
         $response->assertViewIs('item.purchase.checkout');
         $response = $this->post(route('purchase.checkout', ['itemId' => $item->id]), [

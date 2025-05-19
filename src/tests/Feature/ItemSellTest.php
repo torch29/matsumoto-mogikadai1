@@ -22,6 +22,7 @@ class ItemSellTest extends TestCase
     //商品を出品すると、商品の各項目が保存されている
     public function test_can_save_user_sell_items_data()
     {
+        //ユーザーを作成しログイン状態にする
         $user = User::factory()
             ->has(Profile::factory())
             ->create();
@@ -29,6 +30,7 @@ class ItemSellTest extends TestCase
         Storage::fake('public');
         $imgFile = UploadedFile::fake()->create('fake_cup.jpg', 100, 'image/jpeg');
 
+        //出品画面にアクセスし、ユーザーが出品するpostアクション
         $response = $this->get('/sell');
         Category::insert([
             ['id' => 3, 'content' => 'インテリア'],
@@ -43,6 +45,7 @@ class ItemSellTest extends TestCase
             'category_ids' => [3, 10],
             'img_path' => $imgFile,
         ]);
+        //データベースに出品したデータと同じものが保存されていることを確認
         $this->assertDatabaseHas('items', [
             'user_id' => $user->id,
             'name' => 'コーヒーカップ',

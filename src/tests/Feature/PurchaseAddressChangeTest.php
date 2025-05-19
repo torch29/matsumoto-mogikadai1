@@ -18,7 +18,7 @@ class PurchaseAddressChangeTest extends TestCase
 
     use RefreshDatabase;
 
-    public function test_reflect_that_changed_shipping_address()
+    public function test_reflects_changed_shipping_address()
     {
         $user = User::factory()
             ->has(Profile::factory())

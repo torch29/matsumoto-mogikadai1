@@ -160,7 +160,7 @@ class UserAuthTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_user_can_login_success()
+    public function test_can_login_successfully()
     {
         $user = User::factory()->create([
             'password' => bcrypt('password')

@@ -20,7 +20,7 @@ class ItemSellTest extends TestCase
     use RefreshDatabase;
 
     //商品を出品すると、商品の各項目が保存されている
-    public function test_can_save_user_sold_items_data()
+    public function test_can_save_user_sell_items_data()
     {
         $user = User::factory()
             ->has(Profile::factory())

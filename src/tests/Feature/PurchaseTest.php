@@ -19,7 +19,7 @@ class PurchaseTest extends TestCase
     use RefreshDatabase;
 
     //カード決済を選択し購入するボタンを押下すると購入が完了する
-    public function test_can_click_button_to_purchase_item_with_card()
+    public function test_can_purchase_item_with_card()
     {
         $user = User::factory()
             ->has(Profile::factory())
@@ -109,7 +109,7 @@ class PurchaseTest extends TestCase
     }
 
     //購入した商品が「プロフィール/購入した商品一覧」に追加されている
-    public function test_add_purchased_item_at_mypage_when_purchased()
+    public function test_add_purchased_item_to_mypage()
     {
         $user = User::factory()
             ->has(Profile::factory())
@@ -147,5 +147,4 @@ class PurchaseTest extends TestCase
         ], false);
         //$response->dump();
     }
-
 }

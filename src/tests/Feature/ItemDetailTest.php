@@ -77,7 +77,7 @@ class ItemDetailTest extends TestCase
     }
 
     //複数選択（登録）されているカテゴリが表示される
-    public function test_display_several_categories_stored_for_item()
+    public function test_display_several_categories_for_item()
     {
         $user = User::factory()->create();
         $item = Item::factory()->create([

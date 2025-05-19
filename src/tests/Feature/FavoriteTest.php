@@ -19,7 +19,7 @@ class FavoriteTest extends TestCase
     use RefreshDatabase;
 
     //いいねアイコンの押下によっていいねした商品として登録され、合計値が増加表示する
-    public function test_save_favorite_items_that_user_click_icon()
+    public function test_save_favorite_items_when_user_click_icon()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -57,7 +57,7 @@ class FavoriteTest extends TestCase
     }
 
     //いいね追加済みのアイコンは色が変化する
-    public function test_change_icon_color_that_saved_user_favorite()
+    public function test_change_icon_color_when_item_is_favorited()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -86,7 +86,7 @@ class FavoriteTest extends TestCase
     }
 
     //いいね済みアイコンを再度押下するといいねが解除され、合計値が減少表示される
-    public function test_click_icon_again_to_cancel_favorite()
+    public function test_remove_favorite_when_icon_is_clicked_again()
     {
         $user = User::factory()->create();
         $this->actingAs($user);

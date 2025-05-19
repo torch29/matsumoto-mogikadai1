@@ -17,8 +17,9 @@ class ItemIndexTest extends TestCase
     use RefreshDatabase;
 
     //商品一覧にて全商品を取得できる
-    public function test_get_all_item_list_in_index()
+    public function test_display_all_item_in_index()
     {
+        //商品名を指定して3件作成
         $item1 = Item::factory()->create([
             'name' => 'テスト時計',
             'img_path' => 'watch.jpg',
@@ -31,8 +32,9 @@ class ItemIndexTest extends TestCase
             'name' => 'テスト教科書',
             'img_path' => 'book.jpg'
         ]);
-
         $this->assertGuest();
+
+        //トップページにアクセスし、作成された商品名と同じものが表示されていることを確認
         $response = $this->get('/');
         $response->assertViewIs('index');
         $response->assertSee([
@@ -49,19 +51,28 @@ class ItemIndexTest extends TestCase
     }
 
     //商品一覧にて購入済み商品は「sold」と表示される
-    public function test_purchased_items_display_sold_label_in_index()
+    public function test_display_sold_label_for_purchased_items_in_index()
     {
+        //作成された5件のうち2件のstatusをsoldにする
         $items = Item::factory()->count(5)->create();
-        $items->shuffle()->take(2)->each(function ($item) {
-            $item->update(['status' => 'sold']);
-        });
+        $soldItems = $items->take(2);
+        foreach ($soldItems as $soldItem) {
+            $soldItem->update(['status' => 'sold']);
+        }
 
+        //トップページにアクセスし、sold表示があることを確認
         $response = $this->get('/');
         $response->assertSeeText('sold');
+        foreach ($soldItems as $soldItem) {
+            $response->assertSeeInOrder([
+                'class="item-sold"',
+                $soldItem->name,
+            ], false);
+        }
     }
 
     //商品一覧にて、自分が出品した商品は表示されない
-    public function test_not_display_user_sell_item_in_index()
+    public function test_not_display_users_own_items_in_index()
     {
         $items = Item::factory()->count(5)->create();
         $user = User::factory()->create();
@@ -81,7 +92,7 @@ class ItemIndexTest extends TestCase
     }
 
     //マイリストにて、いいねした商品のみ表示
-    public function test_display_users_favorite_items_at_my_list()
+    public function test_display_users_favorite_items_in_my_list()
     {
         //商品を5つとユーザーを作成
         $items = Item::factory()->count(5)->create();
@@ -104,7 +115,7 @@ class ItemIndexTest extends TestCase
     }
 
     //マイリストにて、売り切れ商品はsoldと表示される
-    public function test_display_sold_items_label_at_my_list()
+    public function test_display_sold_label_for_item_in_my_list()
     {
         //商品を5つと、ユーザーを作成する
         $user = User::factory()->create();
@@ -135,7 +146,7 @@ class ItemIndexTest extends TestCase
     }
 
     //マイリストにて、自分が出品した商品は表示されない
-    public function test_not_display_user_sell_item_at_my_list()
+    public function test_not_display_users_own_item_in_my_list()
     {
         //商品を5つとユーザーを作成
         $items = Item::factory()->count(5)->create();
@@ -159,7 +170,7 @@ class ItemIndexTest extends TestCase
     }
 
     //マイリストには未認証ユーザーの場合何も表示されない
-    public function test_not_display_any_item_guest_user_at_my_list()
+    public function test_not_display_any_item_to_guest_in_my_list()
     {
         //商品を5つ作成
         $items = Item::factory()->count(5)->create();
@@ -182,7 +193,7 @@ class ItemIndexTest extends TestCase
     }
 
     //商品名で部分一致検索ができる
-    public function test_can_partial_match_search()
+    public function test_can_search_items_by_partial_match()
     {
         $user = User::factory()->create();
         $this->assertGuest();
@@ -205,7 +216,7 @@ class ItemIndexTest extends TestCase
     }
 
     //検索状態がマイリストでも保持されている
-    public function test_can_partial_match_search_sustained_at_my_list()
+    public function test_can_search_condition_persists_in_my_list()
     {
         //ユーザーと、検索用にアイテムを5つ作成
         $user = User::factory()->create();
@@ -244,43 +255,4 @@ class ItemIndexTest extends TestCase
                 !$myLists->pluck('name')->contains('腕時計');
         });
     }
-
-
-
-    /*
-
-    //10の商品購入機能はここを修正すれば行けそう
-    public function test_display_users_purchased_items()
-    {
-        $sellUser = User::factory()->create();
-        $buyUser = User::factory()->create();
-        $this->actingAs($buyUser);
-
-        $items = Item::factory()->count(5)->create();
-
-        $purchasedItems = $items->take(2);
-        //ユーザーが購入
-        foreach ($purchasedItems as $item) {
-            $item->update([
-                'status' => 'sold'
-            ]);
-            Purchase::create([
-                'user_id' => $buyUser->id,
-                'item_id' => $item->id,
-                'payment' => 'card',
-                'zip_code' => '0000000',
-                'address' => '北海道札幌市',
-            ]);
-        }
-
-        $response = $this->get('/mypage');
-        $expected = ['id="purchasedItems"'];
-        foreach ($purchasedItems as $item) {
-            $expected[] = e($item->name);
-        }
-        $response->assertSeeText('購入しました');
-        $response->assertSeeInOrder($expected, false);
-    }
-
-    */
 }

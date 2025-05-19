@@ -18,7 +18,7 @@ class UserMypageTest extends TestCase
      */
     use RefreshDatabase;
 
-    public function test_show_users_information()
+    public function test_display_users_information()
     {
         $user = User::factory()
             ->has(Profile::factory([
@@ -82,7 +82,7 @@ class UserMypageTest extends TestCase
         //$response->dump();
     }
 
-    public function test_show_users_initial_profile_data()
+    public function test_display_users_initial_profile_data()
     {
         //ユーザー作成し、プロフィールの初期値を設定
         $user = User::factory()

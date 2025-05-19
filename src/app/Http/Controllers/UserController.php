@@ -10,6 +10,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Purchase;
+use Storage;
 
 class UserController extends Controller
 {
@@ -33,6 +34,7 @@ class UserController extends Controller
 
         $profiles = $request->only(['zip_code', 'address', 'building']);
 
+        //もしプロフィール登録がなければ登録、あれば更新
         $profile = $user->profile;
         if (!$profile) {
             $profile = $user->profile()->create($profiles);
@@ -40,11 +42,24 @@ class UserController extends Controller
             $profile->update($profiles);
         }
 
+        //画像のアップロードが合った場合の処理
         if ($request->hasFile('profile_img')) {
             $file = $request->file('profile_img');
+            //古い画像があった場合削除
+            if ($profile->profile_img) {
+
+                // 'storage/img/user/1.jpg' → 'img/user/1.jpg' にパスを変換
+                $oldPath = str_replace('storage/', '', $profile->profile_img);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+
+            //新しい画像の保存
             $fileName = $user->id . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/img/user/', $fileName);
 
+            // DBにstorage/ 付きのパスで保存
             $profileImgPath = 'storage/img/user/' . $fileName;
             $profile->update(['profile_img' => $profileImgPath]);
         }

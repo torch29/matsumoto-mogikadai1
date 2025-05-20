@@ -23,7 +23,6 @@ class StripeController extends Controller
                 )
             );
 
-            //dump($customer);
             //dump($customer->id);
 
             $charge = Charge::create(

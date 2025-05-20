@@ -57,7 +57,7 @@ class FavoriteTest extends TestCase
     }
 
     //いいね追加済みのアイコンは色が変化する
-    public function test_change_icon_color_when_item_is_favorited()
+    public function test_change_color_of_icon_when_item_is_favorited()
     {
         $user = User::factory()->create();
         $this->actingAs($user);

@@ -67,7 +67,7 @@ class PurchaseController extends Controller
 
         $payment = $request->input('payment');
 
-        //セッションに保存する
+        //セッションから取得
         $address = $request->session()->get("addressData_{$itemId}", [
             'zip_code' => $user->profile->zip_code,
             'address' => $user->profile->address,

@@ -17,7 +17,7 @@ class ItemIndexTest extends TestCase
     use RefreshDatabase;
 
     //商品一覧にて全商品を取得できる
-    public function test_display_all_item_in_index()
+    public function test_display_all_items_in_index()
     {
         //商品名を指定して3件作成
         $item1 = Item::factory()->create([
@@ -116,7 +116,7 @@ class ItemIndexTest extends TestCase
     }
 
     //マイリストにて、売り切れ商品はsoldと表示される
-    public function test_display_sold_label_for_item_in_my_list()
+    public function test_display_sold_label_for_items_in_my_list()
     {
         //商品5つ、出品ユーザー、ログインユーザーを作成する
         $user = User::factory()->create();
@@ -147,7 +147,7 @@ class ItemIndexTest extends TestCase
     }
 
     //マイリストにて、自分が出品した商品は表示されない
-    public function test_not_display_users_own_item_in_my_list()
+    public function test_not_display_users_own_items_in_my_list()
     {
         //商品を5つとユーザーを作成
         $items = Item::factory()->count(5)->create();

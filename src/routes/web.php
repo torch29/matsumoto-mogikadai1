@@ -20,6 +20,18 @@ use App\Http\Controllers\FavoriteController;
 |
 */
 
+Route::middleware('guest')->group(
+    function () {
+        Route::get('/register', [RegisteredUserController::class, 'create']);
+        Route::post('/register', [RegisteredUserController::class, 'store']);
+    }
+);
+
+//トップページ
+Route::get('/', [ItemController::class, 'index']);
+//商品詳細画面の表示
+Route::get('/item/{id}', [ItemController::class, 'detail']);
+
 // メール認証
 Route::get('/email/verify', function () {
     return view('user.verify');
@@ -33,11 +45,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', '認証メールを再送信しました。');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-//トップページ
-Route::get('/', [ItemController::class, 'index']);
-//商品詳細画面の表示
-Route::get('/item/{id}', [ItemController::class, 'detail']);
 
 //認証を要するルート
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -66,10 +73,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('', [UserController::class, 'showMypage']);
     });
 });
-
-Route::middleware('guest')->group(
-    function () {
-        Route::get('/register', [RegisteredUserController::class, 'create']);
-        Route::post('/register', [RegisteredUserController::class, 'store']);
-    }
-);

@@ -39,7 +39,7 @@
 4. .env ファイルを開き、
 
    - `DB_HOST=127.0.0.1` を `DB_HOST=mysql` に変更する。
-   - DB_DATABASE, DB_USERNAME, DB_PASSWORD を任意に変更する。  
+   - DB_DATABASE, DB_USERNAME, DB_PASSWORD を docker-compose.yml と合わせて任意に変更する。  
      （例）
      ```.env
      DB_DATABASE=laravel_db
@@ -133,7 +133,7 @@ PHPUnit によるテストを実行するための設定をします。
 
 1. MySQL コンテナから、テスト用のデータベースを作成します。
 
-   MySQL コンテナに入ってから root ユーザでログイン（要パスワード入力）
+   MySQL コンテナに入り root ユーザでログイン（要パスワード入力）
 
    ```
    docker-compose exec mysql bash

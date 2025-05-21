@@ -184,18 +184,7 @@ PHPUnit によるテストを実行するための設定をします。
    $ php artisan migrate --env=testing
    ```
 
-4. プロジェクト直下の `phpunit.xml` を編集
-
-   DB_CONNECTION と DB_DATABASE のコメントアウトを下記のように解除し、value=""内を変更します
-
-   ```.xml
-   -     <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
-   -     <!-- <server name="DB_DATABASE" value=":memory:"/> -->
-   +     <server name="DB_CONNECTION" value="mysql_test"/>
-   +     <server name="DB_DATABASE" value="test"/>
-   ```
-
-5. テストの実行
+4. テストの実行
 
    下記コマンドにて、登録されているテストが一括で実行されます
 

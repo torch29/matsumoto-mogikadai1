@@ -9,21 +9,9 @@
 1. ```
    git clone git@github.com:torch29/matsumoto-mogikadai1.git
    ```
-2. `docker-compose.yml`に、下記を追記/確認します。  
-   MailHog（後述）を使用するための設定です。
+2. docker desktop アプリを起動する
 
-   ```yml
-   mailhog:
-     image: mailhog/mailhog
-     ports:
-       - "8025:8025"
-       - "1025:1025"
-     environment:
-       MH_STORAGE: memory
-   ```
-
-3. docker desktop アプリを起動する
-4. ```
+3. ```
    docker-compose up -d --build
    ```
 
@@ -69,6 +57,13 @@
    php artisan storage:link
    ```
 
+9. "The stream or file could not be opened"エラーが発生した場合  
+   src ディレクトリにある storage ディレクトリに権限を設定
+
+   ```
+   chmod -R 777 storage
+   ```
+
 ### Stripe の設定
 
 Laravel Cashier を用いて Stripe での決済テスト を実装しています。
@@ -94,7 +89,7 @@ Laravel Cashier を用いて Stripe での決済テスト を実装していま�
 フリマアプリに会員登録する際にメールアドレス認証が必要となります。  
 認証用のメールを確認するメールサーバーとして実装しています。
 
-1. `docker-compose.yml`に、下記が設定されていることを確認します。（Docker ビルドの 2 で設定済みの場合スキップ）
+1. `docker-compose.yml`に、下記が設定されていることを確認します。
 
    ```yml
    mailhog:
@@ -151,17 +146,7 @@ PHPUnit によるテストを実行するための設定をします。
 
    ```
 
-2. config/database.php を開き、`mysql の配列`部分をコピー＆ペーストして、新たに `mysql_test` 配列を作成します。
-
-   `mysql_test` 配列の`database`, `username`, `password`を下記のように変更します。
-
-   ```.php
-   'database' => 'test',
-   'username' => 'root',
-   'password' => 'root',
-   ```
-
-3. テスト用に.env ファイルを作成します。
+2. テスト用に.env ファイルを作成します。
 
    PHP コンテナに入り、下記を実行して .env をコピーした .env.testing を作成
 
@@ -185,7 +170,7 @@ PHPUnit によるテストを実行するための設定をします。
    DB_PASSWORD=root
    ```
 
-4. アプリケーションキーの作成とマイグレーションを実行します
+3. アプリケーションキーの作成とマイグレーションを実行します
 
    ```
    $ php artisan key:generate --env=testing
@@ -199,7 +184,7 @@ PHPUnit によるテストを実行するための設定をします。
    $ php artisan migrate --env=testing
    ```
 
-5. プロジェクト直下の `phpunit.xml` を編集
+4. プロジェクト直下の `phpunit.xml` を編集
 
    DB_CONNECTION と DB_DATABASE のコメントアウトを下記のように解除し、value=""内を変更します
 
@@ -210,7 +195,7 @@ PHPUnit によるテストを実行するための設定をします。
    +     <server name="DB_DATABASE" value="test"/>
    ```
 
-6. テストの実行
+5. テストの実行
 
    下記コマンドにて、登録されているテストが一括で実行されます
 

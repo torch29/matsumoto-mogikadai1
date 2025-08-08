@@ -1,3 +1,7 @@
+docker/mysql/data/*
+!.gitkeep
+
+
 /node_modules
 /public/hot
 /public/storage
@@ -5,6 +9,8 @@
 /vendor
 .env
 .env.*
+.env.testing
+.env.dusk.local
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml

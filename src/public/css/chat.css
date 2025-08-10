@@ -1,6 +1,8 @@
 .chat {
     display: grid;
-    grid-template: 10% 20% auto 8% / 15% 1fr;
+    height: 100vh;
+    grid-template-rows: 10% 22% auto 10%;
+    grid-template-columns:  15% 1fr;
 }
 
 a, a:visited {
@@ -8,9 +10,9 @@ a, a:visited {
 }
 
 .chat-nav--side {
-    grid-row: 1/4;
+    grid-column: 1/2;
+    grid-row: 1/5;
     background-color: #868686;
-    height: 90vh;
     color: #fff;
     padding: 0 20px;
     margin-right: 25px;
@@ -23,8 +25,24 @@ a, a:visited {
     margin: 10px 0;
 }
 
-.chat__main {
-    margin: 20px 0;
+.chat__heading {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+.chat__info--area {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+}
+
+.chat__content {
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+.chat__footer {
+    grid-column: 2/3;
+    grid-row: 4/5;
 }
 .heading__info--user {
     display: flex;
@@ -53,15 +71,12 @@ a, a:visited {
     margin: 15px 20px;
 }
 
-.chat__info--area {
-    display: flex;
-}
 .info__img {
     display: flex;
-    width: 15%;
+    height: 100%;
 }
 .info__img img {
-     width: 100%;
+    height: 100%;
 }
 .info__item--name {
     font-weight: bold;
@@ -82,4 +97,23 @@ a, a:visited {
     width: 40%;
     padding: 10px;
     border-radius: 5px;
+}
+
+.chat__footer {
+    margin-top: 10px;
+}
+.chat-form {
+    display: flex;
+}
+.chat__input {
+    width: 70%;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: #868686 1px solid;
+    padding-left: 15px;
+}
+.chat__actions {
+    display: flex;
+
 }

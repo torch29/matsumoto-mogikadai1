@@ -99,6 +99,12 @@
     padding: 10px;
     border-radius: 5px;
 }
+.message__img {
+    width: 180px;
+}
+.message__img img {
+    width: 100%;
+}
 
 .chat__footer {
     margin-top: 10px;

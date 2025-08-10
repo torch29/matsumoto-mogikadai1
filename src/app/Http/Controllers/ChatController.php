@@ -15,7 +15,7 @@ class ChatController extends Controller
 
         $tradingItemList = auth()->user()->purchases()->with('purchasedItem')->get();
 
-        $chats = Chat::with('tradingPurchaseItem.purchasedUser')->where('purchase_id', $tradingItem->id)->get();
+        $chats = Chat::with('tradingPurchaseItem', 'sendUser')->where('purchase_id', $tradingItem->id)->get();
 
         return view('item.trading.chat_purchase_user', compact('tradingItem', 'tradingItemList', 'chats'));
     }
@@ -37,7 +37,7 @@ class ChatController extends Controller
             $file->storeAs('public/img/chat', $fileName);
 
             $chat->update([
-                'img_path' => 'storage/img/item' . $fileName
+                'img_path' => 'storage/img/chat/' . $fileName
             ]);
         }
 

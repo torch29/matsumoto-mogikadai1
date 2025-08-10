@@ -56,11 +56,15 @@
             <div class="message-header">
                 <div class="message-header__icon"></div>
                 <div class="message-header__name">
-                    {{ $chat->tradingPurchaseItem->purchasedUser->name }}
+                    {{ $chat->sendUser->name }}
                 </div>
             </div>
             <div class="message">
                 {{ $chat->message }}
+                {{ dump($chat->img_path) }}
+                <div class="message__img">
+                    <img src="{{ asset($chat->img_path) }}" alt="">
+                </div>
             </div>
         </div>
         @endforeach
@@ -69,7 +73,7 @@
                         }}
     </div>
     <div class="chat__footer">
-        <form action="/mypage/chat" method="post" class="chat-form">
+        <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
             @csrf
             <input type="text" name="message" class="chat__input" placeholder="取引メッセージを記入してください">
             <label for="img_path" class="sell-form__img-button--label">

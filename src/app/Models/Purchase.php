@@ -42,4 +42,9 @@ class Purchase extends Model
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'purchase_id');
+    }
 }

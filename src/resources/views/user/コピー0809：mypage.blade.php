@@ -26,7 +26,6 @@
 <div class="mypage-tab__list">
     <button class="mypage-tab__button active" data-tab="sellItems">出品した商品</button>
     <button class="mypage-tab__button" data-tab="purchasedItems">購入した商品</button>
-    <button class="mypage-tab__button" data-tab="tradingItems">取引中の商品</button>
 </div>
 <div class="mypage-content">
     {{-- ここから出品した商品の一覧 --}}
@@ -68,30 +67,6 @@
             @endforeach
         </ul>
     </div>
-    {{-- ここから取引中の商品一覧 --}}
-    <div class="tab-panel" id="tradingItems" style="display: none;">
-        <ul class="item-card__content">
-            @foreach ( $sellItems as $sellItem)
-            <li class="item-card__content--list">
-                <div class="item-card__content-inner">
-                    @if($sellItem->status == 'available')
-                    <a href="/item/{{ $sellItem->id }}">
-                        <img src="{{ $sellItem->img_path }}" class="item-card__content--img" alt="商品画像">
-                        <p>{{ $sellItem->name }}</p>
-                    </a>
-                    @else
-                    <a href="/item/{{ $sellItem->id }}">
-                        <img src="{{ $sellItem->img_path }}" class="item-card__content--sold-img" alt="商品画像">
-                        <div class="item-sold">sold</div>
-                        <p>{{ $sellItem->name }}</p>
-                    </a>
-                    @endif
-                </div>
-            </li>
-            @endforeach
-        </ul>
-    </div>
-    {{-- タブここまで --}}
 </div>
 <script>
     const konbiniCheckoutUrl = @js($konbiniCheckoutUrl);

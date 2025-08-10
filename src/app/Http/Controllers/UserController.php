@@ -105,9 +105,35 @@ class UserController extends Controller
         $sellItems = $user->items()->orderBy('id', 'desc')->get();
         $purchasedItems = $user->purchases()->with('purchasedItem')->orderBy('id', 'desc')->get();
 
+        //取引中の商品表示のための設定
+        //自分が出品して売れた＋購入した商品でpurchases.statusがtradingのもの
+        $sellTradingItems = $user->items()
+            ->whereHas('purchases', function ($q) {
+                $q->where('status', 'trading');
+            })
+            ->with(['purchases.chats' => function ($query) {
+                $query->latest()->limit(1);
+            }])
+            ->get();
+        $purchasedTradingItems = $user->purchases()
+            ->where('status', 'trading')
+            ->with(['purchasedItem.purchases.chats' => function ($query) {
+                $query->latest()->limit(1);
+            }])
+            ->get()
+            ->pluck('purchasedItem');
+        $tradingItems = $sellTradingItems->merge($purchasedTradingItems);
+        $tradingItems = $tradingItems->sortByDesc(function ($item) {
+            $purchase = $item->purchases->first();
+            $latestChatDate = optional($purchase->chats->sortByDesc('created_at')->first())->created_at;
+
+            return $latestChatDate ?? $purchase->created_at;
+        })->values();
+
+
         $konbiniCheckoutUrl = session('konbini_checkout_url');
         session()->forget('konbini_checkout_url');
 
-        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems', 'konbiniCheckoutUrl'));
+        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl'));
     }
 }

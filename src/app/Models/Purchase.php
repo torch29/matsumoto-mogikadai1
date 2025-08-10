@@ -30,7 +30,8 @@ class Purchase extends Model
         'payment',
         'zip_code',
         'address',
-        'building'
+        'building',
+        'status'
     ];
 
     public function purchasedUser()
@@ -46,5 +47,10 @@ class Purchase extends Model
     public function ratings()
     {
         return $this->hasMany(Rating::class, 'purchase_id');
+    }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
     }
 }

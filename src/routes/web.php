@@ -72,6 +72,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/profile', [UserController::class, 'updateProfile']);
         //マイページの表示
         Route::get('', [UserController::class, 'showMypage']);
-        Route::get('/chat', [ChatController::class, 'index']);
+        Route::get('/chat/{id}', [ChatController::class, 'index']);
     });
 });

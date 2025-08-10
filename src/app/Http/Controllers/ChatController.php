@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         //purchaseユーザーとitems.userで条件わけて、$viewの表示切り替える $viewを渡す
 

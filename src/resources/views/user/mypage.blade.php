@@ -55,7 +55,7 @@
     {{-- ここから購入した商品の一覧 --}}
     <div class="tab-panel" id="purchasedItems" style="display: none;">
         <ul class="item-card__content">
-            @foreach ($purchasedItems as $purchasedItem)
+            @forelse ($purchasedItems as $purchasedItem)
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
                     <a href="/item/{{ $purchasedItem->purchasedItem->id }}">
@@ -71,24 +71,20 @@
     {{-- ここから取引中の商品一覧 --}}
     <div class="tab-panel" id="tradingItems" style="display: none;">
         <ul class="item-card__content">
-            @foreach ( $sellItems as $sellItem)
+            @foreach ( $tradingItems as $tradingItem)
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
-                    @if($sellItem->status == 'available')
-                    <a href="/item/{{ $sellItem->id }}">
-                        <img src="{{ $sellItem->img_path }}" class="item-card__content--img" alt="商品画像">
-                        <p>{{ $sellItem->name }}</p>
-                    </a>
-                    @else
-                    <a href="/item/{{ $sellItem->id }}">
-                        <img src="{{ $sellItem->img_path }}" class="item-card__content--sold-img" alt="商品画像">
-                        <div class="item-sold">sold</div>
-                        <p>{{ $sellItem->name }}</p>
+                    @if($tradingItem->purchases->first()->status == 'trading')
+                    <a href="/mypage/chat/{{ $tradingItem->id }}">
+                        <img src="{{ $tradingItem->img_path }}" class="item-card__content--img" alt="商品画像">
+                        <p>{{ $tradingItem->name }}</p>
                     </a>
                     @endif
                 </div>
             </li>
-            @endforeach
+            @empty
+            <p>取引中の商品がある場合ここに表示されます。</p>
+            @endforelse
         </ul>
     </div>
     {{-- タブここまで --}}

@@ -8,6 +8,8 @@ docker/mysql/data/*
 /vendor
 .env
 .env.*
+.env.testing
+.env.dusk.local
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
@@ -18,3 +20,5 @@ yarn-error.log
 /.idea
 /.vscode
 *.deb
+/コピー置き場/
+/src/コピー置き場/

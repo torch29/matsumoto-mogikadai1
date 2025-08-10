@@ -18,6 +18,6 @@ class Chat extends Model
 
     public function tradingPurchaseItem()
     {
-        return $this->belongsTo(Purchase::class);
+        return $this->belongsTo(Purchase::class, 'purchase_id');
     }
 }

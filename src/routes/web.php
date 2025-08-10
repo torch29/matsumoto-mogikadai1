@@ -73,5 +73,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //マイページの表示
         Route::get('', [UserController::class, 'showMypage']);
         Route::get('/chat/{id}', [ChatController::class, 'index']);
+        Route::post('/chat', [ChatController::class, 'send']);
     });
 });

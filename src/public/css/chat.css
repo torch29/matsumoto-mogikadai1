@@ -1,11 +1,12 @@
 .chat {
     display: grid;
-    height: 100vh;
+    height: 93vh;
     grid-template-rows: 10% 22% auto 10%;
     grid-template-columns:  15% 1fr;
 }
 
-a, a:visited {
+.chat-nav--side a,
+.chat-nav--side a:visited {
     color: #fff;
 }
 
@@ -116,4 +117,18 @@ a, a:visited {
 .chat__actions {
     display: flex;
 
+}
+
+/*画像選択ボタン*/
+.sell-form__img-button {
+    display: none;
+}
+.sell-form__img-button--label {
+    background-color: #fff;
+    border: #FF5655 solid 2px;
+    border-radius: 5px;
+    color: #FF5655;
+    padding: 3px 6px;
+    display: inline-block;
+    cursor: pointer;
 }

@@ -50,27 +50,35 @@
         </div>
     </div>
     <div class="chat__content">
-        {{ dump($tradingItem->purchasedItem->img_path) }}
+        {{ dump($tradingItem->id) }}
+        @foreach( $chats as $chat )
         <div class="message__block">
             <div class="message-header">
                 <div class="message-header__icon"></div>
                 <div class="message-header__name">
-                    購入者（自分）：{{ $tradingItem->purchasedUser->name }}
-                    出品者（相手）：{{ $tradingItem->purchasedItem->users->name
-                        }}
+                    {{ $chat->tradingPurchaseItem->purchasedUser->name }}
                 </div>
             </div>
             <div class="message">
-                メッセージが表示される
+                {{ $chat->message }}
             </div>
         </div>
+        @endforeach
+        購入者（自分）：{{ $tradingItem->purchasedUser->name }}
+        出品者（相手）：{{ $tradingItem->purchasedItem->users->name
+                        }}
     </div>
     <div class="chat__footer">
-        <form action="/send" method="post" class="chat-form">
+        <form action="/mypage/chat" method="post" class="chat-form">
             @csrf
-            <input type="text" class="chat__input" placeholder="取引メッセージを記入してください">
+            <input type="text" name="message" class="chat__input" placeholder="取引メッセージを記入してください">
+            <label for="img_path" class="sell-form__img-button--label">
+                画像を選択する
+                <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
+            </label>
             <div class="chat__actions">
-                <button>
+                <button type="submit">
+                    <input type="hidden" name="purchase_id" value="{{ $tradingItem->id }}">
                     <img src="" alt="送信">
                 </button>
             </div>

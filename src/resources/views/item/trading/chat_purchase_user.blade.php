@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
 @endsection
 
+{{-- 購入者用取引チャット画面 --}}
 @section('content')
 <div class="chat">
     <div class="chat-nav--side">

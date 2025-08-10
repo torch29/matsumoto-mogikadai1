@@ -1,10 +1,11 @@
 .chat {
     display: grid;
-    grid-template-columns: 1fr 85%;
+    grid-template: 10% 20% auto 8% / 15% 1fr;
 }
 
-.chat-nav__side {
-    grid-area: sidebar;
+.chat-nav--side {
+    background-color: #ddd;
+    height: 90vh;
 }
 
 .chat__main {

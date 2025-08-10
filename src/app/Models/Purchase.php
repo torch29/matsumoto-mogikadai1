@@ -36,7 +36,7 @@ class Purchase extends Model
 
     public function purchasedUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function purchasedItem()

@@ -22,7 +22,7 @@
                     <div class="heading__icon">
                         <img src="" alt="">
                     </div>
-                    <h2>ユーザー名さんとの取引画面</h2>
+                    <h2>{{ $tradingItem->purchasedItem->users->name }}さんとの取引画面</h2>
                 </div>
                 <div class="heading__button">
                     <button>
@@ -33,18 +33,22 @@
         </div>
         <div class="chat__info--item">
             <div class="info__img">
-                <img src="" alt="">
+                <img src="{{ asset($tradingItem->purchasedItem->img_path) }}" alt="商品画像">
             </div>
             <div class="info__title--item">
-                商品名
-                商品価格
+                {{ dump($tradingItem->purchasedItem->img_path) }}
+                ￥{{ number_format($tradingItem->purchasedItem->price) }}
             </div>
         </div>
         <div class="chat__content">
             <div class="message__block">
                 <div class="message-header">
                     <div class="message-header__icon"></div>
-                    <div class="message-header__name">ユーザー名</div>
+                    <div class="message-header__name">
+                        購入者（自分）：{{ $tradingItem->purchasedUser->name }}
+                        出品者（相手）：{{ $tradingItem->purchasedItem->users->name
+                        }}
+                    </div>
                 </div>
                 <div class="message">
                     メッセージが表示される

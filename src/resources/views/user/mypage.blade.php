@@ -37,12 +37,12 @@
                 <div class="item-card__content-inner">
                     @if($sellItem->status == 'available')
                     <a href="/item/{{ $sellItem->id }}">
-                        <img src="{{ $sellItem->img_path }}" class="item-card__content--img" alt="商品画像">
+                        <img src="{{ asset($sellItem->img_path) }}" class="item-card__content--img" alt="商品画像">
                         <p>{{ $sellItem->name }}</p>
                     </a>
                     @else
                     <a href="/item/{{ $sellItem->id }}">
-                        <img src="{{ $sellItem->img_path }}" class="item-card__content--sold-img" alt="商品画像">
+                        <img src="{{ asset($sellItem->img_path) }}" class="item-card__content--sold-img" alt="商品画像">
                         <div class="item-sold">sold</div>
                         <p>{{ $sellItem->name }}</p>
                     </a>
@@ -59,7 +59,7 @@
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
                     <a href="/item/{{ $purchasedItem->purchasedItem->id }}">
-                        <img src="{{ $purchasedItem->purchasedItem->img_path }}" class="item-card__content--img" alt="商品画像">
+                        <img src="{{ asset($purchasedItem->purchasedItem->img_path) }}" class="item-card__content--img" alt="商品画像">
                         <div class="item-purchasedItem"><span>購入しました</span></div>
                         <p>{{ $purchasedItem->purchasedItem->name }}</p>
                     </a>
@@ -76,7 +76,7 @@
                 <div class="item-card__content-inner">
                     @if($tradingItem->purchases->first()->status == 'trading')
                     <a href="/mypage/chat/{{ $tradingItem->id }}">
-                        <img src="{{ $tradingItem->img_path }}" class="item-card__content--img" alt="商品画像">
+                        <img src="{{ asset($tradingItem->img_path) }}" class="item-card__content--img" alt="商品画像">
                         <p>{{ $tradingItem->name }}</p>
                     </a>
                     @endif

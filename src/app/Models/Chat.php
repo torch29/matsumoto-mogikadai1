@@ -9,6 +9,13 @@ class Chat extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'purchase_id',
+        'sender_id',
+        'message',
+        'img_path',
+    ];
+
     public function tradingPurchaseItem()
     {
         return $this->belongsTo(Purchase::class);

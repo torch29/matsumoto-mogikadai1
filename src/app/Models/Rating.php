@@ -9,6 +9,14 @@ class Rating extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'purchase_id',
+        'reviewer_id',
+        'reviewee_id',
+        'score',
+    ];
+
+
     public function purchaseData()
     {
         return $this->belongsTo(Purchase::class);

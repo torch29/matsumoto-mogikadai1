@@ -8,6 +8,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,5 +72,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/profile', [UserController::class, 'updateProfile']);
         //マイページの表示
         Route::get('', [UserController::class, 'showMypage']);
+        Route::get('/chat', [ChatController::class, 'index']);
     });
 });

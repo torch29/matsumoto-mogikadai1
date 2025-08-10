@@ -1,0 +1,33 @@
+.chat {
+    display: grid;
+    grid-template-columns: 1fr 85%;
+}
+
+.chat-nav__side {
+    grid-area: sidebar;
+}
+
+.chat__main {
+    margin: 20px 0;
+}
+.heading__info--user {
+    display: flex;
+}
+.heading__title {
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+.heading__icon {
+    border-radius: 50%;
+    background-color: #eee;
+    width: 50px;
+    height: 50px;
+}
+.heading__button {
+    display: inline-block;
+    justify-self: right;
+}
+.heading__button button {
+    margin: 15px 20px;
+}

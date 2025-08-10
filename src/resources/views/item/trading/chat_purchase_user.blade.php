@@ -31,16 +31,21 @@
                 </div>
             </div>
         </div>
-        <div class="chat__info--item">
+        <div class="chat__info--area">
             <div class="info__img">
                 <img src="{{ asset($tradingItem->purchasedItem->img_path) }}" alt="商品画像">
             </div>
-            <div class="info__title--item">
-                {{ dump($tradingItem->purchasedItem->img_path) }}
-                ￥{{ number_format($tradingItem->purchasedItem->price) }}
+            <div class="info__item--lead">
+                <div class="info__item--name">
+                    {{ $tradingItem->purchasedItem->name }}
+                </div>
+                <div class="info__item--price">
+                    ￥{{ number_format($tradingItem->purchasedItem->price) }}
+                </div>
             </div>
         </div>
         <div class="chat__content">
+            {{ dump($tradingItem->purchasedItem->img_path) }}
             <div class="message__block">
                 <div class="message-header">
                     <div class="message-header__icon"></div>

@@ -12,7 +12,13 @@
             <h3>その他の取引</h3>
         </div>
         <div class="chat-nav__list">
-            商品名
+            @foreach ( $tradingItemList as $tradingItemRecord )
+            <div class="chat-nav__list--title">
+                <a href="/mypage/chat/{{ $tradingItemRecord->purchasedItem->id }}">
+                    {{ $tradingItemRecord->purchasedItem->name }}
+                </a>
+            </div>
+            @endforeach
         </div>
     </div>
     <div class="chat__main">

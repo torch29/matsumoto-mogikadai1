@@ -3,6 +3,10 @@
     grid-template: 10% 20% auto 8% / 15% 1fr;
 }
 
+a, a:visited {
+    color: #fff;
+}
+
 .chat-nav--side {
     background-color: #868686;
     height: 90vh;
@@ -11,7 +15,11 @@
     margin-right: 25px;
 }
 .chat-nav__list {
-    margin-top: 20px;
+    margin-top: 30px;
+}
+.chat-nav__list--title {
+    display: block;
+    margin: 10px 0;
 }
 
 .chat__main {

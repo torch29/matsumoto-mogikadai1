@@ -8,7 +8,7 @@
 <div class="chat">
     <div class="chat-nav--side">
         <div class="chat-nav__title">
-            <p>その他の取引</p>
+            <h3>その他の取引</h3>
         </div>
         <div class="chat-nav__list">
             商品名
@@ -21,7 +21,7 @@
                     <div class="heading__icon">
                         <img src="" alt="">
                     </div>
-                    <p>ユーザー名さんとの取引画面</p>
+                    <h2>ユーザー名さんとの取引画面</h2>
                 </div>
                 <div class="heading__button">
                     <button>

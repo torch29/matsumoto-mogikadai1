@@ -67,11 +67,10 @@
             <div class="message__block--inner">
                 <div class="message-header">
                     <div class="message-header__icon">
+                        {{-- プロフィール画像表示 / 頭文字の表示欄 --}}
                         @if( $chat->sendUser->profile->profile_img )
-                        {{-- プロフィール画像表示 --}}
                         <img src="{{ asset($chat->sendUser->profile->profile_img) }}" alt="">
                         @else
-                        {{-- プロフィール画像登録がなければ頭文字を表示 --}}
                         <div class="icon--name">
                             {{ mb_substr($chat->sendUser->name, 0 ,1) }}
                         </div>
@@ -81,9 +80,9 @@
                         {{ $chat->sendUser->name }}
                     </div>
                 </div>
+                {{-- メッセージ / 編集フォーム --}}
                 @if (request('edit') == $chat->id)
-                {{-- 編集フォームの表示 --}}
-                <div class="message">
+                <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
                     <form action="/mypage/chat/update" method="POST">
                         @method('PATCH')
                         @csrf
@@ -97,14 +96,15 @@
                     </form>
                 </div>
                 @else
-                {{-- 通常時の（編集リンク）表示 --}}
-                <div class="message">
+                <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
                     {{ $chat->message }}
-                    {{ dump($chat->img_path) }}
+                    @if( $chat->img_path )
                     <div class="message__img">
                         <img src="{{ asset($chat->img_path) }}" alt="">
                     </div>
+                    @endif
                 </div>
+                {{-- 編集・削除機能（自分のメッセージのみ） --}}
                 @if($chat->sender_id == auth()->id())
                 <div class="message__option">
                     <a href="{{ url()->current() }}?edit={{ $chat->id }}">

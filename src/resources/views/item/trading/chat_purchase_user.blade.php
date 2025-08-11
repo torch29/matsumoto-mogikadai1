@@ -64,63 +64,65 @@
         {{ dump($tradingItem->id) }}
         @foreach( $chats as $chat )
         <div class="message__block {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
-            <div class="message-header">
-                <div class="message-header__icon">
-                    @if( $chat->sendUser->profile->profile_img )
-                    {{-- プロフィール画像表示 --}}
-                    <img src="{{ asset($chat->sendUser->profile->profile_img) }}" alt="">
-                    @else
-                    {{-- プロフィール画像登録がなければ頭文字を表示 --}}
-                    <div class="icon--name">
-                        {{ mb_substr($chat->sendUser->name, 0 ,1) }}
+            <div class="message__block--inner">
+                <div class="message-header">
+                    <div class="message-header__icon">
+                        @if( $chat->sendUser->profile->profile_img )
+                        {{-- プロフィール画像表示 --}}
+                        <img src="{{ asset($chat->sendUser->profile->profile_img) }}" alt="">
+                        @else
+                        {{-- プロフィール画像登録がなければ頭文字を表示 --}}
+                        <div class="icon--name">
+                            {{ mb_substr($chat->sendUser->name, 0 ,1) }}
+                        </div>
+                        @endif
                     </div>
-                    @endif
+                    <div class="message-header__name">
+                        {{ $chat->sendUser->name }}
+                    </div>
                 </div>
-                <div class="message-header__name">
-                    {{ $chat->sendUser->name }}
-                </div>
-            </div>
-            @if (request('edit') == $chat->id)
-            {{-- 編集フォームの表示 --}}
-            <div class="message">
-                <form action="/mypage/chat/update" method="POST">
-                    @method('PATCH')
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $chat->id }}">
-                    <input type="hidden" name="transitionId" value="{{ $tradingItem->purchasedItem->id }}">
-                    <input type="text" name="message" value="{{ $chat->message }}">
-                    <button>送信</button>
-                    <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}">
-                        <span>編集せず終了</span>
-                    </a>
-                </form>
-            </div>
-            @else
-            {{-- 通常時の（編集リンク）表示 --}}
-            <div class="message">
-                {{ $chat->message }}
-                {{ dump($chat->img_path) }}
-                <div class="message__img">
-                    <img src="{{ asset($chat->img_path) }}" alt="">
-                </div>
-            </div>
-            @if($chat->sender_id == auth()->id())
-            <div class="message__option">
-                <a href="{{ url()->current() }}?edit={{ $chat->id }}">
-                    <span>編集</span>
-                </a>
-                <form action="/mypage/chat/delete" method="post">
-                    @method('DELETE')
-                    @csrf
-                    <button>
+                @if (request('edit') == $chat->id)
+                {{-- 編集フォームの表示 --}}
+                <div class="message">
+                    <form action="/mypage/chat/update" method="POST">
+                        @method('PATCH')
+                        @csrf
                         <input type="hidden" name="id" value="{{ $chat->id }}">
                         <input type="hidden" name="transitionId" value="{{ $tradingItem->purchasedItem->id }}">
-                        <span>削除</span>
-                    </button>
-                </form>
+                        <input type="text" name="message" value="{{ $chat->message }}">
+                        <button>送信</button>
+                        <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}">
+                            <span>編集せず終了</span>
+                        </a>
+                    </form>
+                </div>
+                @else
+                {{-- 通常時の（編集リンク）表示 --}}
+                <div class="message">
+                    {{ $chat->message }}
+                    {{ dump($chat->img_path) }}
+                    <div class="message__img">
+                        <img src="{{ asset($chat->img_path) }}" alt="">
+                    </div>
+                </div>
+                @if($chat->sender_id == auth()->id())
+                <div class="message__option">
+                    <a href="{{ url()->current() }}?edit={{ $chat->id }}">
+                        <span>編集</span>
+                    </a>
+                    <form action="/mypage/chat/delete" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button>
+                            <input type="hidden" name="id" value="{{ $chat->id }}">
+                            <input type="hidden" name="transitionId" value="{{ $tradingItem->purchasedItem->id }}">
+                            <span>削除</span>
+                        </button>
+                    </form>
+                </div>
+                @endif
+                @endif
             </div>
-            @endif
-            @endif
         </div>
         @endforeach
         購入者（自分）：{{ $tradingItem->purchasedUser->name }}

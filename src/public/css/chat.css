@@ -104,15 +104,6 @@
     font-size: 1.5em;
 }
 
-.message-header__icon {
-    width: 50px;
-    height: 50px;
-    background-color: #d9d9d9;
-    border-radius: 50%;
-}
-.message-header__icon img {
-    width: inherit;
-}
 /* プロフィール画像登録がない場合頭文字表示のためのcss */
 .icon--name {
     width: 100%;
@@ -128,14 +119,26 @@
 /* チャットメッセージ表示 */
 .message__block {
     display: flex;
-    margin: 10px 0;
+    margin: 10px 20px 10px 0;
 }
 .message__block.right {
     justify-content: flex-end;
 }
+.message__block--inner{
+    width: 40%;
+}
+.message-header__icon {
+    width: 50px;
+    height: 50px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+}
+.message-header__icon img {
+    width: inherit;
+}
 .message {
     background-color: #d9d9d9;
-    width: 40%;
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
 }

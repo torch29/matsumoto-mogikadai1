@@ -133,6 +133,15 @@
     <div class="chat__footer">
         <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
             @csrf
+            @if ($errors->any())
+            <div class="error__message">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <input type="text" name="message" id="chatMessage" class="chat__input" placeholder="取引メッセージを記入してください">
             <label for="img_path" class="sell-form__img-button--label">
                 画像を選択する

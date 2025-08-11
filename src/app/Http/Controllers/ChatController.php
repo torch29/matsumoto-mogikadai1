@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\Purchase;
+use App\Http\Requests\ChatRequest;
 
 class ChatController extends Controller
 {
@@ -20,7 +21,7 @@ class ChatController extends Controller
         return view('item.trading.chat_purchase_user', compact('tradingItem', 'tradingItemList', 'chats'));
     }
 
-    public function send(Request $request)
+    public function send(ChatRequest $request)
     {
         $chats = [
             'purchase_id' => $request->input('purchase_id'),
@@ -44,7 +45,7 @@ class ChatController extends Controller
         return back();
     }
 
-    public function update(Request $request)
+    public function update(ChatRequest $request)
     {
         $chat = Chat::findOrFail($request->id);
 

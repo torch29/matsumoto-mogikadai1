@@ -131,21 +131,32 @@
     </div>
     {{-- チャットメッセージ送信蘭 --}}
     <div class="chat__footer">
-        <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
-            @csrf
-            <input type="text" name="message" id="chatMessage" class="chat__input" placeholder="取引メッセージを記入してください">
-            <label for="img_path" class="sell-form__img-button--label">
-                画像を選択する
-                <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
-            </label>
-            <div class="chat__actions">
-                <button type="submit">
-                    <input type="hidden" name="purchase_id" id="purchaseId" value="{{ $tradingItem->id }}">
-                    <input type="hidden" id="loginUserId" value="{{ auth()->id() }}">
-                    <img src="" alt="送信">
-                </button>
-            </div>
-        </form>
+        @if ($errors->any())
+        <div class="error__message">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <div class="footer__item">
+            <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
+                @csrf
+                <input type="text" name="message" id="chatMessage" class="chat__input" placeholder="取引メッセージを記入してください">
+                <label for="img_path" class="sell-form__img-button--label">
+                    画像を選択する
+                    <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
+                </label>
+                <div class="chat__actions">
+                    <button type="submit">
+                        <input type="hidden" name="purchase_id" id="purchaseId" value="{{ $tradingItem->id }}">
+                        <input type="hidden" id="loginUserId" value="{{ auth()->id() }}">
+                        <img src="" alt="送信">
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <script src="{{ asset('js/save_input.js') }}"></script>

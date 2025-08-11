@@ -10,6 +10,10 @@
     color: #fff;
 }
 
+ul, li {
+    list-style: none;
+}
+
 /* 各ブロックの配置 */
 .chat-nav--side {
     grid-column: 1/2;
@@ -162,7 +166,16 @@
 
 /* チャットメッセージ入力欄 */
 .chat__footer {
-    margin-top: 10px;
+    background-color: #fff;
+    padding: 10px;
+    height: 60px;
+    margin: 10px 0 15px 0;
+}
+.footer__item {
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    padding: 10px 0;
 }
 .chat-form {
     display: flex;
@@ -177,7 +190,6 @@
 }
 .chat__actions {
     display: flex;
-
 }
 
 /*画像選択ボタン*/

@@ -164,9 +164,22 @@ li {
     width: 100%;
     height: auto;
 }
+.message__option {
+    display: flex;
+    justify-content: flex-end;
+}
 .message__option span {
     font-size: 0.7em;
     text-shadow: 0px 4px 2px #00000040;
+}
+.message__option button {
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+    margin: 0 10px;
+    padding: 0;
+    height: 1.2em;
+    cursor: pointer;
 }
 
 /* チャットメッセージ入力欄 */

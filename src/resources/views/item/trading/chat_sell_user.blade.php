@@ -32,7 +32,7 @@
                     @if( $tradingItem->purchasedUser->profile->profile_img )
                     <img src="{{ asset($tradingItem->purchasedUser->profile->profile_img) }}" alt="">
                     @else
-                    <div class="heading__icon--name">
+                    <div class="icon--name">
                         {{ mb_substr($tradingItem->purchasedUser->name, 0 ,1) }}
                     </div>
                     @endif

@@ -14,8 +14,7 @@
         </div>
         <div class="chat-nav__list">
             @foreach ( $tradingItems as $tradingItemRecord )
-            @continue( $tradingItemRecord->id == $currentItemId )
-            <div class="chat-nav__list--title">
+            <div class="chat-nav__list--title {{ $tradingItemRecord->id == $currentItemId ? 'current' : '' }}">
                 <a href="/mypage/chat/{{ $tradingItemRecord->id }}">
                     {{ $tradingItemRecord->name }}
                 </a>

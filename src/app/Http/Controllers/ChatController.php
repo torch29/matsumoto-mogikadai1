@@ -11,7 +11,7 @@ class ChatController extends Controller
     public function index($id)
     {
         //purchaseユーザーとitems.userで条件わけて、$viewの表示切り替える $viewを渡す
-        $tradingItem = Purchase::with('purchasedUser', 'purchasedItem.users', 'chats', 'ratings')->where('item_id', $id)->first();
+        $tradingItem = Purchase::with('purchasedUser', 'purchasedItem.users.profile', 'chats', 'ratings')->where('item_id', $id)->first();
 
         $tradingItemList = auth()->user()->purchases()->with('purchasedItem')->get();
 

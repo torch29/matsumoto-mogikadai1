@@ -71,4 +71,30 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Chat::class, 'user_id');
     }
+
+    public function tradingItems()
+    {
+        //自分が出品して売れた商品（取引中）
+        $sellTradingItems = $this->items()
+            ->whereHas('purchases', fn($q) => $q->where('status', 'trading'))
+            ->with(['purchases.chats' => fn($q) => $q->orderByDesc('created_at')->limit(1)])
+            ->get();
+
+        //購入した商品（取引中）
+        $purchasedTradingItems = $this->purchases()
+            ->where('status', 'trading')
+            ->with(['purchasedItem.purchases.chats' => fn($q) => $q->orderByDesc('created_at')->limit(1)])
+            ->get()
+            ->map(fn($purchase) => $purchase->purchasedItem);
+
+        // 取引中の商品をマージして、最新チャット順にソートする
+        return $sellTradingItems
+            ->merge($purchasedTradingItems)
+            ->sortByDesc(function ($item) {
+                $purchase = $item->purchases->first();
+                $latestChatDate = optional($purchase?->chats->first())->created_at;
+                return $latestChatDate ?? $purchase?->created_at;
+            })
+            ->values();
+    }
 }

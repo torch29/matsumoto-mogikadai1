@@ -107,6 +107,7 @@ class UserController extends Controller
 
         //取引中の商品表示のための設定
         //自分が出品して売れた＋購入した商品でpurchases.statusがtradingのもの
+        /*
         $sellTradingItems = $user->items()
             ->whereHas('purchases', function ($q) {
                 $q->where('status', 'trading');
@@ -129,7 +130,9 @@ class UserController extends Controller
 
             return $latestChatDate ?? $purchase->created_at;
         })->values();
+        */
 
+        $tradingItems = auth()->user()->tradingItems();
 
         $konbiniCheckoutUrl = session('konbini_checkout_url');
         session()->forget('konbini_checkout_url');

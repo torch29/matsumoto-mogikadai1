@@ -13,10 +13,11 @@
             <h3>その他の取引</h3>
         </div>
         <div class="chat-nav__list">
-            @foreach ( $tradingItemList as $tradingItemRecord )
+            @foreach ( $tradingItems as $tradingItemRecord )
+            @continue( $tradingItemRecord->id == $currentItemId )
             <div class="chat-nav__list--title">
-                <a href="/mypage/chat/{{ $tradingItemRecord->purchasedItem->id }}">
-                    {{ $tradingItemRecord->purchasedItem->name }}
+                <a href="/mypage/chat/{{ $tradingItemRecord->id }}">
+                    {{ $tradingItemRecord->name }}
                 </a>
             </div>
             @endforeach
@@ -82,6 +83,7 @@
                 {{-- メッセージ / 編集フォーム --}}
                 @if (request('edit') == $chat->id)
                 <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
+                    {{dump($chat->sender_id)}}
                     <form action="/mypage/chat/update" method="POST">
                         @method('PATCH')
                         @csrf

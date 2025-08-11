@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 送信時に削除
-    document.querySelector('form').addEventListener('submit', function () {
+    document.querySelector('.chat-form').addEventListener('submit', function (e) {
+        e.preventDefault(); // 送信を一旦止める
         localStorage.removeItem(draftKey);
+        this.submit(); // 再送信
     });
+
 });

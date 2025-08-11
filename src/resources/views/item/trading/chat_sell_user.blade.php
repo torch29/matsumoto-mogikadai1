@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
 @endsection
 
-{{-- 購入者用取引チャット画面 --}}
+{{-- 出品者用取引チャット画面 --}}
 @section('content')
 <div class="chat">
     {{-- サイドナビ --}}
@@ -13,10 +13,11 @@
             <h3>その他の取引</h3>
         </div>
         <div class="chat-nav__list">
-            @foreach ( $tradingItemList as $tradingItemRecord )
+            @foreach ( $tradingItems as $tradingItemRecord )
+            @continue( $tradingItemRecord->id == $currentItemId )
             <div class="chat-nav__list--title">
-                <a href="/mypage/chat/{{ $tradingItemRecord->purchasedItem->id }}">
-                    {{ $tradingItemRecord->purchasedItem->name }}
+                <a href="/mypage/chat/{{ $tradingItemRecord->id }}">
+                    {{ $tradingItemRecord->name }}
                 </a>
             </div>
             @endforeach
@@ -28,15 +29,18 @@
         <div class="heading__title">
             <div class="heading__info--user">
                 <div class="heading__icon">
-                    @if( $tradingItem->purchasedItem->users->profile->profile_img )
-                    <img src="{{ asset($tradingItem->purchasedItem->users->profile->profile_img) }}" alt="">
+                    @if( $tradingItem->purchasedUser->profile->profile_img )
+                    <img src="{{ asset($tradingItem->purchasedUser->profile->profile_img) }}" alt="">
                     @else
                     <div class="heading__icon--name">
-                        {{ mb_substr($tradingItem->purchasedItem->users->name, 0 ,1) }}
+                        {{ mb_substr($tradingItem->purchasedUser->name, 0 ,1) }}
                     </div>
                     @endif
                 </div>
-                <h2>{{ $tradingItem->purchasedUser->name }}さんとの取引画面</h2>
+                <h2>
+                    {{-- 購入者名が入る --}}
+                    {{ $tradingItem->purchasedUser->name }}さんとの取引画面
+                </h2>
             </div>
             <div class="heading__button">
                 <button>
@@ -61,7 +65,7 @@
     </div>
     {{-- チャット画面 --}}
     <div class="chat__content">
-        {{ dump($tradingItem->id) }}
+        ログイン中ユーザー：{{ dump(auth()->user()->name) }}
         @foreach( $chats as $chat )
         <div class="message__block {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
             <div class="message__block--inner">
@@ -83,6 +87,7 @@
                 {{-- メッセージ / 編集フォーム --}}
                 @if (request('edit') == $chat->id)
                 <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
+                    {{dump($chat->sender_id)}}
                     <form action="/mypage/chat/update" method="POST">
                         @method('PATCH')
                         @csrf
@@ -125,23 +130,20 @@
             </div>
         </div>
         @endforeach
-        購入者（自分）：{{ $tradingItem->purchasedUser->name }}
-        出品者（相手）：{{ $tradingItem->purchasedItem->users->name
-                        }}
     </div>
     {{-- チャットメッセージ送信蘭 --}}
     <div class="chat__footer">
+        @if ($errors->any())
+        <div class="error__message">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
             @csrf
-            @if ($errors->any())
-            <div class="error__message">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
             <input type="text" name="message" id="chatMessage" class="chat__input" placeholder="取引メッセージを記入してください">
             <label for="img_path" class="sell-form__img-button--label">
                 画像を選択する
@@ -158,4 +160,6 @@
     </div>
 </div>
 <script src="{{ asset('js/save_input.js') }}"></script>
+
+
 @endsection

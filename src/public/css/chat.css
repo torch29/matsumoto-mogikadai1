@@ -1,8 +1,8 @@
 .chat {
     display: grid;
     height: 93vh;
-    grid-template-rows: 10% 22% auto 10%;
-    grid-template-columns:  15% 1fr;
+    grid-template-rows: 10% 20% auto auto;
+    grid-template-columns: 15% 1fr;
 }
 
 .chat-nav--side a,
@@ -10,7 +10,8 @@
     color: #fff;
 }
 
-ul, li {
+ul,
+li {
     list-style: none;
 }
 
@@ -35,14 +36,18 @@ ul, li {
 .chat__content {
     grid-column: 2/3;
     grid-row: 3/4;
+    overflow-y: auto;
+    padding: 10px;
 }
 .chat__footer {
     grid-column: 2/3;
     grid-row: 4/5;
     bottom: 0;
     position: sticky;
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
 }
-
 .chat-nav__list {
     margin-top: 30px;
 }
@@ -107,7 +112,6 @@ ul, li {
 .info__item--price {
     font-size: 1.5em;
 }
-
 /* プロフィール画像登録がない場合頭文字表示のためのcss */
 .icon--name {
     width: 100%;
@@ -128,7 +132,7 @@ ul, li {
 .message__block.right {
     justify-content: flex-end;
 }
-.message__block--inner{
+.message__block--inner {
     width: 40%;
 }
 .message-header__icon {
@@ -152,7 +156,8 @@ ul, li {
 .message.right {
     border-radius: 20px 20px 5px 20px;
 }
-.message__img { /* メッセージの添付画像 */
+.message__img {
+    /* メッセージの添付画像 */
     width: 180px;
 }
 .message__img img {
@@ -170,18 +175,18 @@ ul, li {
     padding: 10px;
     height: 60px;
     margin: 10px 0 15px 0;
-}
-.footer__item {
-    position: sticky;
-    bottom: 0;
-    background-color: #fff;
-    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
 }
 .chat-form {
     display: flex;
+    width: 100%;
+    gap: 10px;
 }
 .chat__input {
-    width: 70%;
+    flex-grow: 1;
     height: 40px;
     margin-right: 10px;
     border-radius: 5px;
@@ -196,6 +201,7 @@ ul, li {
 .sell-form__img-button {
     display: none;
 }
+
 .sell-form__img-button--label {
     background-color: #fff;
     border: #FF5655 solid 2px;
@@ -204,4 +210,16 @@ ul, li {
     padding: 3px 6px;
     display: inline-block;
     cursor: pointer;
+}
+
+.error__message {
+    width: 100%;
+    color: #D30909;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+}
+.error__message ul {
+    gap: 40px;
+    padding-left: 20px;
+    display: flex;
 }

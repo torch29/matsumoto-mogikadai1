@@ -43,4 +43,32 @@ class ChatController extends Controller
 
         return back();
     }
+
+    public function update(Request $request)
+    {
+        $chat = Chat::findOrFail($request->id);
+
+        if ($chat->sender_id !== auth()->id()) {
+            abort(403, '自分以外のメッセージは編集できません。');
+        }
+        $chat->update($request->only(['$message']));
+
+        $transitionId = $request->input('transitionId');
+
+        return redirect('mypage/chat/' . $transitionId);
+    }
+
+    public function destroy(Request $request)
+    {
+        $chat = Chat::findOrFail($request->id);
+
+        if ($chat->sender_id !== auth()->id()) {
+            abort(403, '自分以外のメッセージは編集できません。');
+        }
+        $chat->delete();
+
+        $transitionId = $request->input('transitionId');
+
+        return redirect('mypage/chat/' . $transitionId);
+    }
 }

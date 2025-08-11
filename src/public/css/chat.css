@@ -124,6 +124,15 @@
     font-weight: bold;
     text-shadow: 1px 1px 0 #999, -1px 1px 0 #999, 1px -1px 0 #999, -1px -1px 0 #999;
 }
+
+/* チャットメッセージ表示 */
+.message__block {
+    display: flex;
+    margin: 10px 0;
+}
+.message__block.right {
+    justify-content: flex-end;
+}
 .message {
     background-color: #d9d9d9;
     width: 40%;
@@ -136,7 +145,12 @@
 .message__img img {
     width: 100%;
 }
+.message__option span {
+    font-size: 0.7em;
+    text-shadow: 0px 4px 2px #00000040;
+}
 
+/* チャットメッセージ入力欄 */
 .chat__footer {
     margin-top: 10px;
 }

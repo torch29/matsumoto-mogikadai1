@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ChatController;
+use App\Models\Chat;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,5 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('', [UserController::class, 'showMypage']);
         Route::get('/chat/{id}', [ChatController::class, 'index']);
         Route::post('/chat', [ChatController::class, 'send']);
+        Route::patch('/chat/update', [ChatController::class, 'update']);
+        Route::delete('/chat/delete', [ChatController::class, 'destroy']);
     });
 });

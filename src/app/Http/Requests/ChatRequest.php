@@ -25,7 +25,7 @@ class ChatRequest extends FormRequest
     {
         return [
             'message' => ['required', 'max:400'],
-            'img_path' => ['mimetypes:image/jpeg,image/jpg,image/png', 'mimes:jpeg,jpg,png']
+            'img_path' => ['mimetypes:image/jpeg,image/jpg,image/png', 'mimes:jpeg,jpg,png', 'max:3072']
         ];
     }
 
@@ -35,7 +35,8 @@ class ChatRequest extends FormRequest
             'message.required' => '本文を入力してください',
             'message.max' => '本文は400文字以下で入力してください',
             'img_path.mimetypes' => '「.png」または「.jpeg」形式でアップロードしてください',
-            'img_path.mimes' => '「.png」または「.jpeg」形式でアップロードしてください'
+            'img_path.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
+            'img_path.max' => '画像のファイルサイズは3MBまでアップロードできます',
         ];
     }
 }

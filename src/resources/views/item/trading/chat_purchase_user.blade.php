@@ -85,6 +85,10 @@
                     <img src="{{ asset($chat->img_path) }}" alt="">
                 </div>
             </div>
+            <div class="message__option">
+                <span>編集</span>
+                <span>削除</span>
+            </div>
         </div>
         @endforeach
         購入者（自分）：{{ $tradingItem->purchasedUser->name }}
@@ -95,18 +99,47 @@
     <div class="chat__footer">
         <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
             @csrf
-            <input type="text" name="message" class="chat__input" placeholder="取引メッセージを記入してください">
+            <input type="text" name="message" id="chatMessage" class="chat__input" placeholder="取引メッセージを記入してください">
             <label for="img_path" class="sell-form__img-button--label">
                 画像を選択する
                 <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
             </label>
             <div class="chat__actions">
                 <button type="submit">
-                    <input type="hidden" name="purchase_id" value="{{ $tradingItem->id }}">
+                    <input type="hidden" name="purchase_id" id="purchaseId" value="{{ $tradingItem->id }}">
+                    <input type="hidden" id="loginUserId" value="{{ Auth::id() }}">
                     <img src="" alt="送信">
                 </button>
             </div>
         </form>
     </div>
 </div>
+<script src="{{ asset('js/save_input.js') }}"></script>
+
+{{--　あとでけす
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const purchaseId = @json($tradingItem -> id);
+        const draftKey = 'chat_draft_message_' + purchaseId;
+        const input = document.getElementById('chatMessage');
+
+        // 復元
+        const savedDraft = localStorage.getItem(draftKey);
+        if (savedDraft) {
+            input.value = savedDraft;
+        }
+
+        // 入力時に保存
+        input.addEventListener('input', function() {
+            localStorage.setItem(draftKey, this.value);
+        });
+
+        // 送信時に削除
+        input.form.addEventListener('submit', function() {
+            localStorage.removeItem(draftKey);
+        });
+    });
+</script>
+--}}
+
 @endsection

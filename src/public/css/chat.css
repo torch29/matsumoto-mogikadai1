@@ -10,6 +10,7 @@
     color: #fff;
 }
 
+/* 各ブロックの配置 */
 .chat-nav--side {
     grid-column: 1/2;
     grid-row: 1/5;
@@ -18,14 +19,6 @@
     padding: 0 20px;
     margin-right: 25px;
 }
-.chat-nav__list {
-    margin-top: 30px;
-}
-.chat-nav__list--title {
-    display: block;
-    margin: 10px 0;
-}
-
 .chat__heading {
     grid-column: 2/3;
     grid-row: 1/2;
@@ -35,16 +28,25 @@
     grid-row: 2/3;
     display: flex;
 }
-
 .chat__content {
     grid-column: 2/3;
     grid-row: 3/4;
 }
-
 .chat__footer {
     grid-column: 2/3;
     grid-row: 4/5;
+    bottom: 0;
+    position: sticky;
 }
+
+.chat-nav__list {
+    margin-top: 30px;
+}
+.chat-nav__list--title {
+    display: block;
+    margin: 10px 0;
+}
+
 .heading__info--user {
     display: flex;
 }
@@ -67,7 +69,8 @@
 .heading__icon img {
     width: 100%;
 }
-/* プロフィール画像登録がない場合頭文字表示のためのcss */
+
+/* プロフィール画像登録がない場合頭文字表示のための設定 */
 .icon--name {
     width: 100%;
     height: 100%;

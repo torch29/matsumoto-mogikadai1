@@ -26,7 +26,11 @@
 <div class="mypage-tab__list">
     <button class="mypage-tab__button active" data-tab="sellItems">出品した商品</button>
     <button class="mypage-tab__button" data-tab="purchasedItems">購入した商品</button>
-    <button class="mypage-tab__button" data-tab="tradingItems">取引中の商品</button>
+    <button class="mypage-tab__button" data-tab="tradingItems">取引中の商品
+        @if ($unreadTotal > 0)
+        <span class="notify--count">{{ $unreadTotal }}</span>
+        @endif
+    </button>
 </div>
 <div class="mypage-content">
     {{-- ここから出品した商品の一覧 --}}

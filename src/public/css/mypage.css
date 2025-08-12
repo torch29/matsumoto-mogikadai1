@@ -171,7 +171,19 @@
     border-color: #3E68A4 transparent #3E68A4 #3E68A4;
 }
 
-/* 通知バッジ */
+/* タブ用の件数通知 */
+.notify--count {
+    display: inline-block;
+    margin-left: 3px;
+    background-color: #F55;
+    color: #fff;
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+/* 各商品用通知バッジ */
 .notify-badge {
     display: inline-block;
     font-size: 0.9em;

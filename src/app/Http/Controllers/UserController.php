@@ -123,10 +123,11 @@ class UserController extends Controller
             $user->id,
             $purchaseIds
         );
+        $unreadTotal = $unreadCounts->sum();
 
         $konbiniCheckoutUrl = session('konbini_checkout_url');
         session()->forget('konbini_checkout_url');
 
-        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts'));
+        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts', 'unreadTotal'));
     }
 }

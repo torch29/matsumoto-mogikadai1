@@ -53,4 +53,8 @@ class Purchase extends Model
     {
         return $this->hasMany(Chat::class);
     }
+
+    public function reads() {
+        return $this->hasMany(PurchaseUserRead::class);
+    }
 }

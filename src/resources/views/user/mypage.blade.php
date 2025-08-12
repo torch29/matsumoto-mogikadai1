@@ -73,6 +73,7 @@
         <ul class="item-card__content">
             @foreach ( $tradingItems as $tradingItem)
             <li class="item-card__content--list">
+                {{ $unreadCounts }}
                 <div class="item-card__content-inner">
                     @if($tradingItem->purchases->first()->status == 'trading')
                     <a href="/mypage/chat/{{ $tradingItem->id }}">

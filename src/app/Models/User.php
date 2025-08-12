@@ -72,6 +72,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Chat::class, 'user_id');
     }
 
+    public function purchaseReads()
+    {
+        return $this->hasMany(PurchaseUserRead::class);
+    }
+
+    /* 取引中の商品リストを最新チャット順に並び替える */
     public function tradingItems()
     {
         //自分が出品して売れた商品（取引中）

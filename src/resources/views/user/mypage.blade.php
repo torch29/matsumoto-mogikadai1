@@ -82,7 +82,7 @@
             @endphp
             <li class="item-card__content--list">
                 <div class="item-card__content-inner">
-                    @if($tradingItem->purchases->first()->status == 'trading')
+                    @if( in_array($tradingItem->purchases->first()->status, ['trading', 'buyer_rated']) )
                     <a href="/mypage/chat/{{ $tradingItem->id }}">
                         <img src="{{ asset($tradingItem->img_path) }}" class="item-card__content--img" alt="商品画像">
                         @if ($unreadCount > 0)

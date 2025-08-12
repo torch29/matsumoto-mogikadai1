@@ -80,9 +80,9 @@ class User extends Authenticatable implements MustVerifyEmail
     /* 取引中の商品リストを最新チャット順に並び替える */
     public function tradingItems()
     {
-        //自分が出品して売れた商品（取引中）
+        //自分が出品して売れた商品（取引中＆購入者のみ評価済み）
         $sellTradingItems = $this->items()
-            ->whereHas('purchases', fn($q) => $q->where('status', 'trading'))
+            ->whereHas('purchases', fn($q) => $q->whereIn('status', ['trading', 'buyer_rated']))
             ->with(['purchases.chats' => fn($q) => $q->orderByDesc('created_at')->limit(1)])
             ->get();
 

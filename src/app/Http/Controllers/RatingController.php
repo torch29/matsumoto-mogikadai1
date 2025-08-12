@@ -12,6 +12,7 @@ class RatingController extends Controller
 {
     public function buyerRating(Request $request)
     {
+        //もしログイン中ユーザーがすでにこの取引を評価しているなら、評価の再送信は弾く
         if (Rating::where('purchase_id', $request->purchaseId)
             ->where('reviewer_id', auth()->id())
             ->exists()

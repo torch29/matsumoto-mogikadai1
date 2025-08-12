@@ -51,27 +51,10 @@
                         <form action="{{ route('buyer.rating') }}" class="rating-form" method="POST">
                             @csrf
                             <div class="rating-form__inner">
-                                
                                 @for($i=5; $i>0; $i--)
-                                <label for="star{{$i}}">◇</label>
+                                <label for="star{{$i}}">☆</label>
                                 <input type="radio" id="star{{$i}}" name="score" value="{{$i}}">
                                 @endfor
-                                
-
-                                <label for="star5">☆</label>
-                                <input type="radio" name="score" id="star5" class="rating-form__input" value="5">
-
-                                <label for="star4">☆</label>
-                                <input type="radio" name="score" id="star4" class="rating-form__input" value="4">
-
-                                <label for="star3">☆</label>
-                                <input type="radio" name="score" id="star3" class="rating-form__input" value="3">
-
-                                <label for="star2">☆</label>
-                                <input type="radio" name="score" id="star2" class="rating-form__input" value="2">
-
-                                <label for="star1">☆</label>
-                                <input type="radio" name="score" id="star1" class="rating-form__input" value="1">
                             </div>
                             <div class="modal__actions">
                                 <input type="hidden" name="revieweeId" value="{{  $tradingItem->purchasedUser->id }}">

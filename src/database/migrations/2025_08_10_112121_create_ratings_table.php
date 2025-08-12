@@ -19,6 +19,7 @@ class CreateRatingsTable extends Migration
             $table->foreignId('reviewer_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('reviewee_id')->constrained('users')->cascadeOnDelete();
             $table->unsignedTinyInteger('score');
+            $table->unique(['purchase_id', 'reviewer_id']);
             $table->timestamps();
         });
     }

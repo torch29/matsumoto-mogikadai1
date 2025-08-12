@@ -1,7 +1,7 @@
 .chat {
     display: grid;
     height: 93vh;
-    grid-template-rows: 10% 20% auto auto;
+    grid-template-rows: 11% 20% auto auto;
     grid-template-columns: 15% 1fr;
 }
 
@@ -74,7 +74,7 @@ li {
 }
 .heading__icon {
     border-radius: 50%;
-    background-color: #eee;
+    background-color: #d9d9d9;
     width: 50px;
     height: 50px;
     margin: 15px 0;

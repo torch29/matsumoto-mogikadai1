@@ -72,12 +72,18 @@
     <div class="tab-panel" id="tradingItems" style="display: none;">
         <ul class="item-card__content">
             @foreach ( $tradingItems as $tradingItem)
+            @php
+            $purchaseId = $tradingItem->purchases->first()->id ?? null;
+            $unreadCount = $unreadCounts[$purchaseId] ?? 0;
+            @endphp
             <li class="item-card__content--list">
-                {{ $unreadCounts }}
                 <div class="item-card__content-inner">
                     @if($tradingItem->purchases->first()->status == 'trading')
                     <a href="/mypage/chat/{{ $tradingItem->id }}">
                         <img src="{{ asset($tradingItem->img_path) }}" class="item-card__content--img" alt="商品画像">
+                        @if ($unreadCount > 0)
+                        <span class="notify-badge">{{ $unreadCount }}</span>
+                        @endif
                         <p>{{ $tradingItem->name }}</p>
                     </a>
                     @endif

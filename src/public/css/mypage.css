@@ -170,6 +170,20 @@
     border-width: 19px 15px 19px 0px;
     border-color: #3E68A4 transparent #3E68A4 #3E68A4;
 }
+
+/* 通知バッジ */
+.notify-badge {
+    display: inline-block;
+    font-size: 0.9em;
+    color: #fff;
+    background-color: #F55;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    text-align: center;
+    vertical-align: middle;
+}
+
 /*タブレットサイズ*/
 @media screen and (min-width: 768px) and (max-width: 851px) {
     .item-card__content--list {

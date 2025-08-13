@@ -75,7 +75,7 @@
     {{-- ここから取引中の商品一覧 --}}
     <div class="tab-panel" id="tradingItems" style="display: none;">
         <ul class="item-card__content">
-            @foreach ( $tradingItems as $tradingItem)
+            @forelse ( $tradingItems as $tradingItem)
             @php
             $purchaseId = $tradingItem->purchases->first()->id ?? null;
             $unreadCount = $unreadCounts[$purchaseId] ?? 0;

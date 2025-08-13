@@ -47,7 +47,7 @@ class ItemSeeder extends Seeder
                 自家栽培です。",
                 'condition' => 3,
                 'img_path' => 'img/dummy/iLoveIMG+d.jpg',
-                'status' => 'sold',
+                'status' => 'available',
             ],
             [
                 'user_id' => 1,
@@ -71,7 +71,7 @@ class ItemSeeder extends Seeder
                 ほとんど未使用です！",
                 'condition' => 1,
                 'img_path' => 'img/dummy/Living+Room+Laptop.jpg',
-                'status' => 'sold',
+                'status' => 'available',
             ],
             [
                 'user_id' => 2,
@@ -121,7 +121,7 @@ class ItemSeeder extends Seeder
                 写真をよくご確認の上ご購入をお願いします。",
                 'condition' => 1,
                 'img_path' => 'img/dummy/Waitress+with+Coffee+Grinder.jpg',
-                'status' => 'pending',
+                'status' => 'available',
             ],
             [
                 'user_id' => 2,

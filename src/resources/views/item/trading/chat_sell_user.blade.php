@@ -42,6 +42,7 @@
                     {{ $tradingItem->purchasedUser->name }}さんとの取引画面
                 </h2>
             </div>
+            @if( in_array($tradingItem->purchasedItem->status, ['trading', 'buyer_rated']) )
             <div class="heading__button">
                 <div class="heading__button">
                     <button popovertarget="mypopover">
@@ -71,6 +72,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     {{-- 商品情報 --}}
@@ -181,11 +183,13 @@
                 </button>
             </div>
         </form>
+
+        @elseif ( $tradingItem->status === 'buyer_rated' )
+        <p>{{ $tradingItem->purchasedUser->name }}さんがこの取引を完了しました。
+            右上のボタンから取引を完了させてください。</p>
+        @endif
+        <p>この取引は既に完了しています。</p>
     </div>
-    @elseif ( $tradingItem->status === 'buyer_rated' )
-    <p>{{ $tradingItem->purchasedUser->name }}さんがこの取引を完了しました。
-        右上のボタンから取引を完了させてください。</p>
-    @endif
 </div>
 <script src="{{ asset('js/save_input.js') }}"></script>
 

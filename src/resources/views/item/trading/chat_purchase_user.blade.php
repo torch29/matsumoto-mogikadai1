@@ -39,6 +39,7 @@
                 </div>
                 <h2>{{ $tradingItem->purchasedItem->users->name }}さんとの取引画面</h2>
             </div>
+            @if( $tradingItem->status == 'trading' )
             <div class="heading__button">
                 <button popovertarget="mypopover">
                     取引を完了する
@@ -66,6 +67,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     {{-- 商品情報 --}}
@@ -152,6 +154,7 @@
         出品者（相手）：{{ $tradingItem->purchasedItem->users->name
                         }}
     </div>
+    @if( $tradingItem->status == 'trading' )
     {{-- チャットメッセージ送信蘭 --}}
     <div class="chat__footer">
         @if ($errors->any())
@@ -178,7 +181,11 @@
                 </button>
             </div>
         </form>
+        @elseif ( in_array($tradingItem->status, [ 'buyer_rated', 'completed']))
+        <p>この取引は既に完了しています。</p>
+        @endif
     </div>
+
 </div>
 <script src="{{ asset('js/save_input.js') }}"></script>
 

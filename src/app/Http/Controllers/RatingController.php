@@ -13,14 +13,12 @@ class RatingController extends Controller
     public function buyerRating(Request $request)
     {
         //もしログイン中ユーザーがすでにこの取引を評価しているなら、評価の再送信は弾く
-        /*
         if (Rating::where('purchase_id', $request->purchaseId)
             ->where('reviewer_id', auth()->id())
             ->exists()
         ) {
             return abort(403, 'この取引はすでに評価済みです。');
         }
-            */
 
         $purchase = Purchase::findOrFail($request->input('purchaseId'));
 
@@ -39,7 +37,7 @@ class RatingController extends Controller
             });
         } catch (\Exception $e) {
             Log::error($e);
-            return back()->withErrors(['message' => '取引完了処理に失敗しました。もう一度お試しください。']);
+            return back()->withErrors(['message' => '取引完了処理に失敗しました。すでに評価を送信している可能性があります']);
         }
 
         return redirect('/');
@@ -48,14 +46,12 @@ class RatingController extends Controller
     public function sellerRating(Request $request)
     {
         //もしログイン中ユーザーがすでにこの取引を評価しているなら、評価の再送信は弾く
-        /*
         if (Rating::where('purchase_id', $request->purchaseId)
             ->where('reviewer_id', auth()->id())
             ->exists()
         ) {
             return abort(403, 'この取引はすでに評価済みです。');
         }
-            */
 
         $purchase = Purchase::findOrFail($request->input('purchaseId'));
 

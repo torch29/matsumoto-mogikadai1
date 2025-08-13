@@ -7,27 +7,29 @@
 @section('content')
 <div class="mypage-header">
     <div class="mypage-header__heading">
-        <div class="mypage-header__heading-icon">
+        <div class="heading__icon">
             @if(optional($user->profile)->profile_img)
             <img src="{{ asset( $user->profile->profile_img) }}" alt="">
             @else
             <div class="mypage__icon-name">{{ mb_substr(Auth::user()->name, 0, 1 ) }}</div>
             @endif
         </div>
-        <div class="mypage-header__heading-name">
-            {{ Auth::user()->name }}
-        </div>
-        <div>
-            @for ($i = 0; $i < $averageScore; $i++)
-                <span class="star">
-                <i class="fa-solid fa-star"></i>
-                </span>
-                @endfor
-                @for ($i = 0; $i < 5 - $averageScore; $i++)
-                    <span class="star empty">
+        <div class="heading__wrapper">
+            <div class="heading__name">
+                {{ Auth::user()->name }}
+            </div>
+            <div>
+                @for ($i = 0; $i < $averageScore; $i++)
+                    <span class="star">
                     <i class="fa-solid fa-star"></i>
                     </span>
                     @endfor
+                    @for ($i = 0; $i < 5 - $averageScore; $i++)
+                        <span class="star empty">
+                        <i class="fa-solid fa-star"></i>
+                        </span>
+                        @endfor
+            </div>
         </div>
     </div>
     <div class="mypage-header__button">

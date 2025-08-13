@@ -43,7 +43,7 @@ class ChatController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
-        return view($view, compact('tradingItem', 'tradingItems', 'chats', 'currentItemId'));
+        return view($view, compact('tradingItem', 'tradingItems', 'chats', 'currentItemId', 'view'));
     }
 
     public function send(ChatRequest $request)

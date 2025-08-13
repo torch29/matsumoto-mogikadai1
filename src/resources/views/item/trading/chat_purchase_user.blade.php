@@ -20,6 +20,7 @@
                 </a>
             </div>
             @endforeach
+            {{ dump($view) }}
         </div>
     </div>
     {{-- チャット用メイン画面 --}}
@@ -57,7 +58,7 @@
                                 @endfor
                             </div>
                             <div class="modal__actions">
-                                <input type="hidden" name="revieweeId" value="{{  $tradingItem->purchasedUser->id }}">
+                                <input type="hidden" name="revieweeId" value="{{  $tradingItem->purchasedItem->users->id }}">
                                 <input type="hidden" value="{{  $tradingItem->id }}" name="purchaseId">
                                 <button type="submit">送信する</button>
                             </div>

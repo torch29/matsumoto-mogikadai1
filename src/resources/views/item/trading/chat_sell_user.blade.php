@@ -20,6 +20,7 @@
                 </a>
             </div>
             @endforeach
+            {{ dump($view) }}
         </div>
     </div>
     {{-- チャット用メイン画面 --}}
@@ -42,9 +43,33 @@
                 </h2>
             </div>
             <div class="heading__button">
-                <button>
-                    取引を完了する
-                </button>
+                <div class="heading__button">
+                    <button popovertarget="mypopover">
+                        取引を完了する
+                    </button>
+                    <div id="mypopover" popover>
+                        <div class="modal-title">
+                            取引が完了しました。
+                        </div>
+                        <div class="modal__content">
+                            <span>今回の取引相手はどうでしたか？</span>
+                            <form action="{{ route('seller.rating') }}" class="rating-form" method="POST">
+                                @csrf
+                                <div class="rating-form__inner">
+                                    @for($i=5; $i>0; $i--)
+                                    <label for="star{{$i}}">☆</label>
+                                    <input type="radio" id="star{{$i}}" name="score" value="{{$i}}">
+                                    @endfor
+                                </div>
+                                <div class="modal__actions">
+                                    <input type="hidden" name="revieweeId" value="{{ $tradingItem->purchasedUser->id }}">
+                                    <input type="hidden" value="{{  $tradingItem->id }}" name="purchaseId">
+                                    <button type="submit">送信する</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -64,7 +89,6 @@
     </div>
     {{-- チャット画面 --}}
     <div class="chat__content">
-        ログイン中ユーザー：{{ dump(auth()->user()->name) }}
         @foreach( $chats as $chat )
         <div class="message__block {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
             <div class="message__block--inner">
@@ -130,6 +154,7 @@
         </div>
         @endforeach
     </div>
+    @if ( $tradingItem->status === 'trading' )
     {{-- チャットメッセージ送信蘭 --}}
     <div class="chat__footer">
         @if ($errors->any())
@@ -157,6 +182,10 @@
             </div>
         </form>
     </div>
+    @elseif ( $tradingItem->status === 'buyer_rated' )
+    <p>{{ $tradingItem->purchasedUser->name }}さんがこの取引を完了しました。
+        右上のボタンから取引を完了させてください。</p>
+    @endif
 </div>
 <script src="{{ asset('js/save_input.js') }}"></script>
 

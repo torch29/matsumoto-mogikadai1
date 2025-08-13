@@ -20,7 +20,6 @@
                 </a>
             </div>
             @endforeach
-            {{ dump($view) }}
         </div>
     </div>
     {{-- チャット用メイン画面 --}}
@@ -117,7 +116,6 @@
                 {{-- メッセージ / 編集フォーム --}}
                 @if (request('edit') == $chat->id)
                 <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
-                    {{dump($chat->sender_id)}}
                     <form action="/mypage/chat/update" method="POST">
                         @method('PATCH')
                         @csrf

@@ -20,7 +20,6 @@
                 </a>
             </div>
             @endforeach
-            {{ dump($view) }}
         </div>
     </div>
     {{-- チャット用メイン画面 --}}
@@ -41,7 +40,6 @@
                     {{-- 購入者名が入る --}}
                     {{ $tradingItem->purchasedUser->name }}さんとの取引画面
                 </h2>
-                {{ dump($tradingItem->status) }}
             </div>
             <div class="heading__button--wrapper">
                 @error('alert')
@@ -120,7 +118,6 @@
                 {{-- メッセージ / 編集フォーム --}}
                 @if (request('edit') == $chat->id)
                 <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
-                    {{dump($chat->sender_id)}}
                     <form action="/mypage/chat/update" method="POST">
                         @method('PATCH')
                         @csrf

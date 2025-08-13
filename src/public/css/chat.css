@@ -100,15 +100,100 @@ li {
     display: flex;
     flex-direction: column;
 }
+
+/* 取引評価用モーダル*/
 .heading__button {
     display: inline-block;
     justify-content: right;
 }
-.heading__button button {
+.modal__button--open {
     margin: 15px 20px;
     text-align: right;
     justify-self: flex-end;
+    border-radius: 15px;
+    color: #fff;
+    background-color: #FF8282;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
 }
+.modal__window {
+    width: 35%;
+    height: 35%;
+    background-color: #FDFCE6;
+    border: #868686 1px solid;
+    border-radius: 10px;
+    box-shadow: 2px 4px 3px #00000040;
+}
+.modal__window:popover-open {
+    display: flex;
+    flex-direction: column;
+}
+.modal__window::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal__title {
+    font-size: 1.3em;
+    border-bottom: #868686 1px solid;
+    padding: 10px 15px;
+}
+.modal__content {
+    font-size: 0.9em;
+    color: #868686;
+    padding: 12px 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 12px;
+}
+.modal__action {
+    margin-top: auto;
+    padding-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: #868686 1px solid;
+    width: 100%;
+}
+.modal__button--submit {
+    background-color: #FF8282;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 12px;
+}
+
+/* スターでの評価蘭 */
+.rating-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+}
+ /* ☆の並びを逆順にする */
+.rating-form__inner {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 8px;
+}
+.rating-form__input {
+    display: none;
+}
+.rating-form__label {
+    color: #868686;
+    font-size: 2em;
+    padding: 0 10px;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+.rating-form__label:hover,
+.rating-form__label:hover ~ .rating-form__label,
+.rating-form__input:checked ~ .rating-form__label {
+    color: #FFF048;
+}
+
 
 .info__img {
     display: flex;
@@ -241,6 +326,7 @@ li {
     cursor: pointer;
 }
 
+/* バリデーション＆エラーメッセージ用 */
 .error__message {
     width: 100%;
     color: #D30909;

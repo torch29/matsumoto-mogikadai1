@@ -17,6 +17,18 @@
         <div class="mypage-header__heading-name">
             {{ Auth::user()->name }}
         </div>
+        <div>
+            @for ($i = 0; $i < $averageScore; $i++)
+                <span class="star">
+                <i class="fa-solid fa-star"></i>
+                </span>
+                @endfor
+                @for ($i = 0; $i < 5 - $averageScore; $i++)
+                    <span class="star empty">
+                    <i class="fa-solid fa-star"></i>
+                    </span>
+                    @endfor
+        </div>
     </div>
     <div class="mypage-header__button">
         <a href="/mypage/profile" class="mypage-header__button-submit">プロフィールを編集</a>

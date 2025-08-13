@@ -62,7 +62,9 @@
                                 <div class="rating-form__inner">
                                     @for($i=5; $i>0; $i--)
                                     <input type="radio" id="star{{$i}}" name="score" value="{{$i}}" class="rating-form__input">
-                                    <label for="star{{$i}}" class="rating-form__label"><i class="fa-solid fa-star"></i></label>
+                                    <label for="star{{$i}}" class="rating-form__label">
+                                        <i class="fa-solid fa-star"></i>
+                                    </label>
                                     @endfor
                                 </div>
                                 <div class="modal__action">

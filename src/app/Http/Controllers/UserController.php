@@ -104,13 +104,13 @@ class UserController extends Controller
         }
 
         $user = Auth::user();
+        $averageScore = $user->receivedRatings()->avg('score');
+
+        //取引チャットの表示順と未読件数表示の設定
         $sellItems = $user->items()->orderBy('id', 'desc')->get();
         $purchasedItems = $user->purchases()->with('purchasedItem')->orderBy('id', 'desc')->get();
         $tradingItems = auth()->user()->tradingItems();
 
-        //デバッグここから下に貼る
-
-        $userId = auth()->id();
         $purchaseIds = $user->tradingItems()
             ->map(function ($item) {
                 return $item->purchases->pluck('id');
@@ -128,6 +128,6 @@ class UserController extends Controller
         $konbiniCheckoutUrl = session('konbini_checkout_url');
         session()->forget('konbini_checkout_url');
 
-        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts', 'unreadTotal'));
+        return view('user.mypage', compact('user', 'averageScore',  'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts', 'unreadTotal'));
     }
 }

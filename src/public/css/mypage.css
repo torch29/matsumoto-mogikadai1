@@ -46,6 +46,16 @@
     margin: auto 0;
     margin-left: 20px;
 }
+
+/* ☆表記 */
+.star {
+    font-size: 2em;
+    color: #fff048;
+}
+.star.empty {
+    color: #ccc;
+}
+
 .mypage-header__button {
     display: flex;
 }

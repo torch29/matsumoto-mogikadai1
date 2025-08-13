@@ -41,38 +41,49 @@
                     {{-- 購入者名が入る --}}
                     {{ $tradingItem->purchasedUser->name }}さんとの取引画面
                 </h2>
+                {{ dump($tradingItem->status) }}
             </div>
-            @if( in_array($tradingItem->purchasedItem->status, ['trading', 'buyer_rated']) )
-            <div class="heading__button">
+            <div class="heading__button--wrapper">@if ($errors->any())
+                <div class="error__message top">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                @if( in_array($tradingItem->status, ['trading', 'buyer_rated']) )
                 <div class="heading__button">
-                    <button popovertarget="mypopover">
-                        取引を完了する
-                    </button>
-                    <div id="mypopover" popover>
-                        <div class="modal-title">
-                            取引が完了しました。
-                        </div>
-                        <div class="modal__content">
-                            <span>今回の取引相手はどうでしたか？</span>
-                            <form action="{{ route('seller.rating') }}" class="rating-form" method="POST">
-                                @csrf
-                                <div class="rating-form__inner">
-                                    @for($i=5; $i>0; $i--)
-                                    <label for="star{{$i}}">☆</label>
-                                    <input type="radio" id="star{{$i}}" name="score" value="{{$i}}">
-                                    @endfor
-                                </div>
-                                <div class="modal__actions">
-                                    <input type="hidden" name="revieweeId" value="{{ $tradingItem->purchasedUser->id }}">
-                                    <input type="hidden" value="{{  $tradingItem->id }}" name="purchaseId">
-                                    <button type="submit">送信する</button>
-                                </div>
-                            </form>
+                    <div class="heading__button">
+                        <button popovertarget="mypopover">
+                            取引を完了する
+                        </button>
+                        <div id="mypopover" popover>
+                            <div class="modal-title">
+                                取引が完了しました。
+                            </div>
+                            <div class="modal__content">
+                                <span>今回の取引相手はどうでしたか？</span>
+                                <form action="{{ route('seller.rating') }}" class="rating-form" method="POST">
+                                    @csrf
+                                    <div class="rating-form__inner">
+                                        @for($i=5; $i>0; $i--)
+                                        <label for="star{{$i}}">☆</label>
+                                        <input type="radio" id="star{{$i}}" name="score" value="{{$i}}">
+                                        @endfor
+                                    </div>
+                                    <div class="modal__actions">
+                                        <input type="hidden" name="revieweeId" value="{{ $tradingItem->purchasedUser->id }}">
+                                        <input type="hidden" value="{{  $tradingItem->id }}" name="purchaseId">
+                                        <button type="submit">送信する</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
-            @endif
         </div>
     </div>
     {{-- 商品情報 --}}
@@ -187,8 +198,9 @@
         @elseif ( $tradingItem->status === 'buyer_rated' )
         <p>{{ $tradingItem->purchasedUser->name }}さんがこの取引を完了しました。
             右上のボタンから取引を完了させてください。</p>
-        @endif
+        @elseif ( $tradingItem->status === 'completed' )
         <p>この取引は既に完了しています。</p>
+        @endif
     </div>
 </div>
 <script src="{{ asset('js/save_input.js') }}"></script>

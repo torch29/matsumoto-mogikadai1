@@ -55,6 +55,10 @@ class RatingController extends Controller
 
         $purchase = Purchase::findOrFail($request->input('purchaseId'));
 
+        if ($purchase->status === 'trading') {
+            return back()->withErrors(['message' => '購入者が評価を送信するまでお待ちください。']);
+        }
+
         try {
             DB::transaction(function () use ($request, $purchase) {
                 Rating::create([

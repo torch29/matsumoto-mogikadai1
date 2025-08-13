@@ -39,39 +39,51 @@
                 </div>
                 <h2>{{ $tradingItem->purchasedItem->users->name }}さんとの取引画面</h2>
             </div>
-            @if( $tradingItem->status == 'trading' )
-            <div class="heading__button">
-                <button popovertarget="mypopover">
-                    取引を完了する
-                </button>
-                <div id="mypopover" popover>
-                    <div class="modal-title">
-                        取引が完了しました。
-                    </div>
-                    <div class="modal__content">
-                        <span>今回の取引相手はどうでしたか？</span>
-                        <form action="{{ route('buyer.rating') }}" class="rating-form" method="POST">
-                            @csrf
-                            <div class="rating-form__inner">
-                                @for($i=5; $i>0; $i--)
-                                <label for="star{{$i}}">☆</label>
-                                <input type="radio" id="star{{$i}}" name="score" value="{{$i}}">
-                                @endfor
-                            </div>
-                            <div class="modal__actions">
-                                <input type="hidden" name="revieweeId" value="{{  $tradingItem->purchasedItem->users->id }}">
-                                <input type="hidden" value="{{  $tradingItem->id }}" name="purchaseId">
-                                <button type="submit">送信する</button>
-                            </div>
-                        </form>
+            <div class="heading__button--wrapper">
+                @if ($errors->any())
+                <div class="error__message top">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                {{-- 取引評価用モーダル --}}
+                @if( $tradingItem->status == 'trading' )
+                <div class="heading__modal">
+                    <button popovertarget="mypopover" class="modal__button--open">
+                        取引を完了する
+                    </button>
+                    <div id="mypopover" popover class="modal__window">
+                        <div class="modal__title">
+                            取引が完了しました。
+                        </div>
+                        <div class="modal__content">
+                            <span>今回の取引相手はどうでしたか？</span>
+                            <form action="{{ route('buyer.rating') }}" class="rating-form" method="POST">
+                                @csrf
+                                <div class="rating-form__inner">
+                                    @for($i=5; $i>0; $i--)
+                                    <input type="radio" id="star{{$i}}" name="score" value="{{$i}}" class="rating-form__input">
+                                    <label for="star{{$i}}" class="rating-form__label"><i class="fa-solid fa-star"></i></label>
+                                    @endfor
+                                </div>
+                                <div class="modal__action">
+                                    <input type="hidden" name="revieweeId" value="{{ $tradingItem->purchasedItem->users->id }}">
+                                    <input type="hidden" value="{{  $tradingItem->id }}" name="purchaseId">
+                                    <button type="submit" class="modal__button--submit">送信する</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                @endif
             </div>
-            @endif
         </div>
     </div>
     {{-- 商品情報 --}}
-    <div class=" chat__info--area">
+    <div class="chat__info--area">
         <div class="info__img">
             <img src="{{ asset($tradingItem->purchasedItem->img_path) }}" alt="商品画像">
         </div>

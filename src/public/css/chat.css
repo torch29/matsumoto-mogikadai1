@@ -182,8 +182,8 @@ li {
     display: none;
 }
 .rating-form__label {
-    color: #868686;
-    font-size: 2em;
+    color: #ccc;
+    font-size: 2.2em;
     padding: 0 10px;
     transition: color 0.3s;
     cursor: pointer;

@@ -8,6 +8,8 @@ docker/mysql/data/*
 /vendor
 .env
 .env.*
+.env.testing
+.env.dusk.local
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml

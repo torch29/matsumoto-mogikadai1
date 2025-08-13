@@ -10,6 +10,8 @@ use App\Http\Requests\ProfileRequest;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Purchase;
+use App\Models\PurchaseUserRead;
+use App\Models\Chat;
 use Storage;
 
 class UserController extends Controller
@@ -102,12 +104,30 @@ class UserController extends Controller
         }
 
         $user = Auth::user();
+        $averageScore = $user->receivedRatings()->avg('score');
+
+        //取引チャットの表示順と未読件数表示の設定
         $sellItems = $user->items()->orderBy('id', 'desc')->get();
         $purchasedItems = $user->purchases()->with('purchasedItem')->orderBy('id', 'desc')->get();
+        $tradingItems = auth()->user()->tradingItems();
+
+        $purchaseIds = $user->tradingItems()
+            ->map(function ($item) {
+                return $item->purchases->pluck('id');
+            })
+            ->flatten()
+            ->unique()
+            ->toArray();
+
+        $unreadCounts = PurchaseUserRead::unreadCountsForUser(
+            $user->id,
+            $purchaseIds
+        );
+        $unreadTotal = $unreadCounts->sum();
 
         $konbiniCheckoutUrl = session('konbini_checkout_url');
         session()->forget('konbini_checkout_url');
 
-        return view('user.mypage', compact('user', 'sellItems', 'purchasedItems', 'konbiniCheckoutUrl'));
+        return view('user.mypage', compact('user', 'averageScore',  'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts', 'unreadTotal'));
     }
 }

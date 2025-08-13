@@ -27,7 +27,7 @@ class ItemSeeder extends Seeder
                 'status' => 'available',
             ],
             [
-                'user_id' => 3,
+                'user_id' => 1,
                 'name' => 'HDD',
                 'brand_name' => '',
                 'price' => 5000,
@@ -39,7 +39,7 @@ class ItemSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'タマネギ3束',
+                'name' => '玉ねぎ3束',
                 'brand_name' => '',
                 'price' => 300,
                 'explain' => "新鮮な玉ねぎ3束のセット
@@ -47,10 +47,10 @@ class ItemSeeder extends Seeder
                 自家栽培です。",
                 'condition' => 3,
                 'img_path' => 'img/dummy/iLoveIMG+d.jpg',
-                'status' => 'sold',
+                'status' => 'available',
             ],
             [
-                'user_id' => 4,
+                'user_id' => 1,
                 'name' => '革靴',
                 'brand_name' => '',
                 'price' => 4000,
@@ -63,7 +63,7 @@ class ItemSeeder extends Seeder
                 'status' => 'available',
             ],
             [
-                'user_id' => 5,
+                'user_id' => 1,
                 'name' => 'ノートPC',
                 'brand_name' => 'Pamasonic',
                 'price' => 45000,
@@ -71,7 +71,7 @@ class ItemSeeder extends Seeder
                 ほとんど未使用です！",
                 'condition' => 1,
                 'img_path' => 'img/dummy/Living+Room+Laptop.jpg',
-                'status' => 'sold',
+                'status' => 'available',
             ],
             [
                 'user_id' => 2,
@@ -84,7 +84,7 @@ class ItemSeeder extends Seeder
                 'status' => 'available',
             ],
             [
-                'user_id' => 4,
+                'user_id' => 2,
                 'name' => 'ショルダーバッグ',
                 'brand_name' => 'Gutti',
                 'price' => 3500,
@@ -98,7 +98,7 @@ class ItemSeeder extends Seeder
                 'status' => 'available',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'タンブラー',
                 'brand_name' => 'サムス',
                 'price' => 500,
@@ -108,7 +108,7 @@ class ItemSeeder extends Seeder
                 'status' => 'available',
             ],
             [
-                'user_id' => 3,
+                'user_id' => 2,
                 'name' => 'コーヒーミル',
                 'brand_name' => 'コリタ',
                 'price' => 4000,
@@ -121,10 +121,10 @@ class ItemSeeder extends Seeder
                 写真をよくご確認の上ご購入をお願いします。",
                 'condition' => 1,
                 'img_path' => 'img/dummy/Waitress+with+Coffee+Grinder.jpg',
-                'status' => 'pending',
+                'status' => 'available',
             ],
             [
-                'user_id' => 4,
+                'user_id' => 2,
                 'name' => 'メイクセット',
                 'brand_name' => '',
                 'price' => 2500,

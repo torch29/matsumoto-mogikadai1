@@ -10,7 +10,7 @@
     display: flex;
     width: 60%;
 }
-.mypage-header__heading-icon{
+.heading__icon {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -22,7 +22,7 @@
     min-height: 70px;
     object-fit: cover;
 }
-.mypage-header__heading-icon img {
+.heading__icon img {
     width: 100%;
     position: absolute;
     top: 0;
@@ -41,11 +41,26 @@
     font-weight: bold;
     text-shadow: 1px 1px 0 #999, -1px 1px 0 #999, 1px -1px 0 #999, -1px -1px 0 #999;
 }
-.mypage-header__heading-name {
-    font-weight: bold;
-    margin: auto 0;
-    margin-left: 20px;
+.heading__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto 20px;
 }
+.heading__name {
+    font-weight: bold;
+    text-align: center;
+    
+}
+
+/* ☆表記 */
+.star {
+    font-size: 2em;
+    color: #fff048;
+}
+.star.empty {
+    color: #ccc;
+}
+
 .mypage-header__button {
     display: flex;
 }
@@ -170,6 +185,33 @@
     border-width: 19px 15px 19px 0px;
     border-color: #3E68A4 transparent #3E68A4 #3E68A4;
 }
+
+/* タブ用の件数通知 */
+.notify--count {
+    display: inline-block;
+    margin-left: 3px;
+    background-color: #F55;
+    color: #fff;
+    width: 1.3em;
+    height: 1.3em;
+    line-height: 1.3em;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+/* 各商品用通知バッジ */
+.notify-badge {
+    display: inline-block;
+    font-size: 0.9em;
+    color: #fff;
+    background-color: #F55;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    text-align: center;
+    vertical-align: middle;
+}
+
 /*タブレットサイズ*/
 @media screen and (min-width: 768px) and (max-width: 851px) {
     .item-card__content--list {

@@ -71,6 +71,7 @@
             @endif
         </div>
 
+        {{-- 商品説明・カテゴリー選択・商品状態選択 --}}
         <div class="item__content-explain">
             <h3>
                 商品説明
@@ -95,6 +96,7 @@
                     <div class="status__condition-content">{{ $item -> getSelectedCondition() }}</div>
                 </div>
             </div>
+            {{-- コメント投稿欄 --}}
             <div class="item__content-comment">
                 <div class="item__content-label">商品へのコメント
                 </div>
@@ -113,6 +115,7 @@
                         </div>
                     </div>
                 </form>
+                {{-- コメント表示欄 --}}
                 <h3 class="item__content-label">
                     コメント ( {{ count($item->comments) }} )
                 </h3>

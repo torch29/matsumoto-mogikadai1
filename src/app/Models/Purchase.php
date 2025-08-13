@@ -30,16 +30,31 @@ class Purchase extends Model
         'payment',
         'zip_code',
         'address',
-        'building'
+        'building',
+        'status'
     ];
 
     public function purchasedUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function purchasedItem()
     {
         return $this->belongsTo(Item::class, 'item_id');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'purchase_id');
+    }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+
+    public function reads() {
+        return $this->hasMany(PurchaseUserRead::class);
     }
 }

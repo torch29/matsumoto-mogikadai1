@@ -8,6 +8,9 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\RatingController;
+use App\Models\Chat;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,5 +74,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/profile', [UserController::class, 'updateProfile']);
         //マイページの表示
         Route::get('', [UserController::class, 'showMypage']);
+        Route::get('/chat/{id}', [ChatController::class, 'index']);
+        Route::post('/chat', [ChatController::class, 'send']);
+        Route::patch('/chat/update', [ChatController::class, 'update']);
+        Route::delete('/chat/delete', [ChatController::class, 'destroy']);
+        Route::post('/buyerRating', [RatingController::class, 'buyerRating'])->name('buyer.rating');
+        Route::post('/sellerRating', [RatingController::class, 'sellerRating'])->name('seller.rating');
     });
 });

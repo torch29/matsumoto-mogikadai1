@@ -46,7 +46,7 @@
                 </div>
                 @enderror
                 {{-- 取引評価用モーダル --}}
-                @if( $tradingItem->status == 'trading' )
+                @if( $tradingItem->status === 'trading' )
                 <div class="heading__modal">
                     <button popovertarget="mypopover" class="modal__button--open">
                         取引を完了する

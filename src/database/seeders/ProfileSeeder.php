@@ -14,7 +14,7 @@ class ProfileSeeder extends Seeder
      */
     public function run()
     {
-        foreach (range(1, 5) as $userId) {
+        foreach (range(1, 3) as $userId) {
             Profile::factory()->create([
                 'user_id' => $userId,
             ]);

@@ -44,15 +44,11 @@
                 {{ dump($tradingItem->status) }}
             </div>
             <div class="heading__button--wrapper">
-                @if ($errors->any())
+                @error('alert')
                 <div class="error__message top">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                    <span>{{ $message }}</span>
                 </div>
-                @endif
+                @enderror
                 {{-- 取引評価用モーダル --}}
                 @if( in_array($tradingItem->status, ['trading', 'buyer_rated']) )
                 <div class="heading__modal">
@@ -171,15 +167,14 @@
     @if ( $tradingItem->status === 'trading' )
     {{-- チャットメッセージ送信蘭 --}}
     <div class="chat__footer">
-        @if ($errors->any())
         <div class="error__message">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            @error('message')
+            <span>{{ $message }}</span>
+            @enderror
+            @error('img_path')
+            <span>{{ $message }}</span>
+            @enderror
         </div>
-        @endif
         <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
             @csrf
             <input type="text" name="message" id="chatMessage" class="chat__input" placeholder="取引メッセージを記入してください">

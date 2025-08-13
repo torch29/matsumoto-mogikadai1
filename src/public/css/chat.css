@@ -339,8 +339,9 @@ li {
     color: #D30909;
     margin-bottom: 5px;
     box-sizing: border-box;
+    gap: 40px;
 }
-.error__message ul {
+.error__message span {
     gap: 40px;
     padding-left: 20px;
     display: flex;

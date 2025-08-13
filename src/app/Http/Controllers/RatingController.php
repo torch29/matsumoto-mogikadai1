@@ -17,7 +17,7 @@ class RatingController extends Controller
             ->where('reviewer_id', auth()->id())
             ->exists()
         ) {
-            return abort(403, 'この取引はすでに評価済みです。');
+            return back()->withErrors(['alert' => 'この取引はすでに評価済みです。']);
         }
 
         $purchase = Purchase::findOrFail($request->input('purchaseId'));
@@ -37,7 +37,7 @@ class RatingController extends Controller
             });
         } catch (\Exception $e) {
             Log::error($e);
-            return back()->withErrors(['message' => '取引完了処理に失敗しました。すでに評価を送信している可能性があります']);
+            return back()->withErrors(['alert' => '取引完了処理に失敗しました。すでに評価を送信している可能性があります']);
         }
 
         return redirect('/');
@@ -50,13 +50,14 @@ class RatingController extends Controller
             ->where('reviewer_id', auth()->id())
             ->exists()
         ) {
-            return abort(403, 'この取引はすでに評価済みです。');
+            return back()->withErrors(['alert' => 'この取引はすでに評価済みです。']);
         }
 
         $purchase = Purchase::findOrFail($request->input('purchaseId'));
 
+        //出品者は購入者の評価後（buyer_rated）のみ評価可能になる
         if ($purchase->status === 'trading') {
-            return back()->withErrors(['message' => '購入者が評価を送信するまでお待ちください。']);
+            return back()->withErrors(['alert' => '購入者が評価を送信するまでお待ちください。']);
         }
 
         try {

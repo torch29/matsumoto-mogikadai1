@@ -40,15 +40,11 @@
                 <h2>{{ $tradingItem->purchasedItem->users->name }}さんとの取引画面</h2>
             </div>
             <div class="heading__button--wrapper">
-                @if ($errors->any())
+                @error('alert')
                 <div class="error__message top">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                    <span>{{ $message }}</span>
                 </div>
-                @endif
+                @enderror
                 {{-- 取引評価用モーダル --}}
                 @if( $tradingItem->status == 'trading' )
                 <div class="heading__modal">

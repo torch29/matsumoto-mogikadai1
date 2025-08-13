@@ -310,6 +310,13 @@ li {
 .chat__actions {
     display: flex;
 }
+.chat__button-submit {
+    background-color: transparent;
+    border: none;
+}
+.chat__button-submit img {
+    width: 50px;
+}
 
 /*画像選択ボタン*/
 .sell-form__img-button {

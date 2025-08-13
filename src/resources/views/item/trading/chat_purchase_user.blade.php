@@ -116,17 +116,21 @@
                 {{-- メッセージ / 編集フォーム --}}
                 @if (request('edit') == $chat->id)
                 <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
-                    <form action="/mypage/chat/update" method="POST">
-                        @method('PATCH')
-                        @csrf
-                        <input type="hidden" name="id" value="{{ $chat->id }}">
-                        <input type="hidden" name="transitionId" value="{{ $tradingItem->purchasedItem->id }}">
-                        <input type="text" name="message" value="{{ $chat->message }}">
-                        <button>送信</button>
-                        <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}">
-                            <span>編集せず終了</span>
-                        </a>
-                    </form>
+                    <div class="message__edit">
+                        <form action="/mypage/chat/update" method="POST">
+                            @method('PATCH')
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $chat->id }}">
+                            <input type="hidden" name="transitionId" value="{{ $tradingItem->purchasedItem->id }}">
+                            <input type="text" name="message" value="{{ $chat->message }}" class="message__input--edit">
+                            <div class="message__actions--edit">
+                                <button class="message__button--edit">送信</button>
+                                <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}">
+                                    <span>編集せず終了</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 @else
                 <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">

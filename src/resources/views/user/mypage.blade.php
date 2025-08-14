@@ -29,7 +29,7 @@
                         <i class="fa-solid fa-star"></i>
                         </span>
                         @endfor
-                        {{ $roundedScore }}
+                        {{ dump($averageScore) }}
             </div>
         </div>
     </div>

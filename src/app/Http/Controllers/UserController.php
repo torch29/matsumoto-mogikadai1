@@ -145,6 +145,6 @@ class UserController extends Controller
         $konbiniCheckoutUrl = session('konbini_checkout_url');
         session()->forget('konbini_checkout_url');
 
-        return view('user.mypage', compact('user', 'roundedScore',  'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts', 'unreadTotal'));
+        return view('user.mypage', compact('user', 'roundedScore', 'averageScore', 'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts', 'unreadTotal'));
     }
 }

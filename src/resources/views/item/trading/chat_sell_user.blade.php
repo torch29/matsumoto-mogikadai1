@@ -124,7 +124,7 @@
                             @csrf
                             <input type="hidden" name="id" value="{{ $chat->id }}">
                             <input type="hidden" name="transitionId" value="{{ $tradingItem->purchasedItem->id }}">
-                            <input type="text" name="message" value="{{ $chat->message }}" class="message__input--edit">
+                            <textarea name="message" class="message__input--edit">{{ $chat->message }}</textarea>
                             <div class="message__actions--edit">
                                 <button class="message__button--edit">送信</button>
                                 <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}#chat-{{ $chat->id }}">

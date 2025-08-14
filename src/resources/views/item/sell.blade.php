@@ -17,6 +17,7 @@
                 <label for="img_path" class="sell-form__img-button--label">
                     画像を選択する
                     <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
+                    <span id="selectedFileName" class="sell-form__filename"></span>
                 </label>
             </div>
         </div>
@@ -98,4 +99,5 @@
         </div>
     </form>
 </div>
+<script src="{{ asset('js/file_name_display.js') }}"></script>
 @endsection

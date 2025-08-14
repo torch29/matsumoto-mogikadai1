@@ -20,9 +20,10 @@
                 @endif
             </div>
             <div class="profile-form__img-wrapper">
-                <label for="profile_img" class="profile-form__img-button--label">
+                <label for="img_path" class="profile-form__img-button--label">
                     画像を選択する
-                    <input type="file" name="profile_img" id="profile_img" class="profile-form__img-button">
+                    <input type="file" name="profile_img" id="img_path" class="profile-form__img-button">
+                    <span id="selectedFileName" class="profile-form__filename"></span>
                 </label>
             </div>
         </div>
@@ -57,4 +58,5 @@
         </div>
     </form>
 </div>
+<script src="{{ asset('js/file_name_display.js') }}"></script>
 @endsection

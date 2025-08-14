@@ -164,6 +164,10 @@
     cursor: pointer;
     margin-left: 10px;
 }
+.profile-form__filename {
+    font-size: 0.9em;
+    color: #555;
+}
 /*タブレットサイズ*/
 @media screen and (min-width: 768px) and (max-width: 851px) {
     .register__content,

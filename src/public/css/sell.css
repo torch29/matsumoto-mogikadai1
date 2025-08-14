@@ -24,6 +24,10 @@
     display: inline-block;
     cursor: pointer;
 }
+.sell-form__filename {
+    font-size: 0.9em;
+    color: #555;
+}
 
 .sell-form__item h3 {
     color: #888;

@@ -363,11 +363,10 @@ li {
 }
 
 /*画像選択ボタン*/
-.sell-form__img-button {
-    opacity: 0.5;
+.chat-form__img-button {
+    display: none;
 }
-
-.sell-form__img-button--label {
+.chat-form__img-button--label {
     background-color: #fff;
     border: #FF5655 solid 2px;
     border-radius: 5px;
@@ -375,6 +374,10 @@ li {
     padding: 3px 6px;
     display: inline-block;
     cursor: pointer;
+}
+.chat-form__filename {
+    font-size: 0.9em;
+    color: #555;
 }
 
 /* バリデーション＆エラーメッセージ用 */

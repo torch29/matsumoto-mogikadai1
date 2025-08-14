@@ -180,9 +180,10 @@
         <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
             @csrf
             <input type="text" name="message" id="chatMessage" class="chat__input" placeholder="取引メッセージを記入してください">
-            <label for="img_path" class="sell-form__img-button--label">
+            <label for="img_path" class="chat-form__img-button--label">
                 画像を選択する
-                <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
+                <input type="file" name="img_path" id="img_path" class="chat-form__img-button">
+                <span id="selectedFileName" class="chat-form__filename"></span>
             </label>
             <input type="hidden" name="purchase_id" id="purchaseId" value="{{ $tradingItem->id }}">
             <input type="hidden" id="loginUserId" value="{{ auth()->id() }}">
@@ -199,6 +200,7 @@
 
 </div>
 <script src="{{ asset('js/save_input.js') }}"></script>
+<script src="{{ asset('js/file_name_display.js') }}"></script>
 
 
 @endsection

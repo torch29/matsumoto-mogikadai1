@@ -115,7 +115,7 @@
                 </div>
                 {{-- メッセージ / 編集フォーム --}}
                 @if (request('edit') == $chat->id)
-                <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
+                <div id="chat-{{ $chat->id }}" class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
                     <div class="message__edit">
                         <form action="/mypage/chat/update" method="POST">
                             @method('PATCH')
@@ -125,8 +125,8 @@
                             <input type="text" name="message" value="{{ $chat->message }}" class="message__input--edit">
                             <div class="message__actions--edit">
                                 <button class="message__button--edit">送信</button>
-                                <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}">
-                                    <span class="message__link--edit-end">編集終了</span>
+                                <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}#chat-{{ $chat->id }}">
+                                    <span class="message__link--edit-end">編集取消</span>
                                 </a>
                             </div>
                         </form>
@@ -144,7 +144,7 @@
                 {{-- 編集・削除機能（自分のメッセージのみ） --}}
                 @if($chat->sender_id == auth()->id())
                 <div class="message__option">
-                    <a href="{{ url()->current() }}?edit={{ $chat->id }}">
+                    <a href="{{ url()->current() }}?edit={{ $chat->id }}#chat-{{ $chat->id }}">
                         <span>編集</span>
                     </a>
                     <form action="/mypage/chat/delete" method="post">

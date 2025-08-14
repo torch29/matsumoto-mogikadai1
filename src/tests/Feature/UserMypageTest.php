@@ -18,7 +18,7 @@ class UserMypageTest extends TestCase
      */
     use RefreshDatabase;
 
-    //マイページ内の必要な情報が表示されている
+    /* マイページ内の必要な情報が表示されている */
     public function test_display_users_information()
     {
         $user = User::factory()
@@ -64,7 +64,7 @@ class UserMypageTest extends TestCase
             'address' => $user->profile->address,
         ]);
 
-        //マイページにアクセスし、ユーザーアイコン、ユーザー名、出品した商品名、購入した商品名が降順に表示されていることを確認
+        // マイページにアクセスし、ユーザーアイコン、ユーザー名、出品した商品名、購入した商品名が降順に表示されていることを確認
         $response = $this->get('mypage');
         $response->assertViewIs('user.mypage');
 
@@ -83,7 +83,7 @@ class UserMypageTest extends TestCase
         //$response->dump();
     }
 
-    //プロフィール編集画面にて、プロフィールの初期値が表示されている
+    /* プロフィール編集画面にて、プロフィールの初期値が表示されている */
     public function test_display_users_initial_profile_data()
     {
         //ユーザー作成し、プロフィールの初期値を設定
@@ -109,6 +109,5 @@ class UserMypageTest extends TestCase
             '北海道札幌市123',
             'ダミーマンション'
         ], false);
-        //$response->dump();
     }
 }

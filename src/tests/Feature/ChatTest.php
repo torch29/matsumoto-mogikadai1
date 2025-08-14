@@ -5,6 +5,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Item;
+use App\Models\Purchase;
 
 class ChatTest extends TestCase
 {
@@ -13,10 +16,10 @@ class ChatTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    public function test_display_trading_chat()
+    {
+        $user = User::factory();
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
 use Stripe\Stripe;
 use App\Services\StripeService;
+use App\Models\PurchaseUserRead;
 
 class PurchaseController extends Controller
 {
@@ -74,7 +75,7 @@ class PurchaseController extends Controller
             'building' => $user->profile->building
         ]);
 
-        //stripe checkoutの処理
+        //stripe checkoutのセッション作成
         $session = $this->stripeService->createCheckoutSession([
             'payment_method_types' => [$payment],  //プルダウンで選択された 'card', 'konbini'を送信
             'line_items' => [[
@@ -92,15 +93,31 @@ class PurchaseController extends Controller
             'cancel_url' => url("/item/{$item->id}"),
         ]);
 
+
+        //コンビニ払いを選択した場合、ここでstatus=pendingとして購入情報登録する
         if ($payment === 'konbini') {
             DB::transaction(function () use ($item, $user, $address, $payment) {
-                Purchase::create([
+                $purchase = Purchase::create([
                     'item_id' => $item->id,
                     'user_id' => $user->id,
                     'payment' => $payment,
                     'zip_code' => $address['zip_code'],
                     'address' => $address['address'],
                     'building' => $address['building'],
+                ]);
+
+                //出品者・購入者の未読/既読管理のための設定
+                //last_read_at以降のchats.created_atを未読と判定しているためnow()を登録しておく（今後要改善）
+                PurchaseUserRead::create([
+                    'purchase_id' => $purchase->id,
+                    'user_id' => $user->id, // 購入者
+                    'last_read_at' => now(),
+                ]);
+
+                PurchaseUserRead::create([
+                    'purchase_id' => $purchase->id,
+                    'user_id' => $item->user_id, //出品者
+                    'last_read_at' => now(),
                 ]);
 
                 $item->update(['status' => 'pending']);
@@ -113,6 +130,7 @@ class PurchaseController extends Controller
             return redirect('/mypage?tab=buy');
         }
 
+        //カード決済の場合セッションを保存してStripeへ遷移（stripeで決済完了してマイページに戻ってきたときに購入情報登録する）
         session([
             'purchased_item_id' => $item->id,
             'purchased_payment' => $payment,

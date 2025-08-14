@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotifyEmail;
 use Illuminate\Http\Request;
 use App\Models\Rating;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class RatingController extends Controller
 {
@@ -35,9 +37,13 @@ class RatingController extends Controller
                     'status' => 'buyer_rated',
                 ]);
             });
+
+            $sellerEmail = $purchase->purchasedItem->users->email;
+            Mail::to($sellerEmail)
+                ->send(new NotifyEmail($purchase));
         } catch (\Exception $e) {
             Log::error($e);
-            return back()->withErrors(['alert' => '取引完了処理に失敗しました。すでに評価を送信している可能性があります']);
+            return back()->withErrors(['alert' => '取引完了処理に失敗しました。']);
         }
 
         return redirect('/');

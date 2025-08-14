@@ -210,6 +210,9 @@
     height: 1.5em;
     text-align: center;
     vertical-align: middle;
+    position: absolute;
+    top: 2px;
+    left: 2px;
 }
 
 /*タブレットサイズ*/

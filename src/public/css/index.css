@@ -58,6 +58,7 @@
 .item-card__content-inner a:visited {
     color: #000;
 }
+/* soldフラグとsold状態の画像 */
 .item-card__content--sold-img {
     height: auto;
     width: 100%;

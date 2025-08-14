@@ -115,7 +115,7 @@
                 </div>
                 {{-- メッセージ / 編集フォーム --}}
                 @if (request('edit') == $chat->id)
-                <div class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
+                <div id="chat-{{ $chat->id }}" class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
                     <div class="message__edit">
                         <form action="/mypage/chat/update" method="POST">
                             @method('PATCH')
@@ -125,8 +125,8 @@
                             <input type="text" name="message" value="{{ $chat->message }}" class="message__input--edit">
                             <div class="message__actions--edit">
                                 <button class="message__button--edit">送信</button>
-                                <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}">
-                                    <span>編集せず終了</span>
+                                <a href="/mypage/chat/{{$tradingItem->purchasedItem->id}}#chat-{{ $chat->id }}">
+                                    <span class="message__link--edit-end">編集取消</span>
                                 </a>
                             </div>
                         </form>
@@ -144,7 +144,7 @@
                 {{-- 編集・削除機能（自分のメッセージのみ） --}}
                 @if($chat->sender_id == auth()->id())
                 <div class="message__option">
-                    <a href="{{ url()->current() }}?edit={{ $chat->id }}">
+                    <a href="{{ url()->current() }}?edit={{ $chat->id }}#chat-{{ $chat->id }}">
                         <span>編集</span>
                     </a>
                     <form action="/mypage/chat/delete" method="post">
@@ -162,22 +162,21 @@
             </div>
         </div>
         @endforeach
-        購入者（自分）：{{ $tradingItem->purchasedUser->name }}
-        出品者（相手）：{{ $tradingItem->purchasedItem->users->name
+        購入者（自分）：{{ dump($tradingItem->purchasedUser->name) }}
+        出品者（相手）：{{ dump($tradingItem->purchasedItem->users->name)
                         }}
     </div>
     @if( $tradingItem->status == 'trading' )
     {{-- チャットメッセージ送信蘭 --}}
     <div class="chat__footer">
-        @if ($errors->any())
         <div class="error__message">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            @error('message')
+            <span>{{ $message }}</span>
+            @enderror
+            @error('img_path')
+            <span>{{ $message }}</span>
+            @enderror
         </div>
-        @endif
         <form action="/mypage/chat" method="post" class="chat-form" enctype="multipart/form-data">
             @csrf
             <input type="text" name="message" id="chatMessage" class="chat__input" placeholder="取引メッセージを記入してください">
@@ -185,9 +184,10 @@
                 画像を選択する
                 <input type="file" name="img_path" id="img_path" class="sell-form__img-button">
             </label>
+            <input type="hidden" name="purchase_id" id="purchaseId" value="{{ $tradingItem->id }}">
+            <input type="hidden" id="loginUserId" value="{{ auth()->id() }}">
             <div class="chat__actions">
                 <button type="submit" class="chat__button-submit">
-                    <input type="hidden" name="purchase_id" id="purchaseId" value="{{ $tradingItem->id }}">
                     <img src="{{ asset('img/preset/icon/send.jpg') }}" class="" alt="送信">
                 </button>
             </div>

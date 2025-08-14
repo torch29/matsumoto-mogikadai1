@@ -18,7 +18,7 @@ class PurchaseTest extends TestCase
      */
     use RefreshDatabase;
 
-    //カード決済を選択し購入するボタンを押下すると購入が完了する
+    /* カード決済を選択し購入するボタンを押下すると購入が完了する */
     public function test_can_purchase_item_with_card()
     {
         $user = User::factory()
@@ -65,7 +65,7 @@ class PurchaseTest extends TestCase
         ]);
     }
 
-    //ユーザーが購入した商品は商品一覧画面（トップページ）にてsold（購入しました）と表示される
+    /* ユーザーが購入した商品は商品一覧画面（トップページ）にてsold（購入しました）と表示される */
     public function test_show_sold_message_that_user_purchased_item()
     {
         $user = User::factory()
@@ -105,10 +105,9 @@ class PurchaseTest extends TestCase
             '購入しました',
             $item->name,
         ], false);
-        //$response->dump();
     }
 
-    //購入した商品が「プロフィール/購入した商品一覧」に追加されている
+    /* 購入した商品が「プロフィール/購入した商品一覧」に追加されている */
     public function test_add_purchased_item_to_mypage()
     {
         $user = User::factory()
@@ -147,6 +146,5 @@ class PurchaseTest extends TestCase
             '購入しました',
             $item->name,
         ], false);
-        //$response->dump();
     }
 }

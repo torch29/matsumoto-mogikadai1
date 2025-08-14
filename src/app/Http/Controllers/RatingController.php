@@ -43,7 +43,7 @@ class RatingController extends Controller
                 ->send(new NotifyEmail($purchase));
         } catch (\Exception $e) {
             Log::error($e);
-            return back()->withErrors(['alert' => '取引完了処理に失敗しました。すでに評価を送信している可能性があります']);
+            return back()->withErrors(['alert' => '取引完了処理に失敗しました。']);
         }
 
         return redirect('/');

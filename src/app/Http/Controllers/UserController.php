@@ -71,7 +71,7 @@ class UserController extends Controller
 
     public function showMypage(Request $request)
     {
-        // もし購入処理セッションを持った状態なら、テーブルへの保存と更新の処理
+        // もし購入処理セッションを持った状態なら、テーブルへの保存と更新の処理を行う
         if (session()->has('purchased_item_id')) {
             try {
                 DB::beginTransaction();
@@ -79,14 +79,30 @@ class UserController extends Controller
                 $itemId = session('purchased_item_id');
                 $payment = session('purchased_payment');
                 $address = session('purchased_address');
+                $user = auth()->user();
+                $item = Item::find($itemId);
 
-                Purchase::create([
+                $purchase = Purchase::create([
                     'user_id' => Auth::id(),
                     'item_id' => $itemId,
                     'payment' => $payment,
                     'zip_code' => $address['zip_code'],
                     'address' => $address['address'],
                     'building' => $address['building']
+                ]);
+
+                //出品者・購入者の未読/既読管理のための設定
+                //last_read_at以降のchats.created_atを未読と判定しているためnow()を登録しておく（今後要改善）
+                PurchaseUserRead::create([
+                    'purchase_id' => $purchase->id,
+                    'user_id' => $user->id, // 購入者
+                    'last_read_at' => now(),
+                ]);
+
+                PurchaseUserRead::create([
+                    'purchase_id' => $purchase->id,
+                    'user_id' => $item->user_id, //出品者
+                    'last_read_at' => now(),
                 ]);
 
                 Item::find($itemId)->update(['status' => 'sold']);
@@ -105,6 +121,7 @@ class UserController extends Controller
 
         $user = Auth::user();
         $averageScore = $user->receivedRatings()->avg('score');
+        $roundedScore = round($averageScore);
 
         //取引チャットの表示順と未読件数表示の設定
         $sellItems = $user->items()->orderBy('id', 'desc')->get();
@@ -128,6 +145,6 @@ class UserController extends Controller
         $konbiniCheckoutUrl = session('konbini_checkout_url');
         session()->forget('konbini_checkout_url');
 
-        return view('user.mypage', compact('user', 'averageScore',  'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts', 'unreadTotal'));
+        return view('user.mypage', compact('user', 'roundedScore',  'sellItems', 'purchasedItems', 'tradingItems', 'konbiniCheckoutUrl', 'unreadCounts', 'unreadTotal'));
     }
 }

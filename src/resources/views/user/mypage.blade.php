@@ -19,16 +19,17 @@
                 {{ Auth::user()->name }}
             </div>
             <div>
-                @for ($i = 0; $i < $averageScore; $i++)
+                @for ($i = 0; $i < $roundedScore; $i++)
                     <span class="star">
                     <i class="fa-solid fa-star"></i>
                     </span>
                     @endfor
-                    @for ($i = 0; $i < 5 - $averageScore; $i++)
+                    @for ($i = 0; $i < 5 - $roundedScore; $i++)
                         <span class="star empty">
                         <i class="fa-solid fa-star"></i>
                         </span>
                         @endfor
+                        {{ $roundedScore }}
             </div>
         </div>
     </div>

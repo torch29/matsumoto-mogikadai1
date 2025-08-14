@@ -143,6 +143,5 @@ class CommentTest extends TestCase
         $response->assertSessionHasErrors([
             'comment' => 'コメント内容は255文字以下で入力してください'
         ]);
-        //$response->dump();
     }
 }

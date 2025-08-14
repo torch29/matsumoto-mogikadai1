@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             ProfileSeeder::class,
             CommentSeeder::class,
             FavoriteSeeder::class,
-            PurchaseSeeder::class,
         ]);
     }
 }

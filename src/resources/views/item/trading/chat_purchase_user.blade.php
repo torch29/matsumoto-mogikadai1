@@ -162,9 +162,6 @@
             </div>
         </div>
         @endforeach
-        購入者（自分）：{{ dump($tradingItem->purchasedUser->name) }}
-        出品者（相手）：{{ dump($tradingItem->purchasedItem->users->name)
-                        }}
     </div>
     @if( $tradingItem->status == 'trading' )
     {{-- チャットメッセージ送信蘭 --}}

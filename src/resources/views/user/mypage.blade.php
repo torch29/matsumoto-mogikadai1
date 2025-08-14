@@ -29,7 +29,6 @@
                         <i class="fa-solid fa-star"></i>
                         </span>
                         @endfor
-                        {{ dump($averageScore) }}
             </div>
         </div>
     </div>

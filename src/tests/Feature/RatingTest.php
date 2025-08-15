@@ -107,13 +107,16 @@ class RatingTest extends TestCase
         $this->actingAs($data['seller']);
         $response = $this->get("/mypage/chat/{$data['item']->id}");
         $response->assertDontSee('取引を完了する');
-        //評価を送信する
+        //評価を送信するとエラーメッセージが返ってくることを確認
         $ratingScore = 4;
         $this->post(route('seller.rating'), [
             'purchase_id' => $data['purchase']->id,
             'reviewer_id' => $data['seller']->id,
             'reviewee_id' => $data['buyer']->id,
             'score' => $ratingScore,
+        ]);
+        $response->assertSessionHasErrors([
+            'alert' => '購入者が評価を送信するまでお待ちください。'
         ]);
         //ratingsテーブルに評価データが登録されていないことと、purchasesテーブルのstatusがtradingのままであることを確認
         $this->assertDatabaseMissing('ratings', [

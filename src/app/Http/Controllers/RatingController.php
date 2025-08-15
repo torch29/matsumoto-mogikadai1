@@ -15,21 +15,21 @@ class RatingController extends Controller
     public function buyerRating(Request $request)
     {
         //もしログイン中ユーザーがすでにこの取引を評価しているなら、評価の再送信は弾く
-        if (Rating::where('purchase_id', $request->purchaseId)
+        if (Rating::where('purchase_id', $request->purchase_id)
             ->where('reviewer_id', auth()->id())
             ->exists()
         ) {
             return back()->withErrors(['alert' => 'この取引はすでに評価済みです。']);
         }
 
-        $purchase = Purchase::findOrFail($request->input('purchaseId'));
+        $purchase = Purchase::findOrFail($request->input('purchase_id'));
 
         try {
             DB::transaction(function () use ($request, $purchase) {
                 Rating::create([
-                    'purchase_id' => $request->input('purchaseId'),
+                    'purchase_id' => $request->input('purchase_id'),
                     'reviewer_id' => auth()->id(),
-                    'reviewee_id' => $request->input('revieweeId'),
+                    'reviewee_id' => $request->input('reviewee_id'),
                     'score' => $request->input('score'),
                 ]);
 
@@ -52,14 +52,14 @@ class RatingController extends Controller
     public function sellerRating(Request $request)
     {
         //もしログイン中ユーザーがすでにこの取引を評価しているなら、評価の再送信は弾く
-        if (Rating::where('purchase_id', $request->purchaseId)
+        if (Rating::where('purchase_id', $request->purchase_id)
             ->where('reviewer_id', auth()->id())
             ->exists()
         ) {
             return back()->withErrors(['alert' => 'この取引はすでに評価済みです。']);
         }
 
-        $purchase = Purchase::findOrFail($request->input('purchaseId'));
+        $purchase = Purchase::findOrFail($request->input('purchase_id'));
 
         //出品者は購入者の評価後（buyer_rated）のみ評価可能になる
         if ($purchase->status === 'trading') {
@@ -69,9 +69,9 @@ class RatingController extends Controller
         try {
             DB::transaction(function () use ($request, $purchase) {
                 Rating::create([
-                    'purchase_id' => $request->input('purchaseId'),
+                    'purchase_id' => $request->input('purchase_id'),
                     'reviewer_id' => auth()->id(),
-                    'reviewee_id' => $request->input('revieweeId'),
+                    'reviewee_id' => $request->input('reviewee_id'),
                     'score' => $request->input('score'),
                 ]);
 

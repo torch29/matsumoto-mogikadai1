@@ -2,7 +2,7 @@
     display: grid;
     height: 93vh;
     grid-template-rows: 11% 20% 1fr auto;
-    grid-template-columns: 15% 1fr;
+    grid-template-columns: 20% 1fr;
 }
 
 .chat-nav--side a,
@@ -62,7 +62,7 @@ li {
 
 .heading__info--user {
     display: flex;
-    width: 60%;
+    width: 65%;
 }
 .heading__title {
     display: flex;
@@ -301,6 +301,7 @@ li {
 .message__img {
     /* メッセージの添付画像 */
     width: 180px;
+    max-width: 60%;
 }
 .message__img img {
     width: 100%;
@@ -401,12 +402,12 @@ li {
 }
 
 /* レスポンシブ対応用の設定 */
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 852px) and (max-width: 1000px) {
     .chat {
-            display: grid;
-            height: 93vh;
-            grid-template-rows: 10% 10% 1fr auto;
-            grid-template-columns: 25% 1fr;
+        display: grid;
+        height: 93vh;
+        grid-template-rows: 10% 10% 1fr auto;
+        grid-template-columns: 25% 1fr;
     }
 
     .heading__title h2 {
@@ -423,9 +424,53 @@ li {
         font-size: 1.5em;
         width: 50%;
     }
+    .info__item--price {
+        font-size: 1.2em;
+    }
 
     .message__block--inner {
         width: 50%;
     }
+    .message__img {
+        /* メッセージの添付画像 */
+        width: 180px;
+        max-width: 65%;
+    }
 
+}
+
+@media screen and (max-width: 851px) {
+    .chat {
+        display: grid;
+        height: 93vh;
+        grid-template-rows: 10% 10% 1fr auto;
+        grid-template-columns: 30% 1fr;
+    }
+
+    .heading__title h2 {
+        margin: 15px;
+        vertical-align: middle;
+        font-size: 1em;
+    }
+
+    .info__item--lead {
+        display: flex;
+        width: 70%;
+    }
+    .info__item--name {
+        font-size: 1.2em;
+        width: 50%;
+    }
+    .info__item--price {
+        font-size: 1.2em;
+    }
+
+    .message__block--inner {
+        width: 50%;
+    }
+    .message__img {
+        /* メッセージの添付画像 */
+        width: 180px;
+        max-width: 65%;
+    }
 }

@@ -79,6 +79,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/chat', [ChatController::class, 'send']);
         Route::patch('/chat/update', [ChatController::class, 'update']);
         Route::delete('/chat/delete', [ChatController::class, 'destroy']);
+        //評価の送信
         Route::post('/buyerRating', [RatingController::class, 'buyerRating'])->name('buyer.rating');
         Route::post('/sellerRating', [RatingController::class, 'sellerRating'])->name('seller.rating');
     });

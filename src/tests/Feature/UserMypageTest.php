@@ -80,7 +80,6 @@ class UserMypageTest extends TestCase
             'テスト購入商品２',
             'テストさんが購入した商品',
         ], false);
-        //$response->dump();
     }
 
     /* プロフィール編集画面にて、プロフィールの初期値が表示されている */

@@ -120,14 +120,16 @@ class UserController extends Controller
         }
 
         $user = Auth::user();
+        //ユーザーの得ている評価の平均値の取得と、平均値を四捨五入して整数にする
         $averageScore = $user->receivedRatings()->avg('score');
         $roundedScore = round($averageScore);
 
-        //取引チャットの表示順と未読件数表示の設定
+        //取引チャットの表示順
         $sellItems = $user->items()->orderBy('id', 'desc')->get();
         $purchasedItems = $user->purchases()->with('purchasedItem')->orderBy('id', 'desc')->get();
         $tradingItems = auth()->user()->tradingItems();
 
+        //未読件数表示の設定
         $purchaseIds = $user->tradingItems()
             ->map(function ($item) {
                 return $item->purchases->pluck('id');
@@ -135,7 +137,6 @@ class UserController extends Controller
             ->flatten()
             ->unique()
             ->toArray();
-
         $unreadCounts = PurchaseUserRead::unreadCountsForUser(
             $user->id,
             $purchaseIds

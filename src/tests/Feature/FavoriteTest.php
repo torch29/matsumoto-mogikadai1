@@ -82,7 +82,6 @@ class FavoriteTest extends TestCase
         });
         $response->assertSee('fa-solid fa-star');
         $response->assertDontSee('fa-regular fa-star');
-        //$response->dump();
     }
 
     //いいね済みアイコンを再度押下するといいねが解除され、合計値が減少表示される
@@ -134,6 +133,5 @@ class FavoriteTest extends TestCase
             'item_id' => $item->id,
             'user_id' => $user->id
         ]);
-        //$response->dump();
     }
 }

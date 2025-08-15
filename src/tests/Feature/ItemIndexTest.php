@@ -47,7 +47,6 @@ class ItemIndexTest extends TestCase
             $viewIds = $showItems->pluck('id')->sort()->values()->all();
             return $showItems->count() === 3 && $viewIds === $expectedIds;
         });
-        //$response->dump();
     }
 
     //商品一覧にて購入済み商品は「sold」と表示される
@@ -143,7 +142,6 @@ class ItemIndexTest extends TestCase
                 $favoriteItem->name,
             ], false);
         }
-        //$response->dump();
     }
 
     //マイリストにて、自分が出品した商品は表示されない

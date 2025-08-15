@@ -45,7 +45,6 @@ class PurchaseAddressChangeTest extends TestCase
             '北海道札幌市123',
             '住所変更マンション22',
         ], false);
-        //$response->dump();
     }
 
     //購入した商品に送付先住所が紐づいて登録される
@@ -116,6 +115,5 @@ class PurchaseAddressChangeTest extends TestCase
             'id' => $item->id,
             'status' => 'sold'
         ]);
-        //$response->dump();
     }
 }

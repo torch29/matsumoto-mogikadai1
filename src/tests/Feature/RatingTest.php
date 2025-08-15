@@ -22,12 +22,8 @@ class RatingTest extends TestCase
     /* 「取引中」の商品を作るため、ユーザーが出品した商品が売れた状態にする設定 */
     private function createSoldItemWithUsers()
     {
-        $seller = User::factory()->has(Profile::factory())->create([
-            'name' => '出品者'
-        ]);
-        $buyer = User::factory()->has(Profile::factory())->create([
-            'name' => '購入者'
-        ]);
+        $seller = User::factory()->has(Profile::factory())->create();
+        $buyer = User::factory()->has(Profile::factory())->create();
         $item = Item::factory()->create([
             'user_id' => $seller->id,
             'status' => 'sold',

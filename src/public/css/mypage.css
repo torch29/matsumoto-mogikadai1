@@ -192,11 +192,12 @@
     margin-left: 3px;
     background-color: #F55;
     color: #fff;
-    width: 1.3em;
-    height: 1.3em;
+    width: 1.4em;
+    height: 1.4em;
     line-height: 1.3em;
     border-radius: 50%;
     vertical-align: middle;
+    font-size: 0.9em;
 }
 
 /* 各商品用通知バッジ */

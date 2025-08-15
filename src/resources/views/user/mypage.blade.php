@@ -18,6 +18,7 @@
             <div class="heading__name">
                 {{ Auth::user()->name }}
             </div>
+            @if ($roundedScore > 0)
             <div>
                 @for ($i = 0; $i < $roundedScore; $i++)
                     <span class="star">
@@ -30,6 +31,7 @@
                         </span>
                         @endfor
             </div>
+            @endif
         </div>
     </div>
     <div class="mypage-header__button">

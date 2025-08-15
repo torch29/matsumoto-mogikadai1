@@ -69,8 +69,8 @@
                                 </div>
 
                                 <div class="modal__action">
-                                    <input type="hidden" name="revieweeId" value="{{ $tradingItem->purchasedUser->id }}">
-                                    <input type="hidden" value="{{  $tradingItem->id }}" name="purchaseId">
+                                    <input type="hidden" name="reviewee_id" value="{{ $tradingItem->purchasedUser->id }}">
+                                    <input type="hidden" value="{{  $tradingItem->id }}" name="purchase_id">
                                     <button type="submit" class="modal__button--submit">送信する</button>
                                 </div>
                             </form>

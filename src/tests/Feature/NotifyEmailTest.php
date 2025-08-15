@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Mail\NotifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
@@ -20,6 +19,7 @@ class NotifyEmailTest extends TestCase
      */
     use RefreshDatabase;
 
+    /* 購入者が評価送信後、出品者に通知のメールが送信される */
     public function test_mail_is_sent_when_buyer_rates()
     {
         Mail::fake();
@@ -42,9 +42,14 @@ class NotifyEmailTest extends TestCase
             ])
             ->assertStatus(302);
 
+        // 出品者宛てにメールが送信されていることを確認
         Mail::assertSent(NotifyEmail::class, function ($mail) use ($purchase, $seller) {
             return $mail->hasTo($seller->email) &&
                 $mail->purchase->id === $purchase->id;
+        });
+        // 購入者にはメール送信されていないことを確認
+        Mail::assertNotSent(NotifyEmail::class, function ($mail) use ($buyer) {
+            return $mail->hasTo($buyer->email);
         });
     }
 }

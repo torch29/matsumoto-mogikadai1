@@ -186,7 +186,7 @@ class RatingTest extends TestCase
         $this->assertCount($buyerReceivedScore, $matches[0]);
     }
 
-    /* 同一商品に評価は一度だけ送信できる */
+    /* 同一取引に評価は一度だけ送信できる */
     public function test_users_can_submit_only_one_review_for_same_trading()
     {
         //設定から取引中の商品を作成

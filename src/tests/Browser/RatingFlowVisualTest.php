@@ -19,6 +19,8 @@ class RatingFlowVisualTest extends DuskTestCase
      */
     use DatabaseMigrations;
 
+    /* 取引チャット画面から[取引完了]ボタンをクリックし、
+    　 評価送信→完了までの動線と見た目の流れを確認するサンプルテスト */
     public function testModalRatingAndRedirect()
     {
         $this->browse(function (Browser $browser) {

@@ -92,7 +92,8 @@ class UserController extends Controller
                 ]);
 
                 //出品者・購入者の未読/既読管理のための設定
-                //last_read_at以降のchats.created_atを未読と判定しているためnow()を登録しておく（今後要改善）
+                /* last_read_at以降のchats.created_atを未読と判定しているため
+                購入処理時にnow()を登録しておく。（今後要改善） */
                 PurchaseUserRead::create([
                     'purchase_id' => $purchase->id,
                     'user_id' => $user->id, // 購入者
@@ -126,7 +127,8 @@ class UserController extends Controller
 
         //取引チャットの表示順
         $sellItems = $user->items()->orderBy('id', 'desc')->get();
-        $purchasedItems = $user->purchases()->with('purchasedItem')->orderBy('id', 'desc')->get();
+        $purchasedItems = $user->purchases()->with('purchasedItem')
+            ->orderBy('id', 'desc')->get();
         $tradingItems = auth()->user()->tradingItems();
 
         //未読件数表示の設定

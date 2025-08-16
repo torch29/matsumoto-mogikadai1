@@ -15,7 +15,13 @@ class ChatController extends Controller
         $loginUserId = auth()->id();
 
         //purchaseユーザーとitems.userで条件わけて、$viewの表示切り替える $viewを渡す
-        $tradingItem = Purchase::with('purchasedUser', 'purchasedItem.users.profile', 'chats', 'ratings')->where('item_id', $id)->firstOrFail();
+        $tradingItem = Purchase::with(
+            'purchasedUser',
+            'purchasedItem.users.profile',
+            'chats',
+            'ratings'
+        )
+            ->where('item_id', $id)->firstOrFail();
 
         PurchaseUserRead::updateOrCreate(
             [

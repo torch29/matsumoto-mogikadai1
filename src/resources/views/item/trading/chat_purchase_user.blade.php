@@ -44,6 +44,11 @@
                     <span>{{ $message }}</span>
                 </div>
                 @enderror
+                @error('score')
+                <div class="error__message top">
+                    <span>{{ $message }}</span>
+                </div>
+                @enderror
                 {{-- 取引評価用モーダル --}}
                 @if( $tradingItem->status === 'trading' )
                 <div class="heading__modal">

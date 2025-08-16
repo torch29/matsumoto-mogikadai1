@@ -11,7 +11,6 @@ use App\Models\Item;
 use App\Models\User;
 use App\Models\Purchase;
 use App\Models\PurchaseUserRead;
-use App\Models\Chat;
 use Storage;
 
 class UserController extends Controller

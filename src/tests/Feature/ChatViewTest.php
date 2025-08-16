@@ -44,28 +44,28 @@ class ChatViewTest extends TestCase
     public function test_display_trading_chat_for_sell_user()
     {
         //ユーザーが商品を出品し、その商品が売れた状態にする
-        $user = User::factory()->has(Profile::factory())->create();
-        $user2 = User::factory()->has(Profile::factory())->create();
+        $seller = User::factory()->has(Profile::factory())->create();
+        $buyer = User::factory()->has(Profile::factory())->create();
         $item = Item::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $seller->id,
             'status' => 'sold',
         ]);
         $soldItem = Purchase::factory()->create([
-            'user_id' => $user2->id,
+            'user_id' => $buyer->id,
             'item_id' => $item->id,
         ]);
 
         //取引チャット画面にアクセスし、出品者用のビューが返ってきていることを確認
-        $this->actingAs($user);
+        $this->actingAs($seller);
         $response = $this->get("/mypage/chat/{$item->id}");
         $response->assertViewIs('item.trading.chat_sell_user');
         $response->assertSeeInOrder([
-            $user2->name . 'さんとの取引画面',
+            $buyer->name . 'さんとの取引画面',
             $item->name,
             number_format($item->price),
         ]);
-        $response->assertViewHas('tradingItem', function ($record) use ($item, $user2) {
-            return $record->purchasedUser->name === $user2->name
+        $response->assertViewHas('tradingItem', function ($record) use ($item, $buyer) {
+            return $record->purchasedUser->name === $buyer->name
                 && $record->purchasedItem->name === $item->name
                 && $record->purchasedItem->price === $item->price;
         });
@@ -74,34 +74,34 @@ class ChatViewTest extends TestCase
     /* ユーザーが商品を購入してから該当の商品の取引チャット画面へアクセスすると、購入者用の取引チャットビューが返ってくる */
     public function test_display_trading_chat_for_purchase_user()
     {
-        //ユーザー1が商品を購入する
-        $user = User::factory()
+        //商品を購入する
+        $buyer = User::factory()
             ->has(Profile::factory())
             ->create();
-        //商品の出品者として$user2を作成
-        $user2 = User::factory()
+        //商品の出品者としてsellerを作成
+        $seller = User::factory()
             ->has(Profile::factory())
             ->create();
         $item = Item::factory()->create([
-            'user_id' => $user2->id, //出品者
+            'user_id' => $seller->id, //出品者
             'status' => 'sold',
         ]);
         $purchasedItem = Purchase::factory()->create([
-            'user_id' => $user->id, //購入者
+            'user_id' => $buyer->id, //購入者
             'item_id' => $item->id,
         ]);
 
         //取引チャット画面にアクセスし、購入者用のビューが返ってきていることを確認
-        $this->actingAs($user);
+        $this->actingAs($buyer);
         $response = $this->get("/mypage/chat/{$item->id}");
         $response->assertViewIs('item.trading.chat_purchase_user');
         $response->assertSeeInOrder([
-            $user2->name . 'さんとの取引画面',
+            $seller->name . 'さんとの取引画面',
             $item->name,
             number_format($item->price),
         ]);
-        $response->assertViewHas('tradingItem', function ($record) use ($item, $user2) {
-            return $record->purchasedItem->users->name === $user2->name
+        $response->assertViewHas('tradingItem', function ($record) use ($item, $seller) {
+            return $record->purchasedItem->users->name === $seller->name
                 && $record->purchasedItem->name === $item->name
                 && $record->purchasedItem->price === $item->price;
         });

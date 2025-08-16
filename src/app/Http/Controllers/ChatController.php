@@ -14,7 +14,7 @@ class ChatController extends Controller
     {
         $loginUserId = auth()->id();
 
-        //purchaseユーザーとitems.userで条件わけて、$viewの表示切り替える $viewを渡す
+        //purchaseユーザー（購入者）とitems.user（出品者）で返す$viewを変える
         $tradingItem = Purchase::with(
             'purchasedUser',
             'purchasedItem.users.profile',

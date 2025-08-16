@@ -75,10 +75,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //マイページの表示
         Route::get('', [UserController::class, 'showMypage'])->name('mypage');
         //取引チャット画面
-        Route::get('/chat/{id}', [ChatController::class, 'index']);
-        Route::post('/chat', [ChatController::class, 'send']);
-        Route::patch('/chat/update', [ChatController::class, 'update']);
-        Route::delete('/chat/delete', [ChatController::class, 'destroy']);
+        Route::prefix('chat')->group(function () {
+            Route::get('/{id}', [ChatController::class, 'index']);
+            Route::post('/', [ChatController::class, 'send']);
+            Route::patch('/update', [ChatController::class, 'update']);
+            Route::delete('/delete', [ChatController::class, 'destroy']);
+        });
         //評価の送信
         Route::post('/buyerRating', [RatingController::class, 'buyerRating'])->name('buyer.rating');
         Route::post('/sellerRating', [RatingController::class, 'sellerRating'])->name('seller.rating');

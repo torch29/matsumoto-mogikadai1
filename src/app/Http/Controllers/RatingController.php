@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NotifyEmail;
-use Illuminate\Http\Request;
 use App\Models\Rating;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\DB;

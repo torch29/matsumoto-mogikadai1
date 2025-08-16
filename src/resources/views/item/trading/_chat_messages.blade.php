@@ -20,6 +20,9 @@
             {{-- メッセージ / 編集フォーム --}}
             @if (request('edit') == $chat->id)
             <div id="chat-{{ $chat->id }}" class="message {{ $chat->sender_id == auth()->id() ? 'right' : '' }}">
+                @error('message')
+                <span class="error__message--edit">{{ $message }}</span>
+                @enderror
                 <div class="message__edit">
                     <form action="/mypage/chat/update" method="POST">
                         @method('PATCH')

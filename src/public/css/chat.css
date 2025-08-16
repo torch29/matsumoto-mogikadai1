@@ -297,6 +297,10 @@ li {
     cursor: pointer;
     margin-left: 10px;
 }
+.error__message--edit {
+    color: #D30909;
+    font-size: 0.9em;
+}
 
 .message__img {
     /* メッセージの添付画像 */

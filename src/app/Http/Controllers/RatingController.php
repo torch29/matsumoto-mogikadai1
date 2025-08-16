@@ -9,10 +9,11 @@ use App\Models\Purchase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\RatingRequest;
 
 class RatingController extends Controller
 {
-    public function buyerRating(Request $request)
+    public function buyerRating(RatingRequest $request)
     {
         //もしログイン中ユーザーがすでにこの取引を評価しているなら、評価の再送信は弾く
         if (Rating::where('purchase_id', $request->purchase_id)
@@ -49,7 +50,7 @@ class RatingController extends Controller
         return redirect('/');
     }
 
-    public function sellerRating(Request $request)
+    public function sellerRating(RatingRequest $request)
     {
         //もしログイン中ユーザーがすでにこの取引を評価しているなら、評価の再送信は弾く
         if (Rating::where('purchase_id', $request->purchase_id)

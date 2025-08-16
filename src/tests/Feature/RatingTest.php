@@ -203,7 +203,7 @@ class RatingTest extends TestCase
             'score' => $ratingScore,
         ]);
 
-        // 取引チャット画面にアクセスしても取引を完了するボタンは表示されていないことを確認
+        // 同一取引の取引チャット画面にアクセスしても取引を完了するボタンは表示されていないことを確認
         $response = $this->get("/mypage/chat/{$data['item']->id}");
         $response->assertDontSee('取引を完了する');
         //再度評価を送信する
